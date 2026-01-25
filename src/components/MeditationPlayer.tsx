@@ -2,15 +2,17 @@ import { useState, useRef, useEffect } from "react";
 import { Play, Pause, Volume2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// Список медитаций - добавляй новые файлы сюда
+// Список медитаций по порядку (каждый день - новая)
 const MEDITATIONS = [
-  { id: 1, name: "Утреннее дыхание", file: "/audio/meditations/meditation-1.mp3" },
-  { id: 2, name: "Спокойствие ума", file: "/audio/meditations/meditation-2.mp3" },
-  { id: 3, name: "Благодарность", file: "/audio/meditations/meditation-3.mp3" },
-  { id: 4, name: "Внутренняя сила", file: "/audio/meditations/meditation-4.mp3" },
-  { id: 5, name: "Принятие себя", file: "/audio/meditations/meditation-5.mp3" },
-  { id: 6, name: "Новый день", file: "/audio/meditations/meditation-6.mp3" },
-  { id: 7, name: "Гармония", file: "/audio/meditations/meditation-7.mp3" },
+  { id: 1, name: "Вступление", file: "/audio/meditations/1_Вступление.mp3" },
+  { id: 2, name: "Лучшие дары жизни для меня", file: "/audio/meditations/2_лучшие_дары_жизни_для_меня.mp3" },
+  { id: 3, name: "Цитата Крайона", file: "/audio/meditations/3_Цитата_Крайона.mp3" },
+  { id: 4, name: "Магнитное притяжение", file: "/audio/meditations/4_Магнитное_притяжение.mp3" },
+  { id: 5, name: "Будущее рядом", file: "/audio/meditations/5_Будущее_рядом.mp3" },
+  { id: 6, name: "Творите вместе с Богом", file: "/audio/meditations/6_Творите_вместе_с_Богом.mp3" },
+  { id: 7, name: "Полёт к свободе", file: "/audio/meditations/7_Полёт_к_свободе.mp3" },
+  { id: 8, name: "В единстве с Богом и любовью", file: "/audio/meditations/9_В_единстве_с_Богом_и_любовью.mp3" },
+  { id: 9, name: "Любовь — движущая сила", file: "/audio/meditations/10_Любовь_движущая_сила.mp3" },
 ];
 
 function getTodayMeditation() {
