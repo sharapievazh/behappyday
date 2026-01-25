@@ -1,7 +1,8 @@
 import { MentorMessage } from "@/components/MentorMessage";
 import { RitualStep } from "@/components/RitualStep";
 import { Affirmation } from "@/components/Affirmation";
-import { Sparkles, Droplets, Dumbbell, Brain, BookOpen } from "lucide-react";
+import { MeditationPlayer } from "@/components/MeditationPlayer";
+import { Sparkles, BookOpen } from "lucide-react";
 
 const AFFIRMATIONS = [
   "Я выбираю движение вперёд, даже если мне страшно.",
@@ -68,14 +69,17 @@ export function MorningSection() {
             description="Разбуди тело по 10 раз (поклоны солнцу, приседания, выпады, отжимания, пресс)"
             delay={300}
           />
-          <RitualStep
-            id="meditation"
-            title="2-3 минуты медитации"
-            description="Успокой ум"
-            delay={400}
-          />
         </div>
         <MentorMessage message="Делай спокойно, но полностью. Всё это для тебя." />
+      </div>
+
+      {/* Meditation */}
+      <div className="space-y-3">
+        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+          2-3 минуты медитации
+        </h2>
+        <MeditationPlayer />
+        <MentorMessage message="Успокой ум. Дыши глубоко." />
       </div>
 
       {/* English */}
