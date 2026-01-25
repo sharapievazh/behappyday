@@ -65,7 +65,7 @@ export function MorningSection() {
           <RitualStep
             id="sport"
             title="5-7 минут спорта"
-            description="Разбуди тело"
+            description="Разбуди тело по 10 раз (поклоны солнцу, приседания, выпады, отжимания, пресс)"
             delay={300}
           />
           <RitualStep
