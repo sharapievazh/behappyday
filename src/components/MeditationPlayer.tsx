@@ -114,10 +114,24 @@ export function MeditationPlayer() {
             <Volume2 className="w-4 h-4 text-muted-foreground" />
           </div>
           
-          <div className="relative h-2 bg-primary/20 rounded-full overflow-hidden">
+          <div 
+            className="relative h-2 bg-primary/20 rounded-full overflow-hidden cursor-pointer group"
+            onClick={(e) => {
+              if (!audioRef.current || duration === 0) return;
+              const rect = e.currentTarget.getBoundingClientRect();
+              const clickX = e.clientX - rect.left;
+              const newTime = (clickX / rect.width) * duration;
+              audioRef.current.currentTime = newTime;
+              setCurrentTime(newTime);
+            }}
+          >
             <div 
-              className="absolute inset-y-0 left-0 bg-primary rounded-full transition-all"
+              className="absolute inset-y-0 left-0 bg-primary rounded-full transition-all group-hover:bg-primary/80"
               style={{ width: `${progress}%` }}
+            />
+            <div 
+              className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-primary rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
+              style={{ left: `calc(${progress}% - 6px)` }}
             />
           </div>
           
