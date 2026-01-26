@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Play, Pause, Volume2 } from "lucide-react";
+import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Список медитаций по порядку (каждый день - новая)
@@ -28,6 +28,8 @@ export function MeditationPlayer() {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [error, setError] = useState(false);
+  const [volume, setVolume] = useState(1);
+  const [showVolume, setShowVolume] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   
   const todayMeditation = getTodayMeditation();
@@ -108,10 +110,46 @@ export function MeditationPlayer() {
         
         <div className="flex-1 space-y-1">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-foreground">
+            <span className="text-sm font-medium text-foreground truncate max-w-[140px]">
               {todayMeditation.name}
             </span>
-            <Volume2 className="w-4 h-4 text-muted-foreground" />
+            <div className="relative">
+              <button
+                onClick={() => setShowVolume(!showVolume)}
+                className="p-1 rounded-full hover:bg-primary/10 transition-colors"
+              >
+                {volume === 0 ? (
+                  <VolumeX className="w-4 h-4 text-muted-foreground" />
+                ) : (
+                  <Volume2 className="w-4 h-4 text-muted-foreground" />
+                )}
+              </button>
+              
+              {showVolume && (
+                <div className="absolute right-0 top-8 bg-card border border-border rounded-lg p-3 shadow-lg z-10 animate-fade-in">
+                  <div className="flex flex-col items-center gap-2">
+                    <input
+                      type="range"
+                      min="0"
+                      max="1"
+                      step="0.1"
+                      value={volume}
+                      onChange={(e) => {
+                        const newVolume = parseFloat(e.target.value);
+                        setVolume(newVolume);
+                        if (audioRef.current) {
+                          audioRef.current.volume = newVolume;
+                        }
+                      }}
+                      className="w-20 h-1.5 accent-primary cursor-pointer"
+                    />
+                    <span className="text-xs text-muted-foreground">
+                      {Math.round(volume * 100)}%
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
           
           <div 
