@@ -3,9 +3,10 @@ import { TabButton } from "@/components/TabButton";
 import { MorningSection } from "@/components/sections/MorningSection";
 import { DaySection } from "@/components/sections/DaySection";
 import { EveningSection } from "@/components/sections/EveningSection";
-import { Sun, Calendar, Moon } from "lucide-react";
+import { GoalsSection } from "@/components/sections/GoalsSection";
+import { Sun, Calendar, Moon, Target } from "lucide-react";
 
-type TabType = "morning" | "day" | "evening";
+type TabType = "morning" | "day" | "evening" | "goals";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState<TabType>("morning");
@@ -17,6 +18,7 @@ const Index = () => {
         {activeTab === "morning" && <MorningSection />}
         {activeTab === "day" && <DaySection />}
         {activeTab === "evening" && <EveningSection />}
+        {activeTab === "goals" && <GoalsSection />}
       </main>
 
       {/* Bottom navigation */}
@@ -40,6 +42,12 @@ const Index = () => {
               label="Вечер"
               active={activeTab === "evening"}
               onClick={() => setActiveTab("evening")}
+            />
+            <TabButton
+              icon={Target}
+              label="Цели"
+              active={activeTab === "goals"}
+              onClick={() => setActiveTab("goals")}
             />
           </div>
         </div>

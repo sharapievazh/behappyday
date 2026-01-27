@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { MentorMessage } from "@/components/MentorMessage";
 import { ReflectionQuestion } from "@/components/ReflectionQuestion";
-import { DayClosedButton } from "@/components/DayClosedButton";
-import { Moon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Moon, Check } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export function EveningSection() {
   const [answers, setAnswers] = useState({
@@ -22,17 +22,15 @@ export function EveningSection() {
       <div className="text-center space-y-2">
         <div className="inline-flex items-center gap-2 text-primary">
           <Moon className="w-5 h-5" />
-          <span className="text-sm font-medium uppercase tracking-wider">Добрый вечер</span>
+          <span className="text-sm font-medium uppercase tracking-wider">Вечер</span>
         </div>
-        <h1 className="font-serif text-3xl text-foreground">
+        <h1 className="font-serif text-2xl text-foreground">
           Закрытие дня
         </h1>
       </div>
 
-      <MentorMessage message="Ты была с собой честна. Этого достаточно." />
-
-      {/* Reflection */}
-      <div className="space-y-4">
+      {/* Рефлексия */}
+      <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
           Рефлексия
         </h2>
@@ -42,35 +40,45 @@ export function EveningSection() {
             question="Что важного было сегодня?"
             value={answers.important}
             onChange={updateAnswer("important")}
+            delay={0}
+          />
+          <ReflectionQuestion
+            question="За что я благодарна этому дню?"
+            value={answers.grateful}
+            onChange={updateAnswer("grateful")}
             delay={100}
           />
           <ReflectionQuestion
-            question="За что благодарна?"
-            value={answers.grateful}
-            onChange={updateAnswer("grateful")}
-            delay={200}
-          />
-          <ReflectionQuestion
-            question="Что нового узнала?"
+            question="Что нового я узнала?"
             value={answers.learned}
             onChange={updateAnswer("learned")}
-            delay={300}
+            delay={200}
           />
         </div>
       </div>
 
-      {/* Close day */}
-      {!dayClosed && (
-        <div className="pt-4">
-          <DayClosedButton onClose={() => setDayClosed(true)} />
+      {/* Кнопка закрытия дня */}
+      {!dayClosed ? (
+        <Button
+          onClick={() => setDayClosed(true)}
+          size="lg"
+          className={cn(
+            "w-full h-14 text-lg font-medium rounded-2xl",
+            "bg-primary hover:bg-primary/90 text-primary-foreground",
+            "shadow-soft transition-all duration-300 hover:shadow-card"
+          )}
+        >
+          День закрыт
+        </Button>
+      ) : (
+        <div className="text-center space-y-4 animate-fade-in">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/20">
+            <Check className="w-8 h-8 text-primary" />
+          </div>
+          <p className="font-serif text-xl text-foreground">
+            День прожит. Я была с собой честна.
+          </p>
         </div>
-      )}
-
-      {dayClosed && (
-        <MentorMessage 
-          message="Молодец! День прожит с любовью к себе." 
-          className="bg-success/10 border-success/30"
-        />
       )}
     </div>
   );
