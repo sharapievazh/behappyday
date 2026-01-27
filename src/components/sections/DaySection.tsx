@@ -1,125 +1,79 @@
-import { useState } from "react";
-import { MentorMessage } from "@/components/MentorMessage";
-import { RitualStep } from "@/components/RitualStep";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Plus, Target, CheckCircle2 } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Calendar } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-interface Task {
-  id: string;
-  title: string;
-  completed: boolean;
-}
-
-const MENTOR_ENCOURAGEMENTS = [
-  "Отметила? Отлично! Каждый шаг — победа.",
-  "Молодец! Это твой шаг к цели.",
-  "Прими этот момент — он важен.",
-  "Каждое маленькое действие создаёт большой результат.",
-];
+import { useDayPlans } from "@/hooks/useDayPlans";
 
 export function DaySection() {
-  const [tasks, setTasks] = useState<Task[]>([
-    { id: "1", title: "Главная задача дня", completed: false },
-    { id: "2", title: "Мини-задача 1", completed: false },
-    { id: "3", title: "Мини-задача 2", completed: false },
-  ]);
-  const [newTask, setNewTask] = useState("");
-  const [showEncouragement, setShowEncouragement] = useState(false);
-  const [currentEncouragement, setCurrentEncouragement] = useState("");
+  const { plans, toggleComplete } = useDayPlans();
 
-  const completedCount = tasks.filter(t => t.completed).length;
-  const progress = tasks.length > 0 ? (completedCount / tasks.length) * 100 : 0;
-
-  const handleTaskChange = (id: string, completed: boolean) => {
-    setTasks(tasks.map(t => t.id === id ? { ...t, completed } : t));
-    
-    if (completed) {
-      const randomMessage = MENTOR_ENCOURAGEMENTS[Math.floor(Math.random() * MENTOR_ENCOURAGEMENTS.length)];
-      setCurrentEncouragement(randomMessage);
-      setShowEncouragement(true);
-      setTimeout(() => setShowEncouragement(false), 3000);
-    }
-  };
-
-  const addTask = () => {
-    if (newTask.trim()) {
-      setTasks([...tasks, { id: Date.now().toString(), title: newTask.trim(), completed: false }]);
-      setNewTask("");
-    }
-  };
+  const planItems = [
+    { key: "plan1" as const, text: plans.plan1 },
+    { key: "plan2" as const, text: plans.plan2 },
+    { key: "plan3" as const, text: plans.plan3 },
+  ].filter(item => item.text.trim() !== "");
 
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
       <div className="text-center space-y-2">
         <div className="inline-flex items-center gap-2 text-primary">
-          <Target className="w-5 h-5" />
-          <span className="text-sm font-medium uppercase tracking-wider">Твой день</span>
+          <Calendar className="w-5 h-5" />
+          <span className="text-sm font-medium uppercase tracking-wider">День</span>
         </div>
-        <h1 className="font-serif text-3xl text-foreground">
-          Фокус на важном
+        <h1 className="font-serif text-2xl text-foreground">
+          План на сегодня
         </h1>
       </div>
 
-      <MentorMessage message="Сосредоточься на важном. Малое = сделано, большое = под контролем." />
-
-      {/* Progress */}
-      <div className="space-y-3">
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-muted-foreground">Прогресс дня</span>
-          <span className="font-medium text-foreground">{completedCount} из {tasks.length}</span>
-        </div>
-        <div className="h-3 bg-secondary rounded-full overflow-hidden">
-          <div 
-            className="h-full bg-primary rounded-full transition-all duration-500"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-      </div>
-
-      {/* Tasks */}
-      <div className="space-y-3">
-        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-          Задачи на сегодня
-        </h2>
+      {/* План дня */}
+      {planItems.length > 0 ? (
         <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-soft">
-          {tasks.map((task, index) => (
-            <RitualStep
-              key={task.id}
-              id={task.id}
-              title={task.title}
-              checked={task.completed}
-              onCheckedChange={(checked) => handleTaskChange(task.id, checked)}
-              delay={index * 100}
-            />
+          {planItems.map((item, index) => (
+            <div
+              key={item.key}
+              className={cn(
+                "flex items-center gap-4 p-4",
+                index !== planItems.length - 1 && "border-b border-border"
+              )}
+            >
+              <Checkbox
+                id={item.key}
+                checked={plans.completed[item.key]}
+                onCheckedChange={() => toggleComplete(item.key)}
+                className={cn(
+                  "h-6 w-6 rounded-lg border-2 transition-all duration-300",
+                  plans.completed[item.key] && "bg-primary border-primary"
+                )}
+              />
+              <label
+                htmlFor={item.key}
+                className={cn(
+                  "flex-1 text-base cursor-pointer transition-all duration-300",
+                  plans.completed[item.key] && "text-muted-foreground line-through"
+                )}
+              >
+                {item.text}
+              </label>
+            </div>
           ))}
         </div>
-      </div>
+      ) : (
+        <div className="bg-card border border-border rounded-2xl p-6 text-center shadow-soft">
+          <p className="text-muted-foreground">
+            Заполни план в утренней сессии
+          </p>
+        </div>
+      )}
 
-      {/* Add task */}
-      <div className="flex gap-2">
-        <Input
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
-          placeholder="Добавить задачу..."
-          className="flex-1 h-12 rounded-xl border-border bg-card"
-          onKeyDown={(e) => e.key === "Enter" && addTask()}
-        />
-        <Button
-          onClick={addTask}
-          size="icon"
-          className="h-12 w-12 rounded-xl bg-primary hover:bg-primary/90"
-        >
-          <Plus className="w-5 h-5" />
-        </Button>
-      </div>
-
-      {/* Encouragement popup */}
-      {showEncouragement && (
-        <div className="fixed bottom-24 left-4 right-4 animate-slide-up">
-          <MentorMessage message={currentEncouragement} />
+      {/* Цель дня (если заполнена) */}
+      {plans.goal.trim() && (
+        <div className="space-y-2">
+          <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+            Цель дня
+          </h2>
+          <div className="bg-primary/5 border border-primary/20 rounded-2xl p-4 shadow-soft">
+            <p className="text-foreground">{plans.goal}</p>
+          </div>
         </div>
       )}
     </div>
