@@ -1,7 +1,8 @@
 import { Checkbox } from "@/components/ui/checkbox";
-import { Calendar } from "lucide-react";
+import { Calendar, Languages } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useDayPlans } from "@/hooks/useDayPlans";
+import { DAILY_PHRASES, getDayIndex } from "@/data/content";
 
 export function DaySection() {
   const { plans, toggleComplete } = useDayPlans();
@@ -76,6 +77,37 @@ export function DaySection() {
           </div>
         </div>
       )}
+
+      {/* Фраза дня — языковая практика */}
+      <div className="space-y-3">
+        <div className="flex items-center gap-2 text-primary">
+          <Languages className="w-4 h-4" />
+          <h2 className="text-sm font-medium uppercase tracking-wider">
+            Фраза дня
+          </h2>
+        </div>
+        <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-soft">
+          {[
+            { code: "en", label: "English", text: DAILY_PHRASES[getDayIndex()].en },
+            { code: "es", label: "Español", text: DAILY_PHRASES[getDayIndex()].es },
+            { code: "fr", label: "Français", text: DAILY_PHRASES[getDayIndex()].fr },
+            { code: "it", label: "Italiano", text: DAILY_PHRASES[getDayIndex()].it },
+          ].map((lang, index) => (
+            <div
+              key={lang.code}
+              className={cn(
+                "p-4",
+                index !== 3 && "border-b border-border"
+              )}
+            >
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1">
+                {lang.label}
+              </p>
+              <p className="text-foreground">{lang.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

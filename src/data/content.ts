@@ -66,6 +66,40 @@ export const QUOTES = [
   { text: "Заверши каждый день и покончи с ним. Ты сделала что могла.", author: "Ральф Эмерсон" },
 ];
 
+// 30 фраз для языковой практики (бизнес-контекст)
+export const DAILY_PHRASES = [
+  { en: "Let's schedule a meeting.", es: "Programemos una reunión.", fr: "Planifions une réunion.", it: "Fissiamo una riunione." },
+  { en: "I'll get back to you.", es: "Te responderé pronto.", fr: "Je vous recontacterai.", it: "Ti ricontatterò." },
+  { en: "Could you send me the details?", es: "¿Podrías enviarme los detalles?", fr: "Pourriez-vous m'envoyer les détails?", it: "Potresti inviarmi i dettagli?" },
+  { en: "Thank you for your time.", es: "Gracias por tu tiempo.", fr: "Merci pour votre temps.", it: "Grazie per il tuo tempo." },
+  { en: "Let me check my calendar.", es: "Déjame revisar mi agenda.", fr: "Laissez-moi vérifier mon agenda.", it: "Fammi controllare la mia agenda." },
+  { en: "I appreciate your feedback.", es: "Agradezco tus comentarios.", fr: "J'apprécie vos retours.", it: "Apprezzo il tuo feedback." },
+  { en: "Can we discuss this tomorrow?", es: "¿Podemos hablar de esto mañana?", fr: "Pouvons-nous en discuter demain?", it: "Possiamo discuterne domani?" },
+  { en: "Please keep me updated.", es: "Por favor, mantenme informado.", fr: "Tenez-moi au courant, s'il vous plaît.", it: "Per favore, tienimi aggiornato." },
+  { en: "I'll send you the proposal.", es: "Te enviaré la propuesta.", fr: "Je vous enverrai la proposition.", it: "Ti invierò la proposta." },
+  { en: "What's the deadline?", es: "¿Cuál es la fecha límite?", fr: "Quelle est la date limite?", it: "Qual è la scadenza?" },
+  { en: "Let's move forward with this.", es: "Avancemos con esto.", fr: "Allons de l'avant avec ceci.", it: "Procediamo con questo." },
+  { en: "I need more information.", es: "Necesito más información.", fr: "J'ai besoin de plus d'informations.", it: "Ho bisogno di più informazioni." },
+  { en: "Could we set up a call?", es: "¿Podríamos programar una llamada?", fr: "Pourrions-nous organiser un appel?", it: "Potremmo organizzare una chiamata?" },
+  { en: "I'll follow up on this.", es: "Haré seguimiento de esto.", fr: "Je ferai le suivi de cela.", it: "Farò un follow-up su questo." },
+  { en: "That sounds like a good plan.", es: "Eso suena como un buen plan.", fr: "Cela semble être un bon plan.", it: "Sembra un buon piano." },
+  { en: "Let me know if you need anything.", es: "Avísame si necesitas algo.", fr: "Faites-moi savoir si vous avez besoin de quoi que ce soit.", it: "Fammi sapere se hai bisogno di qualcosa." },
+  { en: "I'm looking forward to it.", es: "Lo espero con interés.", fr: "J'ai hâte d'y être.", it: "Non vedo l'ora." },
+  { en: "Can you clarify this point?", es: "¿Puedes aclarar este punto?", fr: "Pouvez-vous clarifier ce point?", it: "Puoi chiarire questo punto?" },
+  { en: "We're on the same page.", es: "Estamos en la misma página.", fr: "Nous sommes sur la même longueur d'onde.", it: "Siamo sulla stessa lunghezza d'onda." },
+  { en: "I'll prioritize this task.", es: "Priorizaré esta tarea.", fr: "Je vais prioriser cette tâche.", it: "Darò priorità a questo compito." },
+  { en: "Let's wrap up for today.", es: "Terminemos por hoy.", fr: "Finissons pour aujourd'hui.", it: "Concludiamo per oggi." },
+  { en: "Please share your thoughts.", es: "Por favor, comparte tus ideas.", fr: "Veuillez partager vos réflexions.", it: "Per favore, condividi i tuoi pensieri." },
+  { en: "I'll handle this matter.", es: "Me encargaré de este asunto.", fr: "Je m'occuperai de cette affaire.", it: "Mi occuperò di questa questione." },
+  { en: "What's the next step?", es: "¿Cuál es el siguiente paso?", fr: "Quelle est la prochaine étape?", it: "Qual è il prossimo passo?" },
+  { en: "I value your opinion.", es: "Valoro tu opinión.", fr: "Je valorise votre opinion.", it: "Apprezzo la tua opinione." },
+  { en: "Let's keep it simple.", es: "Mantengámoslo simple.", fr: "Gardons les choses simples.", it: "Manteniamolo semplice." },
+  { en: "I'll confirm by email.", es: "Confirmaré por correo.", fr: "Je confirmerai par email.", it: "Confermerò via email." },
+  { en: "Can we reschedule?", es: "¿Podemos reprogramar?", fr: "Pouvons-nous reprogrammer?", it: "Possiamo riprogrammare?" },
+  { en: "Thank you for your patience.", es: "Gracias por tu paciencia.", fr: "Merci pour votre patience.", it: "Grazie per la tua pazienza." },
+  { en: "Have a productive day.", es: "Que tengas un día productivo.", fr: "Passez une journée productive.", it: "Buona giornata produttiva." },
+];
+
 // Функция получения индекса дня (0-29)
 export function getDayIndex(): number {
   const startOfYear = new Date(new Date().getFullYear(), 0, 0);
