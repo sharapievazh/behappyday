@@ -5,15 +5,15 @@ import { cn } from "@/lib/utils";
 // Список медитаций по порядку (каждый день - новая)
 // Используем encodeURIComponent для кириллических символов в URL
 const MEDITATIONS = [
-  { id: 1, name: "Вступление", file: encodeURI("/audio/meditations/1_Вступление.mp3") },
-  { id: 2, name: "Лучшие дары жизни для меня", file: encodeURI("/audio/meditations/2_лучшие_дары_жизни_для_меня.mp3") },
-  { id: 3, name: "Цитата Крайона", file: encodeURI("/audio/meditations/3_Цитата_Крайона.mp3") },
-  { id: 4, name: "Магнитное притяжение", file: encodeURI("/audio/meditations/4_Магнитное_притяжение.mp3") },
-  { id: 5, name: "Будущее рядом", file: encodeURI("/audio/meditations/5_Будущее_рядом.mp3") },
-  { id: 6, name: "Творите вместе с Богом", file: encodeURI("/audio/meditations/6_Творите_вместе_с_Богом.mp3") },
-  { id: 7, name: "Полёт к свободе", file: encodeURI("/audio/meditations/7_Полёт_к_свободе.mp3") },
-  { id: 8, name: "В единстве с Богом и любовью", file: encodeURI("/audio/meditations/9_В_единстве_с_Богом_и_любовью.mp3") },
-  { id: 9, name: "Любовь — движущая сила", file: encodeURI("/audio/meditations/10_Любовь_движущая_сила.mp3") },
+  { id: 1, name: "Вступление", file: "/audio/meditations/1_Вступление.mp3" },
+  { id: 2, name: "Лучшие дары жизни для меня", file: "/audio/meditations/2_лучшие_дары_жизни_для_меня.mp3" },
+  { id: 3, name: "Цитата Крайона", file: "/audio/meditations/3_Цитата_Крайона.mp3" },
+  { id: 4, name: "Магнитное притяжение", file: "/audio/meditations/4_Магнитное_притяжение.mp3" },
+  { id: 5, name: "Будущее рядом", file: "/audio/meditations/5_Будущее_рядом.mp3" },
+  { id: 6, name: "Творите вместе с Богом", file: "/audio/meditations/6_Творите_вместе_с_Богом.mp3" },
+  { id: 7, name: "Полёт к свободе", file: "/audio/meditations/7_Полёт_к_свободе.mp3" },
+  { id: 8, name: "В единстве с Богом и любовью", file: "/audio/meditations/9_В_единстве_с_Богом_и_любовью.mp3" },
+  { id: 9, name: "Любовь — движущая сила", file: "/audio/meditations/10_Любовь_движущая_сила.mp3" },
 ];
 
 function getTodayMeditation() {
