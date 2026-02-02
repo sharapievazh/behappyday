@@ -37,7 +37,7 @@ export function MorningSection() {
         </div>
       </div>
 
-      {/* 3. Стакан воды + утренние ритуалы */}
+      {/* 3. Утренние ритуалы */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
           Утренние ритуалы
@@ -45,31 +45,23 @@ export function MorningSection() {
         <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-soft">
           <RitualStep
             id="water"
-            title="Выпить стакан воды"
+            title="Стакан воды и витамины"
             delay={0}
           />
           <RitualStep
-            id="hygiene"
-            title="Утренние ритуалы / чистота"
+            id="face"
+            title="Чистота лица и массаж"
             delay={50}
+          />
+          <RitualStep
+            id="warmup"
+            title="Разминка для тела"
+            delay={100}
           />
         </div>
       </div>
 
-      {/* 4. Спорт */}
-      <div className="space-y-2">
-        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-          Спорт
-        </h2>
-        <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-soft">
-          <RitualStep id="sun" title="10 поклонов Солнцу" delay={0} />
-          <RitualStep id="squats" title="10 приседаний" delay={50} />
-          <RitualStep id="pushups" title="10 отжиманий (любая форма)" delay={100} />
-          <RitualStep id="lunges" title="10 выпадов" delay={150} />
-        </div>
-      </div>
-
-      {/* 5. Медитация / дыхание */}
+      {/* 4. Медитация / дыхание */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
           Медитация / дыхание
@@ -77,7 +69,7 @@ export function MorningSection() {
         <MeditationPlayer />
       </div>
 
-      {/* 6. Чтение */}
+      {/* 5. Чтение */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
           Чтение
@@ -91,7 +83,7 @@ export function MorningSection() {
         </div>
       </div>
 
-      {/* 7. План дня */}
+      {/* 6. План дня */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
           План дня
@@ -118,7 +110,7 @@ export function MorningSection() {
         </div>
       </div>
 
-      {/* 8. Цель дня */}
+      {/* 7. Цель дня */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
           Цель дня
@@ -133,7 +125,7 @@ export function MorningSection() {
         </div>
       </div>
 
-      {/* 9. Мысль наставника (ОДНА цитата) */}
+      {/* 8. Мысль наставника (ОДНА цитата) */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
           Мысль дня
