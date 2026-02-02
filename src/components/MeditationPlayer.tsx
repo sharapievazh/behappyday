@@ -33,38 +33,73 @@ export function MeditationPlayer() {
   const audioRef = useRef<HTMLAudioElement>(null);
   
   const todayMeditation = getTodayMeditation();
+  // На некоторых хостингах кириллица в URL без явного кодирования может ломать загрузку.
+  // encodeURI сохранит '/' и закодирует только небезопасные символы.
+  const todaySrc = encodeURI(todayMeditation.file);
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
     const updateTime = () => setCurrentTime(audio.currentTime);
-    const updateDuration = () => setDuration(audio.duration);
+    const updateDuration = () => {
+      if (Number.isFinite(audio.duration)) setDuration(audio.duration);
+      setError(false);
+    };
     const handleEnded = () => setIsPlaying(false);
-    const handleError = () => setError(true);
+    const handleCanPlay = () => setError(false);
+    const handleError = () => {
+      setIsPlaying(false);
+      setError(true);
+    };
 
     audio.addEventListener("timeupdate", updateTime);
     audio.addEventListener("loadedmetadata", updateDuration);
+    audio.addEventListener("canplay", handleCanPlay);
     audio.addEventListener("ended", handleEnded);
     audio.addEventListener("error", handleError);
 
     return () => {
       audio.removeEventListener("timeupdate", updateTime);
       audio.removeEventListener("loadedmetadata", updateDuration);
+      audio.removeEventListener("canplay", handleCanPlay);
       audio.removeEventListener("ended", handleEnded);
       audio.removeEventListener("error", handleError);
     };
   }, []);
 
-  const togglePlay = () => {
-    if (!audioRef.current) return;
-    
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    // Сброс состояния при (пере)загрузке трека
+    setError(false);
+    setIsPlaying(false);
+    setCurrentTime(0);
+    setDuration(0);
+    audio.pause();
+    // Обновляем загрузку для нового src и очищаем возможные "залипания" ошибки
+    audio.load();
+  }, [todaySrc]);
+
+  const togglePlay = async () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
     if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play().catch(() => setError(true));
+      audio.pause();
+      setIsPlaying(false);
+      return;
     }
-    setIsPlaying(!isPlaying);
+
+    try {
+      await audio.play();
+      setIsPlaying(true);
+      setError(false);
+    } catch {
+      setIsPlaying(false);
+      setError(true);
+    }
   };
 
   const formatTime = (time: number) => {
@@ -90,7 +125,7 @@ export function MeditationPlayer() {
 
   return (
     <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-xl p-4 space-y-3">
-      <audio ref={audioRef} src={todayMeditation.file} preload="metadata" />
+      <audio ref={audioRef} src={todaySrc} preload="metadata" />
       
       <div className="flex items-center gap-3">
         <button
