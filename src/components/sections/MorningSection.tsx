@@ -45,7 +45,7 @@ export function MorningSection() {
         <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-soft">
           <RitualStep
             id="face"
-            title="Чистота лица и массаж"
+            title="Уход лица и массаж"
             delay={0}
           />
           <RitualStep
