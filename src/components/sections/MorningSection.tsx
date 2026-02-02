@@ -44,46 +44,42 @@ export function MorningSection() {
         </h2>
         <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-soft">
           <RitualStep
-            id="water"
-            title="Стакан воды и витамины"
+            id="face"
+            title="Чистота лица и массаж"
             delay={0}
           />
           <RitualStep
-            id="face"
-            title="Чистота лица и массаж"
+            id="water"
+            title="Стакан воды и витамины"
             delay={50}
+          />
+          <RitualStep
+            id="breathing"
+            title="Дыхательная гимнастика"
+            delay={100}
           />
           <RitualStep
             id="warmup"
             title="Разминка для тела"
-            delay={100}
+            delay={150}
+          />
+          <RitualStep
+            id="reading"
+            title="Чтение 10 минут (аудио или книга)"
+            delay={200}
           />
         </div>
       </div>
 
-      {/* 4. Медитация / дыхание */}
+      {/* 4. Медитация */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-          Медитация / дыхание
+          Медитация
         </h2>
         <MeditationPlayer />
       </div>
 
-      {/* 5. Чтение */}
-      <div className="space-y-2">
-        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-          Чтение
-        </h2>
-        <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-soft">
-          <RitualStep
-            id="reading"
-            title="10 минут чтения (аудио или обычная книга)"
-            delay={0}
-          />
-        </div>
-      </div>
-
-      {/* 6. План дня */}
+      {/* 5. План дня */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
           План дня
@@ -110,7 +106,7 @@ export function MorningSection() {
         </div>
       </div>
 
-      {/* 7. Цель дня */}
+      {/* 6. Цель дня */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
           Цель дня
@@ -125,7 +121,7 @@ export function MorningSection() {
         </div>
       </div>
 
-      {/* 8. Мысль наставника (ОДНА цитата) */}
+      {/* 7. Мысль наставника */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
           Мысль дня
