@@ -7,9 +7,8 @@ import { AFFIRMATIONS, QUOTES, getDayIndex } from "@/data/content";
 import { useDayPlans } from "@/hooks/useDayPlans";
 
 export function MorningSection() {
-  const dayIndex = getDayIndex();
-  const todayAffirmation = AFFIRMATIONS[dayIndex];
-  const todayQuote = QUOTES[dayIndex];
+  const todayAffirmation = AFFIRMATIONS[getDayIndex(AFFIRMATIONS.length)];
+  const todayQuote = QUOTES[getDayIndex(QUOTES.length)];
   const { plans, updatePlans } = useDayPlans();
 
   return (

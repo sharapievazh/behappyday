@@ -13,6 +13,8 @@ export function DaySection() {
     { key: "plan3" as const, text: plans.plan3 },
   ].filter(item => item.text.trim() !== "");
 
+  const phraseIndex = getDayIndex(DAILY_PHRASES.length);
+
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
@@ -88,16 +90,15 @@ export function DaySection() {
         </div>
         <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-soft">
           {[
-            { code: "en", label: "English", text: DAILY_PHRASES[getDayIndex()].en },
-            { code: "es", label: "Español", text: DAILY_PHRASES[getDayIndex()].es },
-            { code: "fr", label: "Français", text: DAILY_PHRASES[getDayIndex()].fr },
-            { code: "it", label: "Italiano", text: DAILY_PHRASES[getDayIndex()].it },
+            { code: "en", label: "English", text: DAILY_PHRASES[phraseIndex].en },
+            { code: "ru", label: "Русский", text: DAILY_PHRASES[phraseIndex].ru },
+            { code: "kz", label: "Қазақша", text: DAILY_PHRASES[phraseIndex].kz },
           ].map((lang, index) => (
             <div
               key={lang.code}
               className={cn(
                 "p-4",
-                index !== 3 && "border-b border-border"
+                index !== 2 && "border-b border-border"
               )}
             >
               <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1">
