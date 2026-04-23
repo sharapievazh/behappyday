@@ -1,10 +1,10 @@
 import { Checkbox } from "@/components/ui/checkbox";
-import { Calendar, Languages, Heart } from "lucide-react";
+import { Calendar, Languages, Heart, Droplets } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useDayPlans } from "@/hooks/useDayPlans";
 import { useExercises } from "@/hooks/useExercises";
 import { DAILY_PHRASES, getDayIndex } from "@/data/content";
-import { EXERCISES } from "@/data/exercises";
+import { EXERCISES, LYMPH_EXERCISES } from "@/data/exercises";
 import { ExerciseCard } from "@/components/ExerciseCard";
 
 export function DaySection() {
@@ -109,6 +109,34 @@ export function DaySection() {
         </div>
         <p className="text-xs text-muted-foreground text-center px-4">
           Количество повторений можно менять от 20 до 50
+        </p>
+      </div>
+
+      {/* Лимфодренажные упражнения */}
+      <div className="space-y-3">
+        <div className="flex items-center gap-2 text-primary">
+          <Droplets className="w-4 h-4" />
+          <h2 className="text-sm font-medium uppercase tracking-wider">
+            Лимфодренаж
+          </h2>
+        </div>
+        <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-soft divide-y divide-border">
+          {LYMPH_EXERCISES.map((ex) => {
+            const state = exercisesData[ex.id] ?? { reps: ex.defaultReps, done: false };
+            return (
+              <ExerciseCard
+                key={ex.id}
+                exercise={ex}
+                reps={state.reps}
+                done={state.done}
+                onRepsChange={(r) => setReps(ex.id, r)}
+                onToggle={() => toggleDone(ex.id)}
+              />
+            );
+          })}
+        </div>
+        <p className="text-xs text-muted-foreground text-center px-4">
+          Мягкие движения для разгона лимфы — лучше всего утром натощак
         </p>
       </div>
 
