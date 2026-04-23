@@ -4,6 +4,11 @@ import catCowImg from "@/assets/exercises/cat-cow.jpg";
 import butterflyImg from "@/assets/exercises/butterfly.jpg";
 import squatsImg from "@/assets/exercises/squats.jpg";
 import breathingImg from "@/assets/exercises/breathing.jpg";
+import lymphBrushImg from "@/assets/exercises/lymph-brush.jpg";
+import lymphJumpsImg from "@/assets/exercises/lymph-jumps.jpg";
+import lymphLegsUpImg from "@/assets/exercises/lymph-legs-up.jpg";
+import lymphNeckImg from "@/assets/exercises/lymph-neck.jpg";
+import lymphStretchImg from "@/assets/exercises/lymph-stretch.jpg";
 
 export interface Exercise {
   id: string;
@@ -23,8 +28,8 @@ export const EXERCISES: Exercise[] = [
   },
   {
     id: "breathing",
-    title: "Диафрагмальное дыхание",
-    description: "Глубокий вдох животом, медленный выдох. Расслабляет тазовое дно.",
+    title: "Дыхание 4–8–7",
+    description: "Вдох через нос на 4 счёта, задержка дыхания на 8, медленный выдох через рот на 7.",
     defaultReps: 20,
     image: breathingImg,
   },
@@ -55,5 +60,43 @@ export const EXERCISES: Exercise[] = [
     description: "Широкая стойка, носки врозь, плавно приседай и поднимайся.",
     defaultReps: 25,
     image: squatsImg,
+  },
+];
+
+export const LYMPH_EXERCISES: Exercise[] = [
+  {
+    id: "lymph-stretch",
+    title: "Вытяжение вверх",
+    description: "Стоя, поднимись на носочки, тянись макушкой и руками вверх. Запускает лимфоток.",
+    defaultReps: 20,
+    image: lymphStretchImg,
+  },
+  {
+    id: "lymph-jumps",
+    title: "Мягкие подпрыгивания",
+    description: "Лёгкие пружинистые подпрыгивания на месте (или на батуте) — стопы почти не отрываются от пола.",
+    defaultReps: 30,
+    image: lymphJumpsImg,
+  },
+  {
+    id: "lymph-brush",
+    title: "Сухая щётка / самомассаж",
+    description: "Длинными движениями снизу вверх к сердцу прорабатывай руки, ноги, живот.",
+    defaultReps: 20,
+    image: lymphBrushImg,
+  },
+  {
+    id: "lymph-neck",
+    title: "Растяжка шеи",
+    description: "Плавные наклоны головы в стороны, мягко придерживая рукой. Открывает лимфоузлы шеи.",
+    defaultReps: 20,
+    image: lymphNeckImg,
+  },
+  {
+    id: "lymph-legs-up",
+    title: "Ноги вверх по стене",
+    description: "Лёжа на спине, подними ноги вертикально (можно к стене). Удерживай позу спокойно.",
+    defaultReps: 20,
+    image: lymphLegsUpImg,
   },
 ];
