@@ -84,6 +84,34 @@ export function DaySection() {
         </div>
       )}
 
+      {/* Упражнения для женского здоровья */}
+      <div className="space-y-3">
+        <div className="flex items-center gap-2 text-primary">
+          <Heart className="w-4 h-4" />
+          <h2 className="text-sm font-medium uppercase tracking-wider">
+            Женское здоровье
+          </h2>
+        </div>
+        <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-soft divide-y divide-border">
+          {EXERCISES.map((ex) => {
+            const state = exercisesData[ex.id] ?? { reps: ex.defaultReps, done: false };
+            return (
+              <ExerciseCard
+                key={ex.id}
+                exercise={ex}
+                reps={state.reps}
+                done={state.done}
+                onRepsChange={(r) => setReps(ex.id, r)}
+                onToggle={() => toggleDone(ex.id)}
+              />
+            );
+          })}
+        </div>
+        <p className="text-xs text-muted-foreground text-center px-4">
+          Количество повторений можно менять от 20 до 50
+        </p>
+      </div>
+
       {/* Фраза дня — языковая практика */}
       <div className="space-y-3">
         <div className="flex items-center gap-2 text-primary">
