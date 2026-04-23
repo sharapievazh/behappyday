@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import { EXERCISES } from "@/data/exercises";
+import { EXERCISES, LYMPH_EXERCISES } from "@/data/exercises";
+
+const ALL_EXERCISES = [...EXERCISES, ...LYMPH_EXERCISES];
 
 interface ExerciseState {
   reps: number;
@@ -16,7 +18,7 @@ function getTodayKey(): string {
 }
 
 function getDefaults(): ExercisesData {
-  return EXERCISES.reduce<ExercisesData>((acc, ex) => {
+  return ALL_EXERCISES.reduce<ExercisesData>((acc, ex) => {
     acc[ex.id] = { reps: ex.defaultReps, done: false };
     return acc;
   }, {});
