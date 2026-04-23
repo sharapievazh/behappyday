@@ -6,6 +6,7 @@ import { useExercises } from "@/hooks/useExercises";
 import { DAILY_PHRASES, getDayIndex } from "@/data/content";
 import { EXERCISES, LYMPH_EXERCISES } from "@/data/exercises";
 import { ExerciseCard } from "@/components/ExerciseCard";
+import { YogaMusicPlayer } from "@/components/YogaMusicPlayer";
 
 export function DaySection() {
   const { plans, toggleComplete } = useDayPlans();
@@ -31,6 +32,9 @@ export function DaySection() {
           План на сегодня
         </h1>
       </div>
+
+      {/* Йога-музыка для практики */}
+      <YogaMusicPlayer />
 
       {/* План дня */}
       {planItems.length > 0 ? (
@@ -84,34 +88,6 @@ export function DaySection() {
         </div>
       )}
 
-      {/* Упражнения для женского здоровья */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-2 text-primary">
-          <Heart className="w-4 h-4" />
-          <h2 className="text-sm font-medium uppercase tracking-wider">
-            Женское здоровье
-          </h2>
-        </div>
-        <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-soft divide-y divide-border">
-          {EXERCISES.map((ex) => {
-            const state = exercisesData[ex.id] ?? { reps: ex.defaultReps, done: false };
-            return (
-              <ExerciseCard
-                key={ex.id}
-                exercise={ex}
-                reps={state.reps}
-                done={state.done}
-                onRepsChange={(r) => setReps(ex.id, r)}
-                onToggle={() => toggleDone(ex.id)}
-              />
-            );
-          })}
-        </div>
-        <p className="text-xs text-muted-foreground text-center px-4">
-          Количество повторений можно менять от 20 до 50
-        </p>
-      </div>
-
       {/* Лимфодренажные упражнения */}
       <div className="space-y-3">
         <div className="flex items-center gap-2 text-primary">
@@ -137,6 +113,34 @@ export function DaySection() {
         </div>
         <p className="text-xs text-muted-foreground text-center px-4">
           Мягкие движения для разгона лимфы — лучше всего утром натощак
+        </p>
+      </div>
+
+      {/* Упражнения для женского здоровья */}
+      <div className="space-y-3">
+        <div className="flex items-center gap-2 text-primary">
+          <Heart className="w-4 h-4" />
+          <h2 className="text-sm font-medium uppercase tracking-wider">
+            Женское здоровье
+          </h2>
+        </div>
+        <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-soft divide-y divide-border">
+          {EXERCISES.map((ex) => {
+            const state = exercisesData[ex.id] ?? { reps: ex.defaultReps, done: false };
+            return (
+              <ExerciseCard
+                key={ex.id}
+                exercise={ex}
+                reps={state.reps}
+                done={state.done}
+                onRepsChange={(r) => setReps(ex.id, r)}
+                onToggle={() => toggleDone(ex.id)}
+              />
+            );
+          })}
+        </div>
+        <p className="text-xs text-muted-foreground text-center px-4">
+          Количество повторений можно менять от 20 до 50
         </p>
       </div>
 
