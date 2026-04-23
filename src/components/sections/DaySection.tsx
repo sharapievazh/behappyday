@@ -1,11 +1,15 @@
 import { Checkbox } from "@/components/ui/checkbox";
-import { Calendar, Languages } from "lucide-react";
+import { Calendar, Languages, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useDayPlans } from "@/hooks/useDayPlans";
+import { useExercises } from "@/hooks/useExercises";
 import { DAILY_PHRASES, getDayIndex } from "@/data/content";
+import { EXERCISES } from "@/data/exercises";
+import { ExerciseCard } from "@/components/ExerciseCard";
 
 export function DaySection() {
   const { plans, toggleComplete } = useDayPlans();
+  const { data: exercisesData, setReps, toggleDone } = useExercises();
 
   const planItems = [
     { key: "plan1" as const, text: plans.plan1 },
