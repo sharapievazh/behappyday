@@ -12,7 +12,6 @@ export function YogaMusicPlayer() {
   const [duration, setDuration] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [checkInfo, setCheckInfo] = useState<{ status: number | string; contentType: string | null } | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -63,8 +62,6 @@ export function YogaMusicPlayer() {
     try {
       setIsLoading(true);
       const res = await fetch(TRACK_URL, { method: "HEAD" });
-      const ct = res.headers.get("content-type");
-      setCheckInfo({ status: res.status, contentType: ct });
       if (!res.ok) {
         setIsLoading(false);
         setErrorMsg(`Ссылка недоступна: HTTP ${res.status}`);
@@ -73,7 +70,6 @@ export function YogaMusicPlayer() {
       await audio.play();
     } catch (e: any) {
       setIsLoading(false);
-      setCheckInfo({ status: "network error", contentType: null });
       setErrorMsg(e?.message || "Ошибка воспроизведения");
       console.error("Playback error:", e);
     }
