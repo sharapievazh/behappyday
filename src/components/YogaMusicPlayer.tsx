@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 const TRACK_URL =
   "https://gkhfifuggxhwdsdecglg.supabase.co/storage/v1/object/public/Audio%20for%20Daily%20Bloom/Music%20for%20meditation_30.m4a";
-const TRACK_TITLE = "Спокойный поток";
+const TRACK_TITLE = "Музыкальная настройка";
 
 export function YogaMusicPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -142,12 +142,6 @@ export function YogaMusicPlayer() {
           </div>
         </div>
       </div>
-      {checkInfo && (
-        <div className="mt-2 text-[11px] text-muted-foreground text-center space-y-0.5">
-          <p>HTTP статус: <span className="font-mono">{checkInfo.status}</span></p>
-          <p>Content-Type: <span className="font-mono">{checkInfo.contentType ?? "—"}</span></p>
-        </div>
-      )}
       {errorMsg && (
         <p className="text-xs text-destructive mt-2 text-center">{errorMsg}</p>
       )}
