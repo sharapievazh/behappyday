@@ -132,6 +132,9 @@ export function YogaMusicPlayer() {
           </div>
         </div>
       </div>
+      {errorMsg && (
+        <p className="text-xs text-destructive mt-2 text-center">{errorMsg}</p>
+      )}
     </div>
   );
 }
