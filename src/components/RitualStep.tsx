@@ -1,6 +1,6 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, type ComponentType } from "react";
 
 interface RitualStepProps {
   id: string;
@@ -9,6 +9,7 @@ interface RitualStepProps {
   checked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
   delay?: number;
+  icon?: ComponentType<{ className?: string }>;
 }
 
 export function RitualStep({ 
@@ -17,7 +18,8 @@ export function RitualStep({
   description, 
   checked = false, 
   onCheckedChange,
-  delay = 0 
+  delay = 0,
+  icon: Icon,
 }: RitualStepProps) {
   const [isChecked, setIsChecked] = useState(checked);
 
@@ -40,6 +42,14 @@ export function RitualStep({
           isChecked && "bg-success border-success animate-check-bounce"
         )}
       />
+      {Icon && (
+        <span className={cn(
+          "flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary transition-colors flex-shrink-0",
+          isChecked && "bg-success/15 text-success"
+        )}>
+          <Icon className="w-4 h-4" />
+        </span>
+      )}
       <div className="flex-1">
         <label 
           htmlFor={id} 

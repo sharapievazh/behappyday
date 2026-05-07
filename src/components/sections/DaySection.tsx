@@ -70,8 +70,11 @@ export function DaySection() {
         </div>
       ) : (
         <div className="bg-card border border-border rounded-2xl p-6 text-center shadow-soft">
-          <p className="text-muted-foreground">
-            Заполни план в утренней сессии
+          <p className="text-foreground font-medium">
+            Запусти женское здоровье на весь день 💎
+          </p>
+          <p className="text-sm text-muted-foreground mt-1">
+            Пройди утреннюю разминку для тела и души
           </p>
         </div>
       )}

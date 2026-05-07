@@ -2,7 +2,7 @@ import { RitualStep } from "@/components/RitualStep";
 import { MeditationPlayer } from "@/components/MeditationPlayer";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Sparkles } from "lucide-react";
+import { Sparkles, Sparkle, Droplet, Wind, Activity, BookOpen } from "lucide-react";
 import { AFFIRMATIONS, QUOTES, getDayIndex } from "@/data/content";
 import { useDayPlans } from "@/hooks/useDayPlans";
 
@@ -20,7 +20,7 @@ export function MorningSection() {
           <span className="text-sm font-medium uppercase tracking-wider">Доброе утро</span>
         </div>
         <h1 className="font-serif text-2xl text-foreground">
-          Я могу и делаю с любовью.
+          Я хочу и делаю с любовью к себе.
         </h1>
       </div>
 
@@ -42,31 +42,11 @@ export function MorningSection() {
           Утренние ритуалы
         </h2>
         <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-soft">
-          <RitualStep
-            id="face"
-            title="Уход лица и массаж"
-            delay={0}
-          />
-          <RitualStep
-            id="water"
-            title="Стакан воды и витамины"
-            delay={50}
-          />
-          <RitualStep
-            id="breathing"
-            title="Дыхательная гимнастика"
-            delay={100}
-          />
-          <RitualStep
-            id="warmup"
-            title="Разминка для тела"
-            delay={150}
-          />
-          <RitualStep
-            id="reading"
-            title="Чтение 10 минут (аудио или книга)"
-            delay={200}
-          />
+          <RitualStep id="face" title="Уход лица и массаж" icon={Sparkle} delay={0} />
+          <RitualStep id="water" title="Стакан воды и витамины" icon={Droplet} delay={50} />
+          <RitualStep id="breathing" title="Дыхательная гимнастика" icon={Wind} delay={100} />
+          <RitualStep id="warmup" title="Разминка для тела" icon={Activity} delay={150} />
+          <RitualStep id="reading" title="Чтение 10 минут (аудио или книга)" icon={BookOpen} delay={200} />
         </div>
       </div>
 
@@ -78,7 +58,22 @@ export function MorningSection() {
         <MeditationPlayer />
       </div>
 
-      {/* 5. План дня */}
+      {/* 5. Мысль дня — сразу после медитации */}
+      <div className="space-y-2">
+        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+          Мысль дня
+        </h2>
+        <div className="bg-primary/10 border border-primary/20 rounded-2xl p-5 shadow-soft">
+          <p className="font-serif text-base text-foreground leading-relaxed mb-2">
+            «{todayQuote.text}»
+          </p>
+          <p className="text-sm text-muted-foreground text-right">
+            — {todayQuote.author}
+          </p>
+        </div>
+      </div>
+
+      {/* 6. План дня */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
           План дня
@@ -105,7 +100,7 @@ export function MorningSection() {
         </div>
       </div>
 
-      {/* 6. Цель дня */}
+      {/* 7. Цель дня */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
           Цель дня
@@ -117,21 +112,6 @@ export function MorningSection() {
             onChange={(e) => updatePlans({ goal: e.target.value })}
             className="min-h-[60px] resize-none rounded-xl border-border bg-background"
           />
-        </div>
-      </div>
-
-      {/* 7. Мысль наставника */}
-      <div className="space-y-2">
-        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-          Мысль дня
-        </h2>
-        <div className="bg-primary/10 border border-primary/20 rounded-2xl p-5 shadow-soft">
-          <p className="font-serif text-base text-foreground leading-relaxed mb-2">
-            «{todayQuote.text}»
-          </p>
-          <p className="text-sm text-muted-foreground text-right">
-            — {todayQuote.author}
-          </p>
         </div>
       </div>
     </div>
