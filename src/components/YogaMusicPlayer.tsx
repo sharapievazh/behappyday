@@ -10,6 +10,8 @@ export function YogaMusicPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -18,27 +20,50 @@ export function YogaMusicPlayer() {
     const onTime = () => setCurrentTime(audio.currentTime);
     const onMeta = () => Number.isFinite(audio.duration) && setDuration(audio.duration);
     const onEnd = () => setIsPlaying(false);
+    const onWaiting = () => setIsLoading(true);
+    const onPlaying = () => {
+      setIsLoading(false);
+      setIsPlaying(true);
+      setErrorMsg(null);
+    };
+    const onPause = () => setIsPlaying(false);
+    const onError = () => {
+      setIsLoading(false);
+      setIsPlaying(false);
+      setErrorMsg("Не удалось загрузить аудио");
+      console.error("Audio error:", audio.error);
+    };
     audio.addEventListener("timeupdate", onTime);
     audio.addEventListener("loadedmetadata", onMeta);
     audio.addEventListener("ended", onEnd);
+    audio.addEventListener("waiting", onWaiting);
+    audio.addEventListener("playing", onPlaying);
+    audio.addEventListener("pause", onPause);
+    audio.addEventListener("error", onError);
     return () => {
       audio.removeEventListener("timeupdate", onTime);
       audio.removeEventListener("loadedmetadata", onMeta);
       audio.removeEventListener("ended", onEnd);
+      audio.removeEventListener("waiting", onWaiting);
+      audio.removeEventListener("playing", onPlaying);
+      audio.removeEventListener("pause", onPause);
+      audio.removeEventListener("error", onError);
     };
   }, []);
 
   const togglePlay = async () => {
     const audio = audioRef.current;
     if (!audio) return;
+    setErrorMsg(null);
     if (isPlaying) {
       audio.pause();
-      setIsPlaying(false);
     } else {
       try {
+        setIsLoading(true);
         await audio.play();
-        setIsPlaying(true);
-      } catch (e) {
+      } catch (e: any) {
+        setIsLoading(false);
+        setErrorMsg(e?.message || "Ошибка воспроизведения");
         console.error("Playback error:", e);
       }
     }
@@ -73,7 +98,13 @@ export function YogaMusicPlayer() {
           )}
           aria-label={isPlaying ? "Пауза" : "Играть"}
         >
-          {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}
+          {isLoading ? (
+            <div className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
+          ) : isPlaying ? (
+            <Pause className="w-5 h-5" />
+          ) : (
+            <Play className="w-5 h-5 ml-0.5" />
+          )}
         </button>
 
         <div className="flex-1 space-y-1.5 min-w-0">
