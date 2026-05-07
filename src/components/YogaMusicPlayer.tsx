@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 const TRACK_URL =
   "https://gkhfifuggxhwdsdecglg.supabase.co/storage/v1/object/public/Audio%20for%20Daily%20Bloom/Music%20for%20meditation_30.m4a";
-const TRACK_TITLE = "Спокойный поток";
+const TRACK_TITLE = "Музыкальная настройка";
 
 export function YogaMusicPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -12,7 +12,6 @@ export function YogaMusicPlayer() {
   const [duration, setDuration] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [checkInfo, setCheckInfo] = useState<{ status: number | string; contentType: string | null } | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -63,8 +62,6 @@ export function YogaMusicPlayer() {
     try {
       setIsLoading(true);
       const res = await fetch(TRACK_URL, { method: "HEAD" });
-      const ct = res.headers.get("content-type");
-      setCheckInfo({ status: res.status, contentType: ct });
       if (!res.ok) {
         setIsLoading(false);
         setErrorMsg(`Ссылка недоступна: HTTP ${res.status}`);
@@ -73,7 +70,6 @@ export function YogaMusicPlayer() {
       await audio.play();
     } catch (e: any) {
       setIsLoading(false);
-      setCheckInfo({ status: "network error", contentType: null });
       setErrorMsg(e?.message || "Ошибка воспроизведения");
       console.error("Playback error:", e);
     }
@@ -142,12 +138,6 @@ export function YogaMusicPlayer() {
           </div>
         </div>
       </div>
-      {checkInfo && (
-        <div className="mt-2 text-[11px] text-muted-foreground text-center space-y-0.5">
-          <p>HTTP статус: <span className="font-mono">{checkInfo.status}</span></p>
-          <p>Content-Type: <span className="font-mono">{checkInfo.contentType ?? "—"}</span></p>
-        </div>
-      )}
       {errorMsg && (
         <p className="text-xs text-destructive mt-2 text-center">{errorMsg}</p>
       )}
