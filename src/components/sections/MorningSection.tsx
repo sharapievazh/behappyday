@@ -1,6 +1,7 @@
 import { RitualStep } from "@/components/RitualStep";
 import { MeditationPlayer } from "@/components/MeditationPlayer";
 import { BreathingExercise } from "@/components/BreathingExercise";
+import { EmotionJournal } from "@/components/EmotionJournal";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Sparkles, Sparkle, Droplet, Wind, Activity, BookOpen } from "lucide-react";
@@ -53,6 +54,9 @@ export function MorningSection() {
 
       {/* 4. Дыхательная практика */}
       <BreathingExercise />
+
+      {/* 4.1 Дневник эмоций */}
+      <EmotionJournal />
 
       {/* 5. Медитация */}
       <div className="space-y-2">
