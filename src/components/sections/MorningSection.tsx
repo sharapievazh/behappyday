@@ -1,5 +1,6 @@
 import { RitualStep } from "@/components/RitualStep";
 import { MeditationPlayer } from "@/components/MeditationPlayer";
+import { BreathingExercise } from "@/components/BreathingExercise";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Sparkles, Sparkle, Droplet, Wind, Activity, BookOpen } from "lucide-react";
@@ -50,7 +51,10 @@ export function MorningSection() {
         </div>
       </div>
 
-      {/* 4. Медитация */}
+      {/* 4. Дыхательная практика */}
+      <BreathingExercise />
+
+      {/* 5. Медитация */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
           Медитация
