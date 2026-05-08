@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Wind, Play, Pause, Volume2, VolumeX } from "lucide-react";
+import { Wind, Play, Pause, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Phase = "inhale" | "hold" | "exhale";
@@ -10,85 +10,21 @@ const PHASES: { key: Phase; label: string; duration: number }[] = [
   { key: "exhale", label: "Выдох", duration: 6 },
 ];
 
-const TOTAL_DURATION = 60;
+const DURATIONS = [
+  { label: "1 мин", value: 60 },
+  { label: "2 мин", value: 120 },
+  { label: "3 мин", value: 180 },
+];
 
 export function BreathingExercise() {
   const [isActive, setIsActive] = useState(false);
-  const [soundOn, setSoundOn] = useState(true);
+  const [totalDuration, setTotalDuration] = useState(60);
   const [elapsed, setElapsed] = useState(0);
   const [phaseIdx, setPhaseIdx] = useState(0);
   const [phaseTime, setPhaseTime] = useState(0);
   const intervalRef = useRef<number | null>(null);
-  const audioCtxRef = useRef<AudioContext | null>(null);
-  const oscRef = useRef<OscillatorNode | null>(null);
-  const gainRef = useRef<GainNode | null>(null);
-  const lastPhaseRef = useRef<Phase | null>(null);
 
   const currentPhase = PHASES[phaseIdx];
-
-  // Setup / teardown audio
-  useEffect(() => {
-    if (!isActive || !soundOn) {
-      if (oscRef.current) {
-        try { oscRef.current.stop(); } catch {}
-        oscRef.current = null;
-      }
-      if (audioCtxRef.current) {
-        audioCtxRef.current.close().catch(() => {});
-        audioCtxRef.current = null;
-      }
-      lastPhaseRef.current = null;
-      return;
-    }
-
-    const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = "sine";
-    osc.frequency.value = 220;
-    gain.gain.value = 0;
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.start();
-
-    audioCtxRef.current = ctx;
-    oscRef.current = osc;
-    gainRef.current = gain;
-
-    return () => {
-      try { osc.stop(); } catch {}
-      ctx.close().catch(() => {});
-    };
-  }, [isActive, soundOn]);
-
-  // Trigger sound envelope on each phase change
-  useEffect(() => {
-    if (!isActive || !soundOn) return;
-    const ctx = audioCtxRef.current;
-    const gain = gainRef.current;
-    const osc = oscRef.current;
-    if (!ctx || !gain || !osc) return;
-    if (lastPhaseRef.current === currentPhase.key) return;
-    lastPhaseRef.current = currentPhase.key;
-
-    const now = ctx.currentTime;
-    gain.gain.cancelScheduledValues(now);
-    gain.gain.setValueAtTime(gain.gain.value, now);
-
-    if (currentPhase.key === "inhale") {
-      osc.frequency.cancelScheduledValues(now);
-      osc.frequency.setValueAtTime(220, now);
-      osc.frequency.linearRampToValueAtTime(330, now + currentPhase.duration);
-      gain.gain.linearRampToValueAtTime(0.08, now + currentPhase.duration);
-    } else if (currentPhase.key === "hold") {
-      gain.gain.linearRampToValueAtTime(0.04, now + currentPhase.duration);
-    } else {
-      osc.frequency.cancelScheduledValues(now);
-      osc.frequency.setValueAtTime(330, now);
-      osc.frequency.linearRampToValueAtTime(180, now + currentPhase.duration);
-      gain.gain.linearRampToValueAtTime(0.0001, now + currentPhase.duration);
-    }
-  }, [phaseIdx, isActive, soundOn, currentPhase]);
 
   useEffect(() => {
     if (!isActive) {
@@ -99,9 +35,9 @@ export function BreathingExercise() {
     intervalRef.current = window.setInterval(() => {
       setElapsed((e) => {
         const next = e + 0.1;
-        if (next >= TOTAL_DURATION) {
+        if (next >= totalDuration) {
           setIsActive(false);
-          return TOTAL_DURATION;
+          return totalDuration;
         }
         return next;
       });
@@ -118,7 +54,7 @@ export function BreathingExercise() {
     return () => {
       if (intervalRef.current) window.clearInterval(intervalRef.current);
     };
-  }, [isActive, currentPhase.duration]);
+  }, [isActive, currentPhase.duration, totalDuration]);
 
   const reset = () => {
     setIsActive(false);
@@ -128,10 +64,11 @@ export function BreathingExercise() {
   };
 
   const toggle = () => {
-    if (elapsed >= TOTAL_DURATION) reset();
+    if (elapsed >= totalDuration) reset();
     setIsActive((a) => !a);
   };
 
+  // Scale animation: inhale grows, hold stays, exhale shrinks
   const scale =
     currentPhase.key === "inhale"
       ? 0.6 + (phaseTime / currentPhase.duration) * 0.4
@@ -139,73 +76,90 @@ export function BreathingExercise() {
       ? 1
       : 1 - (phaseTime / currentPhase.duration) * 0.4;
 
-  const remaining = Math.max(0, Math.ceil(TOTAL_DURATION - elapsed));
+  const remaining = Math.max(0, Math.ceil(totalDuration - elapsed));
+  const min = Math.floor(remaining / 60);
+  const sec = remaining % 60;
 
   return (
-    <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-4 shadow-soft">
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2 text-primary">
-          <Wind className="w-4 h-4" />
-          <span className="text-xs font-medium uppercase tracking-wider">
-            Дыхание · 1 мин
-          </span>
+    <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-6 space-y-5 shadow-soft">
+      <div className="flex items-center gap-2 text-primary">
+        <Wind className="w-4 h-4" />
+        <span className="text-sm font-medium uppercase tracking-wider">
+          Дыхательная практика
+        </span>
+      </div>
+
+      {/* Animated circle */}
+      <div className="flex items-center justify-center h-56 relative">
+        <div
+          className="absolute rounded-full bg-primary/20 transition-transform ease-linear"
+          style={{
+            width: 180,
+            height: 180,
+            transform: `scale(${scale})`,
+            transitionDuration: "100ms",
+          }}
+        />
+        <div
+          className="absolute rounded-full bg-primary/30 transition-transform ease-linear"
+          style={{
+            width: 140,
+            height: 140,
+            transform: `scale(${scale})`,
+            transitionDuration: "100ms",
+          }}
+        />
+        <div className="relative z-10 text-center">
+          <p className="font-serif text-2xl text-foreground">
+            {isActive ? currentPhase.label : "Готова?"}
+          </p>
+          <p className="text-sm text-muted-foreground mt-1">
+            {min}:{sec.toString().padStart(2, "0")}
+          </p>
         </div>
+      </div>
+
+      {/* Duration selector */}
+      <div className="flex gap-2 justify-center">
+        {DURATIONS.map((d) => (
+          <button
+            key={d.value}
+            onClick={() => {
+              setTotalDuration(d.value);
+              reset();
+            }}
+            disabled={isActive}
+            className={cn(
+              "px-4 py-1.5 rounded-full text-sm transition-all",
+              totalDuration === d.value
+                ? "bg-primary text-primary-foreground"
+                : "bg-background border border-border text-muted-foreground hover:text-foreground"
+            )}
+          >
+            {d.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Controls */}
+      <div className="flex gap-3 justify-center">
         <button
-          onClick={() => setSoundOn((s) => !s)}
-          className="p-1 rounded-full text-muted-foreground hover:text-foreground transition-colors"
-          aria-label={soundOn ? "Выключить звук" : "Включить звук"}
+          onClick={toggle}
+          className="w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-md hover:scale-105 active:scale-95 transition-all flex items-center justify-center"
         >
-          {soundOn ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+          {isActive ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6 ml-0.5" />}
+        </button>
+        <button
+          onClick={reset}
+          className="w-14 h-14 rounded-full bg-background border border-border text-muted-foreground hover:text-foreground transition-all flex items-center justify-center"
+        >
+          <RotateCcw className="w-5 h-5" />
         </button>
       </div>
 
-      <div className="flex items-center gap-4">
-        {/* Animated circle */}
-        <div className="relative w-24 h-24 flex items-center justify-center shrink-0">
-          <div
-            className="absolute rounded-full bg-primary/20 ease-linear"
-            style={{
-              width: 96,
-              height: 96,
-              transform: `scale(${scale})`,
-              transition: "transform 100ms linear",
-            }}
-          />
-          <div
-            className="absolute rounded-full bg-primary/30 ease-linear"
-            style={{
-              width: 72,
-              height: 72,
-              transform: `scale(${scale})`,
-              transition: "transform 100ms linear",
-            }}
-          />
-          <span className="relative z-10 text-xs font-medium text-foreground">
-            {isActive ? currentPhase.label : "0:" + remaining.toString().padStart(2, "0")}
-          </span>
-        </div>
-
-        <div className="flex-1 space-y-2">
-          <p className="text-sm text-foreground">
-            {isActive
-              ? `${currentPhase.label} · ${remaining}с осталось`
-              : "Вдох 4 · Задержка 4 · Выдох 6"}
-          </p>
-          <button
-            onClick={toggle}
-            className={cn(
-              "w-full h-10 rounded-xl bg-primary text-primary-foreground text-sm font-medium",
-              "shadow-md hover:shadow-lg active:scale-[0.98] transition-all flex items-center justify-center gap-2"
-            )}
-          >
-            {isActive ? (
-              <><Pause className="w-4 h-4" /> Пауза</>
-            ) : (
-              <><Play className="w-4 h-4" /> {elapsed > 0 ? "Продолжить" : "Начать"}</>
-            )}
-          </button>
-        </div>
-      </div>
+      <p className="text-xs text-muted-foreground text-center">
+        Вдох 4 · Задержка 4 · Выдох 6 — успокаивает нервную систему
+      </p>
     </div>
   );
 }
