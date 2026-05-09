@@ -58,6 +58,9 @@ export function EveningSection() {
         </div>
       </div>
 
+      {/* Дневник благодарности */}
+      <GratitudeJournal />
+
       {/* Кнопка закрытия дня */}
       {!dayClosed ? (
         <Button
