@@ -48,12 +48,6 @@ export function EveningSection() {
             onChange={updateAnswer("learned")}
             delay={100}
           />
-          <ReflectionQuestion
-            question="Что нового я узнала?"
-            value={answers.learned}
-            onChange={updateAnswer("learned")}
-            delay={200}
-          />
         </div>
       </div>
 
