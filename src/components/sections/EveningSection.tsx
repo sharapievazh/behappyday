@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ReflectionQuestion } from "@/components/ReflectionQuestion";
+import { GratitudeJournal } from "@/components/GratitudeJournal";
 import { Button } from "@/components/ui/button";
 import { Moon, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
