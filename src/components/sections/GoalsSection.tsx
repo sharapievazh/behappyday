@@ -19,6 +19,9 @@ export function GoalsSection() {
         </h1>
       </div>
 
+      {/* Намерение месяца */}
+      <MonthlyIntention />
+
       {/* Цель на месяц */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
