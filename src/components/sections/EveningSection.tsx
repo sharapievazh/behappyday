@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
 export function EveningSection() {
   const [answers, setAnswers] = useState({
     important: "",
-    grateful: "",
     learned: "",
   });
   const [dayClosed, setDayClosed] = useState(false);
