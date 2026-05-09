@@ -43,9 +43,9 @@ export function EveningSection() {
             delay={0}
           />
           <ReflectionQuestion
-            question="За что я благодарна этому дню?"
-            value={answers.grateful}
-            onChange={updateAnswer("grateful")}
+            question="Что нового я узнала?"
+            value={answers.learned}
+            onChange={updateAnswer("learned")}
             delay={100}
           />
           <ReflectionQuestion
