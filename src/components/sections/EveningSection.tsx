@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
 export function EveningSection() {
   const [answers, setAnswers] = useState({
     important: "",
-    grateful: "",
     learned: "",
   });
   const [dayClosed, setDayClosed] = useState(false);
@@ -44,16 +43,10 @@ export function EveningSection() {
             delay={0}
           />
           <ReflectionQuestion
-            question="За что я благодарна этому дню?"
-            value={answers.grateful}
-            onChange={updateAnswer("grateful")}
-            delay={100}
-          />
-          <ReflectionQuestion
             question="Что нового я узнала?"
             value={answers.learned}
             onChange={updateAnswer("learned")}
-            delay={200}
+            delay={100}
           />
         </div>
       </div>
