@@ -1,5 +1,6 @@
 import { Target } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
+import { MonthlyIntention } from "@/components/MonthlyIntention";
 import { useGoals } from "@/hooks/useGoals";
 
 export function GoalsSection() {
@@ -17,6 +18,9 @@ export function GoalsSection() {
           Постоянные цели
         </h1>
       </div>
+
+      {/* Намерение месяца */}
+      <MonthlyIntention />
 
       {/* Цель на месяц */}
       <div className="space-y-2">
