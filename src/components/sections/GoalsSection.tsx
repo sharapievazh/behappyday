@@ -1,6 +1,7 @@
 import { Target } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { MonthlyIntention } from "@/components/MonthlyIntention";
+import { WomensLibrary } from "@/components/WomensLibrary";
 import { useGoals } from "@/hooks/useGoals";
 
 export function GoalsSection() {
