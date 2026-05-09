@@ -38,20 +38,8 @@ export function GoalsSection() {
         </div>
       </div>
 
-      {/* Цель на год */}
-      <div className="space-y-2">
-        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-          Цель на год
-        </h2>
-        <div className="bg-card border border-border rounded-2xl p-4 shadow-soft">
-          <Textarea
-            placeholder="Моя цель на этот год..."
-            value={goals.yearGoal}
-            onChange={(e) => updateGoals({ yearGoal: e.target.value })}
-            className="min-h-[100px] resize-none rounded-xl border-border bg-background"
-          />
-        </div>
-      </div>
+      {/* Женская библиотека */}
+      <WomensLibrary />
 
       {/* Подсказка */}
       <div className="bg-primary/5 border border-primary/20 rounded-2xl p-4">
