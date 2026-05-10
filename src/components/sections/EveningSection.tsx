@@ -55,6 +55,9 @@ export function EveningSection() {
       {/* Дневник благодарности */}
       <GratitudeJournal />
 
+      {/* Карточка дня для сторис */}
+      <ShareCard />
+
       {/* Кнопка закрытия дня */}
       {!dayClosed ? (
         <Button
