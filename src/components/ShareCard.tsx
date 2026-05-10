@@ -164,7 +164,7 @@ export function ShareCard() {
   return (
     <div className="space-y-2">
       <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-        Поделиться днём
+        Поделиться
       </h2>
       <div className="bg-card border border-border rounded-2xl p-5 space-y-4 shadow-soft">
         <div
