@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Share2, Download, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { affirmations } from "@/data/content";
+import { AFFIRMATIONS as affirmations } from "@/data/content";
 
 const todayKey = () => {
   const d = new Date();
