@@ -2,14 +2,14 @@ import { RitualStep } from "@/components/RitualStep";
 import { MeditationPlayer } from "@/components/MeditationPlayer";
 import { BreathingExercise } from "@/components/BreathingExercise";
 import { EmotionJournal } from "@/components/EmotionJournal";
+import { ShareCard } from "@/components/ShareCard";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Sparkles, Sparkle, Droplet, Wind, Activity, BookOpen } from "lucide-react";
-import { AFFIRMATIONS, QUOTES, getDayIndex } from "@/data/content";
+import { QUOTES, getDayIndex } from "@/data/content";
 import { useDayPlans } from "@/hooks/useDayPlans";
 
 export function MorningSection() {
-  const todayAffirmation = AFFIRMATIONS[getDayIndex(AFFIRMATIONS.length)];
   const todayQuote = QUOTES[getDayIndex(QUOTES.length)];
   const { plans, updatePlans } = useDayPlans();
 
@@ -21,23 +21,10 @@ export function MorningSection() {
           <Sparkles className="w-5 h-5" />
           <span className="text-sm font-medium uppercase tracking-wider">Доброе утро</span>
         </div>
-        <h1 className="font-serif text-2xl text-foreground">
-          Я хочу и делаю с любовью к себе.
-        </h1>
       </div>
 
-      {/* 2. Аффирмация дня */}
-      <div className="space-y-2">
-        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-          Аффирмация дня
-        </h2>
-        <div className="bg-card border border-border rounded-2xl p-5 text-center shadow-soft">
-          <p className="font-serif text-lg text-foreground leading-relaxed">
-            {todayAffirmation}
-          </p>
-        </div>
-      </div>
-
+      {/* 2. Аффирмация — карточка для сторис */}
+      <ShareCard />
       {/* 3. Утренние ритуалы */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
