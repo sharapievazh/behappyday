@@ -30,6 +30,9 @@ export function EveningSection() {
         </h1>
       </div>
 
+      {/* Карточка дня для сторис */}
+      <ShareCard />
+
       {/* Рефлексия */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
@@ -54,9 +57,6 @@ export function EveningSection() {
 
       {/* Дневник благодарности */}
       <GratitudeJournal />
-
-      {/* Карточка дня для сторис */}
-      <ShareCard />
 
       {/* Кнопка закрытия дня */}
       {!dayClosed ? (
