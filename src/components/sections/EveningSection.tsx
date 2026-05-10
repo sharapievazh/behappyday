@@ -30,8 +30,7 @@ export function EveningSection() {
         </h1>
       </div>
 
-      {/* Карточка дня для сторис */}
-      <ShareCard />
+
 
       {/* Рефлексия */}
       <div className="space-y-2">
