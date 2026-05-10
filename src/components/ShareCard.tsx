@@ -87,9 +87,28 @@ export function ShareCard() {
       wrapText(ctx, gratitude, W / 2, H / 2 + 290, W - 240, 76);
     }
 
-    ctx.font = "500 40px sans-serif";
-    ctx.fillStyle = "#64748b";
-    ctx.fillText("Могу и делаю с любовью", W / 2, H - 160);
+    ctx.font = "italic 600 44px Georgia, serif";
+    ctx.fillStyle = "#475569";
+    ctx.fillText("Хочу и делаю с любовью к себе", W / 2, H - 200);
+
+    // Daily Bloom branding
+    ctx.fillStyle = "#1e3a8a";
+    ctx.beginPath();
+    ctx.arc(W / 2 - 110, H - 120, 14, 0, Math.PI * 2);
+    ctx.fill();
+    // simple bloom petals
+    ctx.fillStyle = "rgba(30,58,138,0.55)";
+    for (let i = 0; i < 6; i++) {
+      const a = (Math.PI * 2 * i) / 6;
+      ctx.beginPath();
+      ctx.arc(W / 2 - 110 + Math.cos(a) * 18, H - 120 + Math.sin(a) * 18, 10, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.font = "600 38px sans-serif";
+    ctx.fillStyle = "#1e3a8a";
+    ctx.textAlign = "left";
+    ctx.fillText("Daily Bloom", W / 2 - 80, H - 108);
+    ctx.textAlign = "center";
 
     return canvas;
   };
@@ -166,9 +185,18 @@ export function ShareCard() {
               <p className="text-sm text-foreground font-medium line-clamp-2">{gratitude}</p>
             </div>
           )}
-          <p className="text-[10px] text-muted-foreground text-center mt-3 tracking-wider">
-            Могу и делаю с любовью
+          <p className="font-serif italic text-[11px] text-muted-foreground text-center mt-3">
+            Хочу и делаю с любовью к себе
           </p>
+          <div className="flex items-center justify-center gap-1.5 mt-2">
+            <span className="relative inline-flex w-3.5 h-3.5">
+              <span className="absolute inset-0 rounded-full bg-primary/40" />
+              <span className="absolute inset-[3px] rounded-full bg-primary" />
+            </span>
+            <span className="text-[10px] font-semibold tracking-wider text-primary">
+              Daily Bloom
+            </span>
+          </div>
         </div>
 
         <button
