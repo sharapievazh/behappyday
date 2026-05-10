@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ReflectionQuestion } from "@/components/ReflectionQuestion";
 import { GratitudeJournal } from "@/components/GratitudeJournal";
+import { ShareCard } from "@/components/ShareCard";
 import { Button } from "@/components/ui/button";
 import { Moon, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -53,6 +54,9 @@ export function EveningSection() {
 
       {/* Дневник благодарности */}
       <GratitudeJournal />
+
+      {/* Карточка дня для сторис */}
+      <ShareCard />
 
       {/* Кнопка закрытия дня */}
       {!dayClosed ? (
