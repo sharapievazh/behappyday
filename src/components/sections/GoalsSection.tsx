@@ -8,6 +8,7 @@ import { useGoals } from "@/hooks/useGoals";
 
 export function GoalsSection() {
   const { goals, updateGoals } = useGoals();
+  const { isPremium } = usePremium();
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -42,6 +43,42 @@ export function GoalsSection() {
           />
         </div>
       </div>
+
+      {/* Premium */}
+      <PremiumPaywall
+        trigger={
+          <button className="w-full text-left rounded-2xl p-5 bg-gradient-to-br from-primary/15 via-primary/10 to-accent/15 border border-primary/30 shadow-soft hover:shadow-card transition-all group">
+            <div className="flex items-start gap-3">
+              <div className="w-11 h-11 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center shrink-0">
+                <Crown className="w-5 h-5 text-primary-foreground" />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2">
+                  <h3 className="font-serif text-lg text-foreground">
+                    Daily Bloom Premium
+                  </h3>
+                  {isPremium && (
+                    <span className="text-[10px] uppercase tracking-wider bg-primary text-primary-foreground rounded-full px-2 py-0.5">
+                      активен
+                    </span>
+                  )}
+                </div>
+                <p className="text-sm text-muted-foreground mt-0.5">
+                  {isPremium
+                    ? "Спасибо! Все материалы открыты."
+                    : "Все 140 медитаций, полная библиотека и история"}
+                </p>
+                {!isPremium && (
+                  <div className="flex items-center gap-1 mt-2 text-xs text-primary font-medium">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    от $2.08 / мес
+                  </div>
+                )}
+              </div>
+            </div>
+          </button>
+        }
+      />
 
       {/* Подсказка */}
       <div className="bg-primary/5 border border-primary/20 rounded-2xl p-4">
