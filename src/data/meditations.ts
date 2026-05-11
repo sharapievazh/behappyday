@@ -144,9 +144,13 @@ export const MEDITATIONS = [
   { id: 140, name: "Новый подход к людям - с пониманием и сочувствием", file: `${BASE}/140_Novyi_podkhod_k_lyudyam_s_ponimaniem_i_sochuvstviem.mp3` },
 ];
 
-export function getTodayMeditation() {
+export function getTodayMeditationIndex() {
   const dayOfYear = Math.floor(
     (Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000
   );
-  return MEDITATIONS[dayOfYear % MEDITATIONS.length];
+  return dayOfYear % MEDITATIONS.length;
+}
+
+export function getTodayMeditation() {
+  return MEDITATIONS[getTodayMeditationIndex()];
 }
