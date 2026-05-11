@@ -1,7 +1,9 @@
 import { useState, useRef, useEffect } from "react";
-import { Play, Pause, Volume2, VolumeX } from "lucide-react";
+import { Play, Pause, Volume2, VolumeX, Lock, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { getTodayMeditation } from "@/data/meditations";
+import { getTodayMeditation, getTodayMeditationIndex } from "@/data/meditations";
+import { usePremium, FREE_MEDITATIONS_COUNT } from "@/hooks/usePremium";
+import { PremiumPaywall } from "@/components/PremiumPaywall";
 
 export function MeditationPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
