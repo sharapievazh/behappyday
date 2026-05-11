@@ -16,6 +16,40 @@ export function MeditationPlayer() {
   
   const todayMeditation = getTodayMeditation();
   const todaySrc = todayMeditation.file;
+  const { isPremium } = usePremium();
+  const locked = !isPremium && getTodayMeditationIndex() >= FREE_MEDITATIONS_COUNT;
+
+  if (locked) {
+    return (
+      <div className="relative bg-gradient-to-br from-primary/10 to-accent/15 border border-primary/20 rounded-xl p-5 space-y-3 overflow-hidden">
+        <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-primary/15 blur-xl" />
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 rounded-full bg-primary/15 flex items-center justify-center shrink-0">
+            <Lock className="w-5 h-5 text-primary" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-medium text-foreground truncate">
+              {todayMeditation.name}
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Сегодняшняя медитация — в Premium
+            </p>
+          </div>
+        </div>
+        <PremiumPaywall
+          trigger={
+            <button className="w-full h-10 rounded-xl bg-primary text-primary-foreground text-sm font-medium flex items-center justify-center gap-2 hover:bg-primary/90 transition-all">
+              <Sparkles className="w-4 h-4" />
+              Открыть все медитации
+            </button>
+          }
+        />
+        <p className="text-[11px] text-center text-muted-foreground">
+          Бесплатно доступны первые {FREE_MEDITATIONS_COUNT} медитации
+        </p>
+      </div>
+    );
+  }
 
   useEffect(() => {
     const audio = audioRef.current;
