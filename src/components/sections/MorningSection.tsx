@@ -11,7 +11,7 @@ import { useDayPlans } from "@/hooks/useDayPlans";
 
 export function MorningSection() {
   const todayQuote = QUOTES[getDayIndex(QUOTES.length)];
-  const { plans, updatePlans } = useDayPlans();
+  const { plans, updatePlans, toggleComplete } = useDayPlans();
 
   return (
     <div className="space-y-6 animate-fade-in">
