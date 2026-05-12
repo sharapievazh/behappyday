@@ -1,14 +1,11 @@
-import { Target, Crown, Sparkles } from "lucide-react";
+import { Target } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { MonthlyIntention } from "@/components/MonthlyIntention";
 import { WomensLibrary } from "@/components/WomensLibrary";
-import { PremiumPaywall } from "@/components/PremiumPaywall";
-import { usePremium } from "@/hooks/usePremium";
 import { useGoals } from "@/hooks/useGoals";
 
 export function GoalsSection() {
   const { goals, updateGoals } = useGoals();
-  const { isPremium } = usePremium();
 
   return (
     <div className="space-y-6 animate-fade-in">
