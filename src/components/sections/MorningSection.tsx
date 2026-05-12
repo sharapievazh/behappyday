@@ -121,21 +121,6 @@ export function MorningSection() {
           </div>
         </div>
       </div>
-
-      {/* 7. Цель дня */}
-      <div className="space-y-2">
-        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-          Цель дня
-        </h2>
-        <div className="bg-card border border-border rounded-2xl p-4 shadow-soft">
-          <Textarea
-            placeholder="Моя цель на сегодня"
-            value={plans.goal}
-            onChange={(e) => updatePlans({ goal: e.target.value })}
-            className="min-h-[60px] resize-none rounded-xl border-border bg-background"
-          />
-        </div>
-      </div>
     </div>
   );
 }
