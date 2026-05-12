@@ -5,7 +5,7 @@ interface DayPlans {
   plan2: string;
   plan3: string;
   goal: string;
-  completed: { plan1: boolean; plan2: boolean; plan3: boolean };
+  completed: { plan1: boolean; plan2: boolean; plan3: boolean; goal: boolean };
 }
 
 const STORAGE_KEY = "day-plans";
@@ -21,7 +21,7 @@ export function useDayPlans() {
     plan2: "",
     plan3: "",
     goal: "",
-    completed: { plan1: false, plan2: false, plan3: false },
+    completed: { plan1: false, plan2: false, plan3: false, goal: false },
   });
 
   useEffect(() => {
@@ -30,7 +30,16 @@ export function useDayPlans() {
       try {
         const parsed = JSON.parse(stored);
         if (parsed.date === getTodayKey()) {
-          setPlans(parsed.data);
+          setPlans({
+            ...parsed.data,
+            completed: {
+              plan1: false,
+              plan2: false,
+              plan3: false,
+              goal: false,
+              ...(parsed.data?.completed ?? {}),
+            },
+          });
         }
       } catch (e) {
         console.error("Failed to parse stored plans");
@@ -47,7 +56,7 @@ export function useDayPlans() {
     }));
   };
 
-  const toggleComplete = (key: "plan1" | "plan2" | "plan3") => {
+  const toggleComplete = (key: "plan1" | "plan2" | "plan3" | "goal") => {
     const newCompleted = { ...plans.completed, [key]: !plans.completed[key] };
     updatePlans({ completed: newCompleted });
   };

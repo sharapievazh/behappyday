@@ -5,13 +5,15 @@ import { EmotionJournal } from "@/components/EmotionJournal";
 import { ShareCard } from "@/components/ShareCard";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import { cn } from "@/lib/utils";
 import { Sparkles, Sparkle, Droplet, Wind, Activity, BookOpen } from "lucide-react";
 import { QUOTES, getDayIndex } from "@/data/content";
 import { useDayPlans } from "@/hooks/useDayPlans";
 
 export function MorningSection() {
   const todayQuote = QUOTES[getDayIndex(QUOTES.length)];
-  const { plans, updatePlans } = useDayPlans();
+  const { plans, updatePlans, toggleComplete } = useDayPlans();
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -74,24 +76,49 @@ export function MorningSection() {
           План дня
         </h2>
         <div className="bg-card border border-border rounded-2xl p-4 space-y-3 shadow-soft">
-          <Input
-            placeholder="План 1"
-            value={plans.plan1}
-            onChange={(e) => updatePlans({ plan1: e.target.value })}
-            className="h-11 rounded-xl border-border bg-background"
-          />
-          <Input
-            placeholder="План 2"
-            value={plans.plan2}
-            onChange={(e) => updatePlans({ plan2: e.target.value })}
-            className="h-11 rounded-xl border-border bg-background"
-          />
-          <Input
-            placeholder="План 3"
-            value={plans.plan3}
-            onChange={(e) => updatePlans({ plan3: e.target.value })}
-            className="h-11 rounded-xl border-border bg-background"
-          />
+          {(["plan1", "plan2", "plan3"] as const).map((key, i) => (
+            <div key={key} className="flex items-center gap-2">
+              <Checkbox
+                checked={plans.completed[key]}
+                onCheckedChange={() => toggleComplete(key)}
+                className="shrink-0"
+              />
+              <Input
+                placeholder={`План ${i + 1}`}
+                value={plans[key]}
+                onChange={(e) => updatePlans({ [key]: e.target.value })}
+                className={cn(
+                  "h-11 rounded-xl border-border bg-background flex-1 transition-all",
+                  plans.completed[key] && "line-through text-muted-foreground"
+                )}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 7. Цель дня */}
+      <div className="space-y-2">
+        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+          Цель дня
+        </h2>
+        <div className="bg-card border border-border rounded-2xl p-4 shadow-soft">
+          <div className="flex items-start gap-2">
+            <Checkbox
+              checked={plans.completed.goal}
+              onCheckedChange={() => toggleComplete("goal")}
+              className="shrink-0 mt-3"
+            />
+            <Textarea
+              placeholder="Моя цель на сегодня"
+              value={plans.goal}
+              onChange={(e) => updatePlans({ goal: e.target.value })}
+              className={cn(
+                "min-h-[60px] resize-none rounded-xl border-border bg-background flex-1 transition-all",
+                plans.completed.goal && "line-through text-muted-foreground"
+              )}
+            />
+          </div>
         </div>
       </div>
 
