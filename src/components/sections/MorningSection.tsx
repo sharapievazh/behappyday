@@ -5,6 +5,8 @@ import { EmotionJournal } from "@/components/EmotionJournal";
 import { ShareCard } from "@/components/ShareCard";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import { cn } from "@/lib/utils";
 import { Sparkles, Sparkle, Droplet, Wind, Activity, BookOpen } from "lucide-react";
 import { QUOTES, getDayIndex } from "@/data/content";
 import { useDayPlans } from "@/hooks/useDayPlans";
