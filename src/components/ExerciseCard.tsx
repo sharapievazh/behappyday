@@ -25,14 +25,19 @@ export function ExerciseCard({
         done && "opacity-60"
       )}
     >
-      <img
-        src={exercise.image}
-        alt={exercise.title}
-        loading="lazy"
-        width={768}
-        height={768}
-        className="w-20 h-20 rounded-xl object-cover bg-muted shrink-0"
-      />
+      <div className="w-20 h-20 rounded-xl overflow-hidden bg-muted shrink-0">
+        <img
+          src={exercise.image}
+          alt={exercise.title}
+          loading="lazy"
+          width={768}
+          height={768}
+          className={cn(
+            "w-full h-full object-cover transition-transform",
+            !done && "animate-soft-breathe"
+          )}
+        />
+      </div>
       <div className="flex-1 min-w-0 space-y-2">
         <div className="flex items-start gap-2">
           <Checkbox
