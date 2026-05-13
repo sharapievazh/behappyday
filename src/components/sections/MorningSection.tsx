@@ -70,10 +70,10 @@ export function MorningSection() {
         </div>
       </div>
 
-      {/* 6. План дня */}
+      {/* 6. Маленькие шаги */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-          План дня
+          Маленькие шаги
         </h2>
         <div className="bg-card border border-border rounded-2xl p-4 space-y-3 shadow-soft">
           {(["plan1", "plan2", "plan3"] as const).map((key, i) => (
@@ -84,7 +84,7 @@ export function MorningSection() {
                 className="shrink-0"
               />
               <Input
-                placeholder={`План ${i + 1}`}
+                placeholder={`Шаг ${i + 1}`}
                 value={plans[key]}
                 onChange={(e) => updatePlans({ [key]: e.target.value })}
                 className={cn(
@@ -97,10 +97,10 @@ export function MorningSection() {
         </div>
       </div>
 
-      {/* 7. Цель дня */}
+      {/* 7. Главное сегодня */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-          Цель дня
+          Главное сегодня
         </h2>
         <div className="bg-card border border-border rounded-2xl p-4 shadow-soft">
           <div className="flex items-start gap-2">
@@ -110,7 +110,7 @@ export function MorningSection() {
               className="shrink-0 mt-3"
             />
             <Textarea
-              placeholder="Моя цель на сегодня"
+              placeholder="Главное сегодня"
               value={plans.goal}
               onChange={(e) => updatePlans({ goal: e.target.value })}
               className={cn(

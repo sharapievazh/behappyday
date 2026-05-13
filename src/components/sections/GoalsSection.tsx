@@ -27,14 +27,14 @@ export function GoalsSection() {
       {/* Женская библиотека */}
       <WomensLibrary />
 
-      {/* Цель на год */}
+      {/* Фокус года */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-          Цель на год
+          Фокус года
         </h2>
         <div className="bg-card border border-border rounded-2xl p-4 shadow-soft">
           <Textarea
-            placeholder="Моя цель на этот год..."
+            placeholder="Мой фокус на этот год..."
             value={goals.yearGoal}
             onChange={(e) => updateGoals({ yearGoal: e.target.value })}
             className="min-h-[100px] resize-none rounded-xl border-border bg-background"
