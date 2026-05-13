@@ -94,11 +94,16 @@ export default {
           "0%, 100%": { transform: "scale(1)" },
           "50%": { transform: "scale(1.2)" },
         },
+        "soft-breathe": {
+          "0%, 100%": { transform: "scale(1) rotate(0deg)" },
+          "50%": { transform: "scale(1.04) rotate(-0.5deg)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "check-bounce": "check-bounce 0.3s ease-out",
+        "soft-breathe": "soft-breathe 4s ease-in-out infinite",
       },
     },
   },
