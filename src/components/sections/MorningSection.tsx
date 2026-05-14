@@ -73,7 +73,7 @@ export function MorningSection() {
       {/* 6. Маленькие шаги */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-          Маленькие шаги
+          Маленькие дела
         </h2>
         <div className="bg-card border border-border rounded-2xl p-4 space-y-3 shadow-soft">
           {(["plan1", "plan2", "plan3"] as const).map((key, i) => (
