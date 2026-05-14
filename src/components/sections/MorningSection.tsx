@@ -84,7 +84,7 @@ export function MorningSection() {
                 className="shrink-0"
               />
               <Input
-                placeholder={`Дело ${i + 1}`}
+                placeholder={`Шаг ${i + 1}`}
                 value={plans[key]}
                 onChange={(e) => updatePlans({ [key]: e.target.value })}
                 className={cn(
