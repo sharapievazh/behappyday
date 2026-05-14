@@ -110,7 +110,7 @@ export function MorningSection() {
               className="shrink-0 mt-3"
             />
             <Textarea
-              placeholder="Главное сегодня"
+              placeholder="Фокус дня"
               value={plans.goal}
               onChange={(e) => updatePlans({ goal: e.target.value })}
               className={cn(
