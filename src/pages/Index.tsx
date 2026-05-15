@@ -6,14 +6,18 @@ import { EveningSection } from "@/components/sections/EveningSection";
 import { GoalsSection } from "@/components/sections/GoalsSection";
 import { Sun, Calendar, Moon, Target } from "lucide-react";
 import { DayProgressHeader } from "@/components/DayProgressHeader";
+import { Onboarding } from "@/components/Onboarding";
+import { useEveningMode } from "@/hooks/useEveningMode";
 
 type TabType = "morning" | "day" | "evening" | "goals";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState<TabType>("morning");
+  useEveningMode();
 
   return (
     <div className="min-h-screen bg-background">
+      <Onboarding />
       {/* Main content */}
       <main className="container max-w-lg mx-auto px-4 pb-28 pt-8">
         <DayProgressHeader />

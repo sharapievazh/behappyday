@@ -7,6 +7,7 @@ import { DAILY_PHRASES, getDayIndex } from "@/data/content";
 import { EXERCISES, LYMPH_EXERCISES } from "@/data/exercises";
 import { ExerciseCard } from "@/components/ExerciseCard";
 import { YogaMusicPlayer } from "@/components/YogaMusicPlayer";
+import { WaterTracker } from "@/components/WaterTracker";
 
 export function DaySection() {
   const { plans, toggleComplete } = useDayPlans();
@@ -35,6 +36,9 @@ export function DaySection() {
 
       {/* Йога-музыка для практики */}
       <YogaMusicPlayer />
+
+      {/* Вода */}
+      <WaterTracker />
 
       {/* План дня */}
       {planItems.length > 0 ? (
