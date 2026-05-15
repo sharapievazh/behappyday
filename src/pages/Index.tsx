@@ -16,6 +16,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Main content */}
       <main className="container max-w-lg mx-auto px-4 pb-28 pt-8">
+        <DayProgressHeader />
         {activeTab === "morning" && <MorningSection />}
         {activeTab === "day" && <DaySection />}
         {activeTab === "evening" && <EveningSection />}
