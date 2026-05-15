@@ -31,6 +31,7 @@ export function EveningSection() {
   const closeDay = () => {
     setDayClosed(true);
     localStorage.setItem(dayClosedKey(), "1");
+    window.dispatchEvent(new Event("bloom-progress"));
   };
 
   return (
