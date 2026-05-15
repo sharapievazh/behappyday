@@ -5,6 +5,7 @@ import { DaySection } from "@/components/sections/DaySection";
 import { EveningSection } from "@/components/sections/EveningSection";
 import { GoalsSection } from "@/components/sections/GoalsSection";
 import { Sun, Calendar, Moon, Target } from "lucide-react";
+import { DayProgressHeader } from "@/components/DayProgressHeader";
 
 type TabType = "morning" | "day" | "evening" | "goals";
 

@@ -1,6 +1,6 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
-import { useState, type ComponentType } from "react";
+import { useEffect, useState, type ComponentType } from "react";
 
 interface RitualStepProps {
   id: string;
@@ -12,19 +12,28 @@ interface RitualStepProps {
   icon?: ComponentType<{ className?: string }>;
 }
 
-export function RitualStep({ 
-  id, 
-  title, 
-  description, 
-  checked = false, 
+const todayKey = () => new Date().toISOString().slice(0, 10);
+const storageKey = (id: string) => `ritual-${todayKey()}-${id}`;
+
+export function RitualStep({
+  id,
+  title,
+  description,
+  checked = false,
   onCheckedChange,
   delay = 0,
   icon: Icon,
 }: RitualStepProps) {
   const [isChecked, setIsChecked] = useState(checked);
 
+  useEffect(() => {
+    if (localStorage.getItem(storageKey(id)) === "1") setIsChecked(true);
+  }, [id]);
+
   const handleChange = (value: boolean) => {
     setIsChecked(value);
+    localStorage.setItem(storageKey(id), value ? "1" : "0");
+    window.dispatchEvent(new Event("bloom-progress"));
     onCheckedChange?.(value);
   };
 
