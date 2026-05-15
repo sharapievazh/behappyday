@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BookOpen, Film, Library } from "lucide-react";
+import { BookOpen, Film, Library, Search } from "lucide-react";
 import { LIBRARY } from "@/data/library";
 import { cn } from "@/lib/utils";
 
@@ -65,6 +65,11 @@ export function WomensLibrary() {
         <ul className="space-y-2">
           {items.map((item, i) => {
             const Icon = item.type === "book" ? BookOpen : Film;
+            const query = encodeURIComponent(`${item.title} ${item.author}`);
+            const url =
+              item.type === "book"
+                ? `https://www.google.com/search?q=${query}+книга`
+                : `https://www.google.com/search?q=${query}+фильм`;
             return (
               <li
                 key={`${item.title}-${i}`}
@@ -73,7 +78,7 @@ export function WomensLibrary() {
                 <div className="w-9 h-9 shrink-0 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
                   <Icon className="w-4 h-4" />
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className="text-sm font-medium text-foreground leading-tight">
                     {item.title}
                   </p>
@@ -81,6 +86,15 @@ export function WomensLibrary() {
                     {item.author}
                   </p>
                 </div>
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 shrink-0 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary flex items-center justify-center transition-all"
+                  aria-label="Найти"
+                >
+                  <Search className="w-4 h-4" />
+                </a>
               </li>
             );
           })}

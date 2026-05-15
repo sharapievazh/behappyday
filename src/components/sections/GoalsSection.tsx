@@ -3,6 +3,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { MonthlyIntention } from "@/components/MonthlyIntention";
 import { WomensLibrary } from "@/components/WomensLibrary";
 import { NotificationSettings } from "@/components/NotificationSettings";
+import { BackupRestore } from "@/components/BackupRestore";
 import { useGoals } from "@/hooks/useGoals";
 
 export function GoalsSection() {
@@ -44,6 +45,9 @@ export function GoalsSection() {
 
       {/* Напоминания */}
       <NotificationSettings />
+
+      {/* Резервная копия */}
+      <BackupRestore />
 
       {/* Подсказка */}
       <div className="bg-primary/5 border border-primary/20 rounded-2xl p-4">

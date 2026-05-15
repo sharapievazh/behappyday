@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ReflectionQuestion } from "@/components/ReflectionQuestion";
 import { GratitudeJournal } from "@/components/GratitudeJournal";
+import { EmotionJournal } from "@/components/EmotionJournal";
 
 import { Button } from "@/components/ui/button";
 import { Moon, Check } from "lucide-react";
@@ -73,6 +74,13 @@ export function EveningSection() {
 
       {/* Дневник благодарности */}
       <GratitudeJournal />
+
+      {/* Вечерние эмоции */}
+      <EmotionJournal
+        storageKey="emotion-evening"
+        title="Эмоции вечера"
+        prompt="С чем ты заканчиваешь день?"
+      />
 
       {/* Кнопка закрытия дня */}
       {!dayClosed ? (

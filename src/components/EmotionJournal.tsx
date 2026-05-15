@@ -14,7 +14,8 @@ const EMOTIONS = [
   { emoji: "😴", label: "Усталость" },
 ];
 
-const todayKey = () => `emotion-${new Date().toISOString().slice(0, 10)}`;
+const todayKey = (prefix = "emotion") =>
+  `${prefix}-${new Date().toISOString().slice(0, 10)}`;
 
 interface Entry {
   emoji: string;
@@ -23,12 +24,23 @@ interface Entry {
   savedAt?: string;
 }
 
-export function EmotionJournal() {
+interface EmotionJournalProps {
+  storageKey?: string;
+  title?: string;
+  prompt?: string;
+}
+
+export function EmotionJournal({
+  storageKey = "emotion",
+  title = "Дневник эмоций",
+  prompt = "Как ты себя чувствуешь?",
+}: EmotionJournalProps = {}) {
   const [entry, setEntry] = useState<Entry>({ emoji: "", label: "", reason: "" });
   const [saved, setSaved] = useState(false);
+  const key = () => todayKey(storageKey);
 
   useEffect(() => {
-    const raw = localStorage.getItem(todayKey());
+    const raw = localStorage.getItem(key());
     if (raw) {
       try {
         const parsed = JSON.parse(raw) as Entry;
@@ -42,19 +54,19 @@ export function EmotionJournal() {
     const next = { ...entry, emoji, label };
     setEntry(next);
     setSaved(false);
-    localStorage.setItem(todayKey(), JSON.stringify(next));
+    localStorage.setItem(key(), JSON.stringify(next));
   };
 
   const updateReason = (reason: string) => {
     const next = { ...entry, reason };
     setEntry(next);
     setSaved(false);
-    localStorage.setItem(todayKey(), JSON.stringify(next));
+    localStorage.setItem(key(), JSON.stringify(next));
   };
 
   const save = () => {
     const next = { ...entry, savedAt: new Date().toISOString() };
-    localStorage.setItem(todayKey(), JSON.stringify(next));
+    localStorage.setItem(key(), JSON.stringify(next));
     setEntry(next);
     setSaved(true);
     window.dispatchEvent(new Event("bloom-progress"));
@@ -63,12 +75,12 @@ export function EmotionJournal() {
   return (
     <div className="space-y-2">
       <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-        Дневник эмоций
+        {title}
       </h2>
       <div className="bg-card border border-border rounded-2xl p-5 space-y-4 shadow-soft">
         <div className="flex items-center gap-2 text-primary">
           <Heart className="w-4 h-4" />
-          <span className="text-sm">Как ты себя чувствуешь?</span>
+          <span className="text-sm">{prompt}</span>
         </div>
 
         <div className="grid grid-cols-5 gap-2">
