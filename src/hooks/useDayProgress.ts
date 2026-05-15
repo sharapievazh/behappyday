@@ -52,10 +52,12 @@ export function useDayProgress(): Progress {
       !!localStorage.getItem(`emotion-${key}`),
       !!localStorage.getItem(`gratitude-${key}`),
       !!localStorage.getItem(`reflection-${key}`),
+      !!localStorage.getItem(`emotion-evening-${key}`),
+      (parseInt(localStorage.getItem(`water-${key}`) ?? "0", 10) || 0) >= 8,
       localStorage.getItem(`day-closed-${key}`) === "1",
     ];
     const done = ritualsDone + milestones.slice(1).filter(Boolean).length;
-    const total = RITUAL_IDS.length + 4;
+    const total = RITUAL_IDS.length + milestones.length - 1;
     const percent = Math.round((done / total) * 100);
     return {
       done,
