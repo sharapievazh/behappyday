@@ -40,6 +40,7 @@ export function GratitudeJournal() {
     localStorage.setItem(todayKey(), JSON.stringify(next));
     setEntry(next);
     setSaved(true);
+    window.dispatchEvent(new Event("bloom-progress"));
   };
 
   const canSave = entry.items.some((s) => s.trim().length > 0);

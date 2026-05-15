@@ -1,0 +1,19 @@
+{
+  "name": "Bloom: Daily Rituals",
+  "short_name": "Bloom",
+  "description": "Ежедневные ритуалы для женщин: утро, день, вечер.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#bfdbfe",
+  "icons": [
+    {
+      "src": "/app-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

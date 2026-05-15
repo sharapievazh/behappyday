@@ -57,6 +57,7 @@ export function EmotionJournal() {
     localStorage.setItem(todayKey(), JSON.stringify(next));
     setEntry(next);
     setSaved(true);
+    window.dispatchEvent(new Event("bloom-progress"));
   };
 
   return (
