@@ -14,7 +14,8 @@ const EMOTIONS = [
   { emoji: "😴", label: "Усталость" },
 ];
 
-const todayKey = () => `emotion-${new Date().toISOString().slice(0, 10)}`;
+const todayKey = (prefix = "emotion") =>
+  `${prefix}-${new Date().toISOString().slice(0, 10)}`;
 
 interface Entry {
   emoji: string;
@@ -23,12 +24,23 @@ interface Entry {
   savedAt?: string;
 }
 
-export function EmotionJournal() {
+interface EmotionJournalProps {
+  storageKey?: string;
+  title?: string;
+  prompt?: string;
+}
+
+export function EmotionJournal({
+  storageKey = "emotion",
+  title = "Дневник эмоций",
+  prompt = "Как ты себя чувствуешь?",
+}: EmotionJournalProps = {}) {
   const [entry, setEntry] = useState<Entry>({ emoji: "", label: "", reason: "" });
   const [saved, setSaved] = useState(false);
+  const key = () => todayKey(storageKey);
 
   useEffect(() => {
-    const raw = localStorage.getItem(todayKey());
+    const raw = localStorage.getItem(key());
     if (raw) {
       try {
         const parsed = JSON.parse(raw) as Entry;
