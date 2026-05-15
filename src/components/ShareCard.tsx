@@ -107,7 +107,7 @@ export function ShareCard() {
     ctx.font = "600 38px sans-serif";
     ctx.fillStyle = "#1e3a8a";
     ctx.textAlign = "left";
-    ctx.fillText("Daily Bloom", W / 2 - 80, H - 108);
+    ctx.fillText("Bloom", W / 2 - 80, H - 108);
     ctx.textAlign = "center";
 
     return canvas;
@@ -194,7 +194,7 @@ export function ShareCard() {
               <span className="absolute inset-[3px] rounded-full bg-primary" />
             </span>
             <span className="text-[10px] font-semibold tracking-wider text-primary">
-              Daily Bloom
+              Bloom
             </span>
           </div>
         </div>

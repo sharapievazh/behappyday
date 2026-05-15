@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ReflectionQuestion } from "@/components/ReflectionQuestion";
 import { GratitudeJournal } from "@/components/GratitudeJournal";
 
@@ -6,15 +6,31 @@ import { Button } from "@/components/ui/button";
 import { Moon, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+const todayKey = () => new Date().toISOString().slice(0, 10);
+const reflectionKey = () => `reflection-${todayKey()}`;
+const dayClosedKey = () => `day-closed-${todayKey()}`;
+
 export function EveningSection() {
-  const [answers, setAnswers] = useState({
-    important: "",
-    learned: "",
-  });
+  const [answers, setAnswers] = useState({ important: "", learned: "" });
   const [dayClosed, setDayClosed] = useState(false);
 
+  useEffect(() => {
+    const raw = localStorage.getItem(reflectionKey());
+    if (raw) {
+      try { setAnswers(JSON.parse(raw)); } catch {}
+    }
+    if (localStorage.getItem(dayClosedKey()) === "1") setDayClosed(true);
+  }, []);
+
   const updateAnswer = (key: keyof typeof answers) => (value: string) => {
-    setAnswers({ ...answers, [key]: value });
+    const next = { ...answers, [key]: value };
+    setAnswers(next);
+    localStorage.setItem(reflectionKey(), JSON.stringify(next));
+  };
+
+  const closeDay = () => {
+    setDayClosed(true);
+    localStorage.setItem(dayClosedKey(), "1");
   };
 
   return (
@@ -60,7 +76,7 @@ export function EveningSection() {
       {/* Кнопка закрытия дня */}
       {!dayClosed ? (
         <Button
-          onClick={() => setDayClosed(true)}
+          onClick={closeDay}
           size="lg"
           className={cn(
             "w-full h-14 text-lg font-medium rounded-2xl",
