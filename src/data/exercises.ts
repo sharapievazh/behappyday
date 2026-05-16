@@ -72,6 +72,7 @@ export const LYMPH_EXERCISES: Exercise[] = [
     description: "Поднимись на носочки и делай махи руками вверх-вниз. Запускает лимфоток.",
     defaultReps: 50,
     image: lymphStretchImg,
+    image2: lymphStretchImg2,
   },
   {
     id: "lymph-jumps",
