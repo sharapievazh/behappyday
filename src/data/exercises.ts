@@ -48,6 +48,7 @@ export const EXERCISES: Exercise[] = [
     description: "Лёжа на спине, поднимай таз вверх, удерживай 2–3 секунды.",
     defaultReps: 25,
     image: bridgeImg,
+    image2: bridgeImg2,
   },
   {
     id: "cat-cow",
@@ -55,6 +56,7 @@ export const EXERCISES: Exercise[] = [
     description: "Плавный прогиб и округление спины на четвереньках.",
     defaultReps: 20,
     image: catCowImg,
+    image2: catCowImg2,
   },
   {
     id: "butterfly",
@@ -62,6 +64,7 @@ export const EXERCISES: Exercise[] = [
     description: "Сидя, соедини стопы и мягко опускай колени к полу.",
     defaultReps: 30,
     image: butterflyImg,
+    image2: butterflyImg2,
   },
   {
     id: "squats",
@@ -69,6 +72,7 @@ export const EXERCISES: Exercise[] = [
     description: "Широкая стойка, носки врозь, плавно приседай и поднимайся.",
     defaultReps: 25,
     image: squatsImg,
+    image2: squatsImg2,
   },
 ];
 
