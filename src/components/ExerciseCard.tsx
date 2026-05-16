@@ -25,7 +25,7 @@ export function ExerciseCard({
         done && "opacity-60"
       )}
     >
-      <div className="w-20 h-20 rounded-xl overflow-hidden bg-muted shrink-0">
+      <div className="w-20 h-20 rounded-xl overflow-hidden bg-muted shrink-0 relative">
         <img
           src={exercise.image}
           alt={exercise.title}
@@ -33,10 +33,24 @@ export function ExerciseCard({
           width={768}
           height={768}
           className={cn(
-            "w-full h-full object-cover transition-transform",
-            !done && "animate-soft-breathe"
+            "absolute inset-0 w-full h-full object-cover transition-transform",
+            !done && !exercise.image2 && "animate-soft-breathe"
           )}
         />
+        {exercise.image2 && (
+          <img
+            src={exercise.image2}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            width={768}
+            height={768}
+            className={cn(
+              "absolute inset-0 w-full h-full object-cover",
+              !done && "animate-frame-swap"
+            )}
+          />
+        )}
       </div>
       <div className="flex-1 min-w-0 space-y-2">
         <div className="flex items-start gap-2">
