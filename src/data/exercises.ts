@@ -9,6 +9,7 @@ import lymphJumpsImg from "@/assets/exercises/lymph-jumps.jpg";
 import lymphLegsUpImg from "@/assets/exercises/lymph-legs-up.jpg";
 import lymphNeckImg from "@/assets/exercises/lymph-neck.jpg";
 import lymphStretchImg from "@/assets/exercises/lymph-stretch.jpg";
+import lymphStretchImg2 from "@/assets/exercises/lymph-stretch-2.jpg";
 
 export interface Exercise {
   id: string;
@@ -16,6 +17,7 @@ export interface Exercise {
   description: string;
   defaultReps: number;
   image: string;
+  image2?: string;
 }
 
 export const EXERCISES: Exercise[] = [
@@ -70,6 +72,7 @@ export const LYMPH_EXERCISES: Exercise[] = [
     description: "Поднимись на носочки и делай махи руками вверх-вниз. Запускает лимфоток.",
     defaultReps: 50,
     image: lymphStretchImg,
+    image2: lymphStretchImg2,
   },
   {
     id: "lymph-jumps",

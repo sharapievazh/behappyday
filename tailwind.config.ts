@@ -98,12 +98,17 @@ export default {
           "0%, 100%": { transform: "scale(1) rotate(0deg)" },
           "50%": { transform: "scale(1.04) rotate(-0.5deg)" },
         },
+        "frame-swap": {
+          "0%, 49%": { opacity: "0" },
+          "50%, 100%": { opacity: "1" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "check-bounce": "check-bounce 0.3s ease-out",
         "soft-breathe": "soft-breathe 4s ease-in-out infinite",
+        "frame-swap": "frame-swap 1.2s steps(1, end) infinite",
       },
     },
   },
