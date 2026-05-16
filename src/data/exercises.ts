@@ -91,6 +91,7 @@ export const LYMPH_EXERCISES: Exercise[] = [
     description: "Лёгкие пружинистые подпрыгивания на месте — стопы почти не отрываются от пола.",
     defaultReps: 50,
     image: lymphJumpsImg,
+    image2: lymphJumpsImg2,
   },
   {
     id: "lymph-brush",
@@ -98,6 +99,7 @@ export const LYMPH_EXERCISES: Exercise[] = [
     description: "Стоя, ноги на ширине плеч — плавно поворачивай корпус вправо-влево.",
     defaultReps: 50,
     image: lymphBrushImg,
+    image2: lymphBrushImg2,
   },
   {
     id: "lymph-neck",
@@ -105,6 +107,7 @@ export const LYMPH_EXERCISES: Exercise[] = [
     description: "Приседай и одновременно поднимай руки вверх, на подъёме — опускай.",
     defaultReps: 50,
     image: lymphNeckImg,
+    image2: lymphNeckImg2,
   },
   {
     id: "lymph-legs-up",
