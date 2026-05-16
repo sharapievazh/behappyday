@@ -1,13 +1,20 @@
 import kegelImg from "@/assets/exercises/kegel.jpg";
 import bridgeImg from "@/assets/exercises/bridge.jpg";
+import bridgeImg2 from "@/assets/exercises/bridge-2.jpg";
 import catCowImg from "@/assets/exercises/cat-cow.jpg";
+import catCowImg2 from "@/assets/exercises/cat-cow-2.jpg";
 import butterflyImg from "@/assets/exercises/butterfly.jpg";
+import butterflyImg2 from "@/assets/exercises/butterfly-2.jpg";
 import squatsImg from "@/assets/exercises/squats.jpg";
+import squatsImg2 from "@/assets/exercises/squats-2.jpg";
 import breathingImg from "@/assets/exercises/breathing.jpg";
 import lymphBrushImg from "@/assets/exercises/lymph-brush.jpg";
+import lymphBrushImg2 from "@/assets/exercises/lymph-brush-2.jpg";
 import lymphJumpsImg from "@/assets/exercises/lymph-jumps.jpg";
+import lymphJumpsImg2 from "@/assets/exercises/lymph-jumps-2.jpg";
 import lymphLegsUpImg from "@/assets/exercises/lymph-legs-up.jpg";
 import lymphNeckImg from "@/assets/exercises/lymph-neck.jpg";
+import lymphNeckImg2 from "@/assets/exercises/lymph-neck-2.jpg";
 import lymphStretchImg from "@/assets/exercises/lymph-stretch.jpg";
 import lymphStretchImg2 from "@/assets/exercises/lymph-stretch-2.jpg";
 
@@ -41,6 +48,7 @@ export const EXERCISES: Exercise[] = [
     description: "Лёжа на спине, поднимай таз вверх, удерживай 2–3 секунды.",
     defaultReps: 25,
     image: bridgeImg,
+    image2: bridgeImg2,
   },
   {
     id: "cat-cow",
@@ -48,6 +56,7 @@ export const EXERCISES: Exercise[] = [
     description: "Плавный прогиб и округление спины на четвереньках.",
     defaultReps: 20,
     image: catCowImg,
+    image2: catCowImg2,
   },
   {
     id: "butterfly",
@@ -55,6 +64,7 @@ export const EXERCISES: Exercise[] = [
     description: "Сидя, соедини стопы и мягко опускай колени к полу.",
     defaultReps: 30,
     image: butterflyImg,
+    image2: butterflyImg2,
   },
   {
     id: "squats",
@@ -62,6 +72,7 @@ export const EXERCISES: Exercise[] = [
     description: "Широкая стойка, носки врозь, плавно приседай и поднимайся.",
     defaultReps: 25,
     image: squatsImg,
+    image2: squatsImg2,
   },
 ];
 
@@ -80,6 +91,7 @@ export const LYMPH_EXERCISES: Exercise[] = [
     description: "Лёгкие пружинистые подпрыгивания на месте — стопы почти не отрываются от пола.",
     defaultReps: 50,
     image: lymphJumpsImg,
+    image2: lymphJumpsImg2,
   },
   {
     id: "lymph-brush",
@@ -87,6 +99,7 @@ export const LYMPH_EXERCISES: Exercise[] = [
     description: "Стоя, ноги на ширине плеч — плавно поворачивай корпус вправо-влево.",
     defaultReps: 50,
     image: lymphBrushImg,
+    image2: lymphBrushImg2,
   },
   {
     id: "lymph-neck",
@@ -94,6 +107,7 @@ export const LYMPH_EXERCISES: Exercise[] = [
     description: "Приседай и одновременно поднимай руки вверх, на подъёме — опускай.",
     defaultReps: 50,
     image: lymphNeckImg,
+    image2: lymphNeckImg2,
   },
   {
     id: "lymph-legs-up",
