@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Droplet, Minus, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const GOAL = 8;
+const GOAL = 6;
 const todayKey = () => `water-${new Date().toISOString().slice(0, 10)}`;
 
 export function WaterTracker() {
