@@ -1,18 +1,13 @@
-import kegelImg from "@/assets/exercises/kegel.jpg";
 import bridgeImg from "@/assets/exercises/bridge.jpg";
 import bridgeImg2 from "@/assets/exercises/bridge-2.jpg";
 import catCowImg from "@/assets/exercises/cat-cow.jpg";
 import catCowImg2 from "@/assets/exercises/cat-cow-2.jpg";
 import butterflyImg from "@/assets/exercises/butterfly.jpg";
 import butterflyImg2 from "@/assets/exercises/butterfly-2.jpg";
-import squatsImg from "@/assets/exercises/squats.jpg";
-import squatsImg2 from "@/assets/exercises/squats-2.jpg";
-import breathingImg from "@/assets/exercises/breathing.jpg";
 import lymphBrushImg from "@/assets/exercises/lymph-brush.jpg";
 import lymphBrushImg2 from "@/assets/exercises/lymph-brush-2.jpg";
 import lymphJumpsImg from "@/assets/exercises/lymph-jumps.jpg";
 import lymphJumpsImg2 from "@/assets/exercises/lymph-jumps-2.jpg";
-import lymphLegsUpImg from "@/assets/exercises/lymph-legs-up.jpg";
 import lymphNeckImg from "@/assets/exercises/lymph-neck.jpg";
 import lymphNeckImg2 from "@/assets/exercises/lymph-neck-2.jpg";
 import lymphStretchImg from "@/assets/exercises/lymph-stretch.jpg";
@@ -29,59 +24,10 @@ export interface Exercise {
 
 export const EXERCISES: Exercise[] = [
   {
-    id: "kegel",
-    title: "Упражнения Кегеля",
-    description: "Сжимай и расслабляй мышцы тазового дна, удерживая 3–5 секунд.",
-    defaultReps: 30,
-    image: kegelImg,
-  },
-  {
-    id: "breathing",
-    title: "Дыхание 4–8–7",
-    description: "Вдох через нос на 4 счёта, задержка дыхания на 8, медленный выдох через рот на 7.",
-    defaultReps: 20,
-    image: breathingImg,
-  },
-  {
-    id: "bridge",
-    title: "Мостик (полумост)",
-    description: "Лёжа на спине, поднимай таз вверх, удерживай 2–3 секунды.",
-    defaultReps: 25,
-    image: bridgeImg,
-    image2: bridgeImg2,
-  },
-  {
-    id: "cat-cow",
-    title: "Кошка-корова",
-    description: "Плавный прогиб и округление спины на четвереньках.",
-    defaultReps: 20,
-    image: catCowImg,
-    image2: catCowImg2,
-  },
-  {
-    id: "butterfly",
-    title: "Бабочка",
-    description: "Сидя, соедини стопы и мягко опускай колени к полу.",
-    defaultReps: 30,
-    image: butterflyImg,
-    image2: butterflyImg2,
-  },
-  {
-    id: "squats",
-    title: "Приседания плие",
-    description: "Широкая стойка, носки врозь, плавно приседай и поднимайся.",
-    defaultReps: 25,
-    image: squatsImg,
-    image2: squatsImg2,
-  },
-];
-
-export const LYMPH_EXERCISES: Exercise[] = [
-  {
     id: "lymph-stretch",
     title: "Махи руками на носочках",
     description: "Поднимись на носочки и делай махи руками вверх-вниз. Запускает лимфоток.",
-    defaultReps: 50,
+    defaultReps: 1,
     image: lymphStretchImg,
     image2: lymphStretchImg2,
   },
@@ -89,7 +35,7 @@ export const LYMPH_EXERCISES: Exercise[] = [
     id: "lymph-jumps",
     title: "Мягкие подпрыгивания",
     description: "Лёгкие пружинистые подпрыгивания на месте — стопы почти не отрываются от пола.",
-    defaultReps: 50,
+    defaultReps: 1,
     image: lymphJumpsImg,
     image2: lymphJumpsImg2,
   },
@@ -97,7 +43,7 @@ export const LYMPH_EXERCISES: Exercise[] = [
     id: "lymph-brush",
     title: "Повороты корпуса",
     description: "Стоя, ноги на ширине плеч — плавно поворачивай корпус вправо-влево.",
-    defaultReps: 50,
+    defaultReps: 1,
     image: lymphBrushImg,
     image2: lymphBrushImg2,
   },
@@ -105,15 +51,34 @@ export const LYMPH_EXERCISES: Exercise[] = [
     id: "lymph-neck",
     title: "Махи руками с приседанием",
     description: "Приседай и одновременно поднимай руки вверх, на подъёме — опускай.",
-    defaultReps: 50,
+    defaultReps: 1,
     image: lymphNeckImg,
     image2: lymphNeckImg2,
   },
   {
-    id: "lymph-legs-up",
-    title: "Ноги вверх по стене",
-    description: "Лёжа на спине, подними ноги вертикально (можно к стене). Удерживай позу спокойно.",
-    defaultReps: 20,
-    image: lymphLegsUpImg,
+    id: "butterfly",
+    title: "Бабочка",
+    description: "Сидя, соедини стопы и мягко опускай колени к полу.",
+    defaultReps: 1,
+    image: butterflyImg,
+    image2: butterflyImg2,
+  },
+  {
+    id: "cat-cow",
+    title: "Кошка-корова",
+    description: "Плавный прогиб и округление спины на четвереньках.",
+    defaultReps: 1,
+    image: catCowImg,
+    image2: catCowImg2,
+  },
+  {
+    id: "bridge",
+    title: "Мостик (полумост)",
+    description: "Лёжа на спине, поднимай таз вверх, удерживай 2–3 секунды.",
+    defaultReps: 1,
+    image: bridgeImg,
+    image2: bridgeImg2,
   },
 ];
+
+export const LYMPH_EXERCISES: Exercise[] = [];

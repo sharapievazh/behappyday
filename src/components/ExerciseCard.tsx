@@ -81,20 +81,20 @@ export function ExerciseCard({
         <div className="flex items-center gap-2 pl-7">
           <button
             type="button"
-            onClick={() => onRepsChange(reps - 5)}
-            disabled={reps <= 20}
+            onClick={() => onRepsChange(reps - 1)}
+            disabled={reps <= 1}
             className="w-7 h-7 rounded-lg border border-border bg-background flex items-center justify-center text-muted-foreground hover:bg-muted disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
             aria-label="Уменьшить"
           >
             <Minus className="w-3.5 h-3.5" />
           </button>
           <span className="text-sm font-medium text-foreground tabular-nums min-w-[3.5rem] text-center">
-            {reps} раз
+            {reps} мин
           </span>
           <button
             type="button"
-            onClick={() => onRepsChange(reps + 5)}
-            disabled={reps >= 50}
+            onClick={() => onRepsChange(reps + 1)}
+            disabled={reps >= 5}
             className="w-7 h-7 rounded-lg border border-border bg-background flex items-center justify-center text-muted-foreground hover:bg-muted disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
             aria-label="Увеличить"
           >
