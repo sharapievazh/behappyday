@@ -50,7 +50,7 @@ export function useExercises() {
   };
 
   const setReps = (id: string, reps: number) => {
-    const clamped = Math.max(20, Math.min(50, reps));
+    const clamped = Math.max(1, Math.min(5, reps));
     persist({ ...data, [id]: { ...data[id], reps: clamped } });
   };
 
