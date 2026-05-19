@@ -170,7 +170,7 @@ export function BreathingExercise() {
       </div>
 
       <p className="text-xs text-muted-foreground text-center">
-        Вдох 4 · Задержка 4 · Выдох 6 — успокаивает нервную систему
+        Метод 4-7-8: вдох 4 · задержка 7 · выдох 8 — мягкая вибрация помогает почувствовать ритм
       </p>
     </div>
   );
