@@ -1,7 +1,7 @@
 {
-  "name": "Bloom: Daily Rituals",
-  "short_name": "Bloom",
-  "description": "Ежедневные ритуалы для женщин: утро, день, вечер.",
+  "name": "Daily Bloom",
+  "short_name": "Daily Bloom",
+  "description": "Делаю с любовью к себе — ежедневные ритуалы.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

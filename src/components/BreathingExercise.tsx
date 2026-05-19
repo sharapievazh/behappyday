@@ -4,10 +4,10 @@ import { cn } from "@/lib/utils";
 
 type Phase = "inhale" | "hold" | "exhale";
 
-const PHASES: { key: Phase; label: string; duration: number }[] = [
-  { key: "inhale", label: "Вдох", duration: 4 },
-  { key: "hold", label: "Задержка", duration: 4 },
-  { key: "exhale", label: "Выдох", duration: 6 },
+const PHASES: { key: Phase; label: string; duration: number; vibration: number | number[] }[] = [
+  { key: "inhale", label: "Вдох", duration: 4, vibration: 120 },
+  { key: "hold", label: "Задержка", duration: 7, vibration: [60, 80, 60] },
+  { key: "exhale", label: "Выдох", duration: 8, vibration: 220 },
 ];
 
 const DURATIONS = [
@@ -44,7 +44,13 @@ export function BreathingExercise() {
       setPhaseTime((t) => {
         const next = t + 0.1;
         if (next >= currentPhase.duration) {
-          setPhaseIdx((i) => (i + 1) % PHASES.length);
+          setPhaseIdx((i) => {
+            const nextIdx = (i + 1) % PHASES.length;
+            if ("vibrate" in navigator) {
+              try { navigator.vibrate(PHASES[nextIdx].vibration); } catch {}
+            }
+            return nextIdx;
+          });
           return 0;
         }
         return next;
@@ -65,7 +71,13 @@ export function BreathingExercise() {
 
   const toggle = () => {
     if (elapsed >= totalDuration) reset();
-    setIsActive((a) => !a);
+    setIsActive((a) => {
+      const next = !a;
+      if (next && "vibrate" in navigator) {
+        try { navigator.vibrate(PHASES[0].vibration); } catch {}
+      }
+      return next;
+    });
   };
 
   // Scale animation: inhale grows, hold stays, exhale shrinks
@@ -158,7 +170,7 @@ export function BreathingExercise() {
       </div>
 
       <p className="text-xs text-muted-foreground text-center">
-        Вдох 4 · Задержка 4 · Выдох 6 — успокаивает нервную систему
+        Метод 4-7-8: вдох 4 · задержка 7 · выдох 8 — мягкая вибрация помогает почувствовать ритм
       </p>
     </div>
   );

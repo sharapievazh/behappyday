@@ -72,42 +72,41 @@ export function ShareCard() {
 
     ctx.font = "500 48px sans-serif";
     ctx.fillStyle = "#475569";
-    ctx.fillText(dateLabel().toUpperCase(), W / 2, 220);
+    ctx.fillText(dateLabel().toUpperCase(), W / 2, 300);
 
     ctx.font = "italic 600 84px Georgia, serif";
     ctx.fillStyle = "#0f172a";
-    wrapText(ctx, affirmation || "Я выбираю себя.", W / 2, H / 2 - 120, W - 200, 110);
+    wrapText(ctx, affirmation || "Я выбираю себя.", W / 2, 520, W - 200, 110);
 
     if (gratitude) {
       ctx.font = "500 44px sans-serif";
       ctx.fillStyle = "#475569";
-      ctx.fillText("Сегодня я благодарна за", W / 2, H / 2 + 200);
+      ctx.fillText("Сегодня я благодарна за", W / 2, 1180);
       ctx.font = "500 56px sans-serif";
       ctx.fillStyle = "#1e3a8a";
-      wrapText(ctx, gratitude, W / 2, H / 2 + 290, W - 240, 76);
+      wrapText(ctx, gratitude, W / 2, 1270, W - 240, 76);
     }
 
     ctx.font = "italic 600 44px Georgia, serif";
     ctx.fillStyle = "#475569";
-    ctx.fillText("Хочу и делаю с любовью к себе", W / 2, H - 200);
+    ctx.fillText("Делаю с любовью к себе", W / 2, H - 200);
 
     // Daily Bloom branding
-    ctx.fillStyle = "#1e3a8a";
-    ctx.beginPath();
-    ctx.arc(W / 2 - 110, H - 120, 14, 0, Math.PI * 2);
-    ctx.fill();
-    // simple bloom petals
     ctx.fillStyle = "rgba(30,58,138,0.55)";
     for (let i = 0; i < 6; i++) {
       const a = (Math.PI * 2 * i) / 6;
       ctx.beginPath();
-      ctx.arc(W / 2 - 110 + Math.cos(a) * 18, H - 120 + Math.sin(a) * 18, 10, 0, Math.PI * 2);
+      ctx.arc(W / 2 - 170 + Math.cos(a) * 18, H - 120 + Math.sin(a) * 18, 10, 0, Math.PI * 2);
       ctx.fill();
     }
+    ctx.fillStyle = "#1e3a8a";
+    ctx.beginPath();
+    ctx.arc(W / 2 - 170, H - 120, 14, 0, Math.PI * 2);
+    ctx.fill();
     ctx.font = "600 38px sans-serif";
     ctx.fillStyle = "#1e3a8a";
     ctx.textAlign = "left";
-    ctx.fillText("Bloom", W / 2 - 80, H - 108);
+    ctx.fillText("Daily Bloom", W / 2 - 140, H - 108);
     ctx.textAlign = "center";
 
     return canvas;
@@ -186,7 +185,7 @@ export function ShareCard() {
             </div>
           )}
           <p className="font-serif italic text-[11px] text-muted-foreground text-center mt-3">
-            Хочу и делаю с любовью к себе
+            Делаю с любовью к себе
           </p>
           <div className="flex items-center justify-center gap-1.5 mt-2">
             <span className="relative inline-flex w-3.5 h-3.5">
@@ -194,7 +193,7 @@ export function ShareCard() {
               <span className="absolute inset-[3px] rounded-full bg-primary" />
             </span>
             <span className="text-[10px] font-semibold tracking-wider text-primary">
-              Bloom
+              Daily Bloom
             </span>
           </div>
         </div>
