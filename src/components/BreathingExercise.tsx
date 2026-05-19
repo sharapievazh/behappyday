@@ -71,7 +71,13 @@ export function BreathingExercise() {
 
   const toggle = () => {
     if (elapsed >= totalDuration) reset();
-    setIsActive((a) => !a);
+    setIsActive((a) => {
+      const next = !a;
+      if (next && "vibrate" in navigator) {
+        try { navigator.vibrate(PHASES[0].vibration); } catch {}
+      }
+      return next;
+    });
   };
 
   // Scale animation: inhale grows, hold stays, exhale shrinks
