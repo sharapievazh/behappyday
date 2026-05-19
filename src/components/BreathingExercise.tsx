@@ -44,7 +44,13 @@ export function BreathingExercise() {
       setPhaseTime((t) => {
         const next = t + 0.1;
         if (next >= currentPhase.duration) {
-          setPhaseIdx((i) => (i + 1) % PHASES.length);
+          setPhaseIdx((i) => {
+            const nextIdx = (i + 1) % PHASES.length;
+            if ("vibrate" in navigator) {
+              try { navigator.vibrate(PHASES[nextIdx].vibration); } catch {}
+            }
+            return nextIdx;
+          });
           return 0;
         }
         return next;
