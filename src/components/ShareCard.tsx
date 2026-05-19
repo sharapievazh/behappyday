@@ -185,7 +185,7 @@ export function ShareCard() {
             </div>
           )}
           <p className="font-serif italic text-[11px] text-muted-foreground text-center mt-3">
-            Хочу и делаю с любовью к себе
+            Делаю с любовью к себе
           </p>
           <div className="flex items-center justify-center gap-1.5 mt-2">
             <span className="relative inline-flex w-3.5 h-3.5">
@@ -193,7 +193,7 @@ export function ShareCard() {
               <span className="absolute inset-[3px] rounded-full bg-primary" />
             </span>
             <span className="text-[10px] font-semibold tracking-wider text-primary">
-              Bloom
+              Daily Bloom
             </span>
           </div>
         </div>
