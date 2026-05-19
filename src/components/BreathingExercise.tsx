@@ -4,10 +4,10 @@ import { cn } from "@/lib/utils";
 
 type Phase = "inhale" | "hold" | "exhale";
 
-const PHASES: { key: Phase; label: string; duration: number }[] = [
-  { key: "inhale", label: "Вдох", duration: 4 },
-  { key: "hold", label: "Задержка", duration: 4 },
-  { key: "exhale", label: "Выдох", duration: 6 },
+const PHASES: { key: Phase; label: string; duration: number; vibration: number | number[] }[] = [
+  { key: "inhale", label: "Вдох", duration: 4, vibration: 120 },
+  { key: "hold", label: "Задержка", duration: 7, vibration: [60, 80, 60] },
+  { key: "exhale", label: "Выдох", duration: 8, vibration: 220 },
 ];
 
 const DURATIONS = [
