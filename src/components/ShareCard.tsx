@@ -72,19 +72,19 @@ export function ShareCard() {
 
     ctx.font = "500 48px sans-serif";
     ctx.fillStyle = "#475569";
-    ctx.fillText(dateLabel().toUpperCase(), W / 2, 220);
+    ctx.fillText(dateLabel().toUpperCase(), W / 2, 300);
 
     ctx.font = "italic 600 84px Georgia, serif";
     ctx.fillStyle = "#0f172a";
-    wrapText(ctx, affirmation || "Я выбираю себя.", W / 2, H / 2 - 120, W - 200, 110);
+    wrapText(ctx, affirmation || "Я выбираю себя.", W / 2, 520, W - 200, 110);
 
     if (gratitude) {
       ctx.font = "500 44px sans-serif";
       ctx.fillStyle = "#475569";
-      ctx.fillText("Сегодня я благодарна за", W / 2, H / 2 + 200);
+      ctx.fillText("Сегодня я благодарна за", W / 2, 1180);
       ctx.font = "500 56px sans-serif";
       ctx.fillStyle = "#1e3a8a";
-      wrapText(ctx, gratitude, W / 2, H / 2 + 290, W - 240, 76);
+      wrapText(ctx, gratitude, W / 2, 1270, W - 240, 76);
     }
 
     ctx.font = "italic 600 44px Georgia, serif";
