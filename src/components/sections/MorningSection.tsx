@@ -1,5 +1,5 @@
 import { RitualStep } from "@/components/RitualStep";
-import { MeditationPlayer } from "@/components/MeditationPlayer";
+
 import { BreathingExercise } from "@/components/BreathingExercise";
 import { EmotionJournal } from "@/components/EmotionJournal";
 import { ShareCard } from "@/components/ShareCard";
