@@ -1,5 +1,5 @@
 import { RitualStep } from "@/components/RitualStep";
-import { MeditationPlayer } from "@/components/MeditationPlayer";
+
 import { BreathingExercise } from "@/components/BreathingExercise";
 import { EmotionJournal } from "@/components/EmotionJournal";
 import { ShareCard } from "@/components/ShareCard";
@@ -25,37 +25,10 @@ export function MorningSection() {
         </div>
       </div>
 
-      {/* 2. Аффирмация — карточка для сторис */}
+      {/* 2. Аффирмация дня */}
       <ShareCard />
-      {/* 3. Утренние ритуалы */}
-      <div className="space-y-2">
-        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-          Утренние ритуалы
-        </h2>
-        <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-soft">
-          <RitualStep id="face" title="Уход лица и массаж" icon={Sparkle} delay={0} />
-          <RitualStep id="water" title="Стакан воды и витамины" icon={Droplet} delay={50} />
-          <RitualStep id="breathing" title="Дыхательная гимнастика" icon={Wind} delay={100} />
-          <RitualStep id="warmup" title="Разминка для тела" icon={Activity} delay={150} />
-          <RitualStep id="reading" title="Чтение 10 минут (аудио или книга)" icon={BookOpen} delay={200} />
-        </div>
-      </div>
 
-      {/* 4. Дыхательная практика */}
-      <BreathingExercise />
-
-      {/* 4.1 Дневник эмоций */}
-      <EmotionJournal />
-
-      {/* 5. Медитация */}
-      <div className="space-y-2">
-        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-          Медитация
-        </h2>
-        <MeditationPlayer />
-      </div>
-
-      {/* 5. Мысль дня — сразу после медитации */}
+      {/* 3. Мысль дня */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
           Мысль дня
@@ -70,7 +43,27 @@ export function MorningSection() {
         </div>
       </div>
 
-      {/* 6. Маленькие шаги */}
+      {/* 4. Утренние ритуалы */}
+      <div className="space-y-2">
+        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+          Утренние ритуалы
+        </h2>
+        <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-soft">
+          <RitualStep id="face" title="Уход лица и массаж" icon={Sparkle} delay={0} />
+          <RitualStep id="water" title="Стакан воды и витамины" icon={Droplet} delay={50} />
+          <RitualStep id="breathing" title="Дыхательная гимнастика" icon={Wind} delay={100} />
+          <RitualStep id="warmup" title="Разминка для тела" icon={Activity} delay={150} />
+          <RitualStep id="reading" title="Чтение 10 минут (аудио или книга)" icon={BookOpen} delay={200} />
+        </div>
+      </div>
+
+      {/* 5. Дыхательная практика */}
+      <BreathingExercise />
+
+      {/* 6. Дневник эмоций */}
+      <EmotionJournal />
+
+      {/* 7. Маленькие шаги */}
       <div className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
           Маленькие дела

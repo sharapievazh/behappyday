@@ -165,43 +165,14 @@ export function ShareCard() {
       <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
         Аффирмация дня
       </h2>
-      <div className="bg-card border border-border rounded-2xl p-5 space-y-4 shadow-soft">
-        <div
-          ref={cardRef}
-          className="relative aspect-[9/16] max-h-[420px] mx-auto rounded-2xl overflow-hidden bg-gradient-to-b from-primary/15 to-primary/30 p-6 flex flex-col"
-        >
-          <p className="text-xs uppercase tracking-widest text-muted-foreground text-center">
-            {dateLabel()}
-          </p>
-          <div className="flex-1 flex items-center justify-center px-2">
-            <p className="font-serif italic text-xl text-foreground text-center leading-snug">
-              «{affirmation}»
-            </p>
-          </div>
-          {gratitude && (
-            <div className="text-center space-y-1">
-              <p className="text-xs text-muted-foreground">Сегодня я благодарна за</p>
-              <p className="text-sm text-foreground font-medium line-clamp-2">{gratitude}</p>
-            </div>
-          )}
-          <p className="font-serif italic text-[11px] text-muted-foreground text-center mt-3">
-            Делаю с любовью к себе
-          </p>
-          <div className="flex items-center justify-center gap-1.5 mt-2">
-            <span className="relative inline-flex w-3.5 h-3.5">
-              <span className="absolute inset-0 rounded-full bg-primary/40" />
-              <span className="absolute inset-[3px] rounded-full bg-primary" />
-            </span>
-            <span className="text-[10px] font-semibold tracking-wider text-primary">
-              Daily Bloom
-            </span>
-          </div>
-        </div>
-
+      <div className="bg-primary/10 border border-primary/20 rounded-2xl p-5 shadow-soft space-y-3">
+        <p className="font-serif italic text-base text-foreground leading-relaxed">
+          «{affirmation}»
+        </p>
         <button
           onClick={handleShare}
           className={cn(
-            "w-full h-11 rounded-xl text-sm font-medium transition-all flex items-center justify-center gap-2",
+            "w-full h-10 rounded-xl text-sm font-medium transition-all flex items-center justify-center gap-2",
             copied
               ? "bg-[hsl(var(--success))] text-[hsl(var(--success-foreground))]"
               : "bg-primary text-primary-foreground hover:bg-primary/90"
@@ -223,6 +194,7 @@ export function ShareCard() {
           )}
         </button>
       </div>
+      <div ref={cardRef} className="hidden" />
     </div>
   );
 }

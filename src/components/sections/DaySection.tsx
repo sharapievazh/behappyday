@@ -8,6 +8,7 @@ import { EXERCISES } from "@/data/exercises";
 import { ExerciseCard } from "@/components/ExerciseCard";
 import { YogaMusicPlayer } from "@/components/YogaMusicPlayer";
 import { WaterTracker } from "@/components/WaterTracker";
+import { MeditationPlayer } from "@/components/MeditationPlayer";
 
 export function DaySection() {
   const { plans, toggleComplete } = useDayPlans();
@@ -32,6 +33,14 @@ export function DaySection() {
         <h1 className="font-serif text-2xl text-foreground">
           План на сегодня
         </h1>
+      </div>
+
+      {/* Медитация */}
+      <div className="space-y-2">
+        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+          Медитация
+        </h2>
+        <MeditationPlayer />
       </div>
 
       {/* Йога-музыка для практики */}
