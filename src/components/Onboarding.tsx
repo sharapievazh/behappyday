@@ -8,7 +8,7 @@ const KEY = "bloom-onboarded-v1";
 const STEPS = [
   {
     icon: Sparkles,
-    title: "behappyday",
+    title: "BeHappyDay",
     text: "Делаю с любовью к себе — спокойное пространство для женщины, которая хочет проживать день осознанно: утро, день, вечер.",
   },
   {
