@@ -91,7 +91,7 @@ export function ShareCard() {
     ctx.fillStyle = "#475569";
     ctx.fillText("Делаю с любовью к себе", W / 2, H - 200);
 
-    // Daily Bloom branding
+    // behappyday branding
     ctx.fillStyle = "rgba(30,58,138,0.55)";
     for (let i = 0; i < 6; i++) {
       const a = (Math.PI * 2 * i) / 6;
@@ -106,7 +106,7 @@ export function ShareCard() {
     ctx.font = "600 38px sans-serif";
     ctx.fillStyle = "#1e3a8a";
     ctx.textAlign = "left";
-    ctx.fillText("Daily Bloom", W / 2 - 140, H - 108);
+    ctx.fillText("behappyday", W / 2 - 140, H - 108);
     ctx.textAlign = "center";
 
     return canvas;
