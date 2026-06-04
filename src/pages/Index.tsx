@@ -49,7 +49,7 @@ const Index = () => {
             />
             <TabButton
               icon={Target}
-              label="Цели"
+              label="Фокус"
               active={activeTab === "goals"}
               onClick={() => setActiveTab("goals")}
             />

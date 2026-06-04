@@ -7,12 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
-import { Sparkles, Sparkle, Droplet, Wind, Activity, BookOpen } from "lucide-react";
-import { QUOTES, getDayIndex } from "@/data/content";
+import { Sparkles, Sparkle, Droplet, Wind, Activity, BookOpen, Languages } from "lucide-react";
+import { QUOTES, DAILY_PHRASES, getDayIndex } from "@/data/content";
 import { useDayPlans } from "@/hooks/useDayPlans";
 
 export function MorningSection() {
   const todayQuote = QUOTES[getDayIndex(QUOTES.length)];
+  const phraseIndex = getDayIndex(DAILY_PHRASES.length);
   const { plans, updatePlans, toggleComplete } = useDayPlans();
 
   return (
@@ -40,6 +41,33 @@ export function MorningSection() {
           <p className="text-sm text-muted-foreground text-right">
             — {todayQuote.author}
           </p>
+        </div>
+      </div>
+
+      {/* 3.5 Фраза дня — языковая практика */}
+      <div className="space-y-3">
+        <div className="flex items-center gap-2 text-primary">
+          <Languages className="w-4 h-4" />
+          <h2 className="text-sm font-medium uppercase tracking-wider">
+            Фраза дня
+          </h2>
+        </div>
+        <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-soft">
+          {[
+            { code: "en", label: "English", text: DAILY_PHRASES[phraseIndex].en },
+            { code: "ru", label: "Русский", text: DAILY_PHRASES[phraseIndex].ru },
+            { code: "kz", label: "Қазақша", text: DAILY_PHRASES[phraseIndex].kz },
+          ].map((lang, index) => (
+            <div
+              key={lang.code}
+              className={cn("p-4", index !== 2 && "border-b border-border")}
+            >
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1">
+                {lang.label}
+              </p>
+              <p className="text-foreground">{lang.text}</p>
+            </div>
+          ))}
         </div>
       </div>
 
