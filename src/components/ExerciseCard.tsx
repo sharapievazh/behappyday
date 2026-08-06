@@ -2,7 +2,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { Minus, Plus, Play, Pause, RotateCcw } from "lucide-react";
 import { Exercise } from "@/data/exercises";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface ExerciseCardProps {
   exercise: Exercise;
@@ -109,7 +109,7 @@ export function ExerciseCard({
           <Checkbox
             id={`ex-${exercise.id}`}
             checked={done}
-            onCheckedChange={onToggle}
+            onCheckedChange={handleToggle}
             className={cn(
               "h-5 w-5 mt-0.5 rounded-md border-2 transition-all",
               done && "bg-primary border-primary"
@@ -133,7 +133,7 @@ export function ExerciseCard({
         <div className="flex items-center gap-2 pl-7 flex-wrap">
           <button
             type="button"
-            onClick={() => onRepsChange(reps - 1)}
+            onClick={() => handleRepsChange(reps - 1)}
             disabled={reps <= 1 || running}
             className="w-7 h-7 rounded-lg border border-border bg-background flex items-center justify-center text-muted-foreground hover:bg-muted disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
             aria-label="Уменьшить"
@@ -145,7 +145,7 @@ export function ExerciseCard({
           </span>
           <button
             type="button"
-            onClick={() => onRepsChange(reps + 1)}
+            onClick={() => handleRepsChange(reps + 1)}
             disabled={reps >= 5 || running}
             className="w-7 h-7 rounded-lg border border-border bg-background flex items-center justify-center text-muted-foreground hover:bg-muted disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
             aria-label="Увеличить"
