@@ -16,6 +16,15 @@ const DURATIONS = [
   { label: "3 мин", value: 180 },
 ];
 
+function markBreathingComplete() {
+  try {
+    const dateKey = new Date().toISOString().slice(0, 10);
+    localStorage.setItem(`ritual-${dateKey}-breathing`, "1");
+    window.dispatchEvent(new Event("bloom-progress"));
+  } catch {}
+}
+
+
 export function BreathingExercise() {
   const [isActive, setIsActive] = useState(false);
   const [totalDuration, setTotalDuration] = useState(60);
@@ -83,6 +92,7 @@ export function BreathingExercise() {
       if (elapsedRef.current >= totalDuration) {
         setElapsed(totalDuration);
         setIsActive(false);
+        markBreathingComplete();
         return;
       }
 
