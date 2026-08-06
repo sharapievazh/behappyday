@@ -121,8 +121,8 @@ export function DaySection() {
                 exercise={ex}
                 reps={state.reps}
                 done={state.done}
-                onRepsChange={(r) => setReps(ex.id, r)}
-                onToggle={() => toggleDone(ex.id)}
+                onRepsChange={setReps}
+                onToggle={toggleDone}
               />
             );
           })}
