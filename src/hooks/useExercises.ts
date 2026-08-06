@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { EXERCISES, LYMPH_EXERCISES } from "@/data/exercises";
+import { getTodayKey } from "@/lib/dayKey";
 
 const ALL_EXERCISES = [...EXERCISES, ...LYMPH_EXERCISES];
 
@@ -12,10 +13,6 @@ type ExercisesData = Record<string, ExerciseState>;
 
 const STORAGE_KEY = "exercises-state";
 
-function getTodayKey(): string {
-  const today = new Date();
-  return `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
-}
 
 function getDefaults(): ExercisesData {
   return ALL_EXERCISES.reduce<ExercisesData>((acc, ex) => {
