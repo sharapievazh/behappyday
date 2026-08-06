@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { getTodayKey } from "@/lib/dayKey";
 
 interface DayPlans {
   plan1: string;
@@ -10,10 +11,6 @@ interface DayPlans {
 
 const STORAGE_KEY = "day-plans";
 
-function getTodayKey(): string {
-  const today = new Date();
-  return `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
-}
 
 export function useDayPlans() {
   const [plans, setPlans] = useState<DayPlans>({
