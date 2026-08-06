@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { EXERCISES, LYMPH_EXERCISES } from "@/data/exercises";
 
 const ALL_EXERCISES = [...EXERCISES, ...LYMPH_EXERCISES];
@@ -41,22 +41,32 @@ export function useExercises() {
     }
   }, []);
 
-  const persist = (next: ExercisesData) => {
-    setData(next);
+  const persist = useCallback((next: ExercisesData) => {
     localStorage.setItem(
       STORAGE_KEY,
       JSON.stringify({ date: getTodayKey(), data: next })
     );
-  };
+    return next;
+  }, []);
 
-  const setReps = (id: string, reps: number) => {
-    const clamped = Math.max(1, Math.min(5, reps));
-    persist({ ...data, [id]: { ...data[id], reps: clamped } });
-  };
+  const setReps = useCallback(
+    (id: string, reps: number) => {
+      const clamped = Math.max(1, Math.min(5, reps));
+      setData((prev) =>
+        persist({ ...prev, [id]: { ...prev[id], reps: clamped } })
+      );
+    },
+    [persist]
+  );
 
-  const toggleDone = (id: string) => {
-    persist({ ...data, [id]: { ...data[id], done: !data[id].done } });
-  };
+  const toggleDone = useCallback(
+    (id: string) => {
+      setData((prev) =>
+        persist({ ...prev, [id]: { ...prev[id], done: !prev[id]?.done } })
+      );
+    },
+    [persist]
+  );
 
   return { data, setReps, toggleDone };
 }
