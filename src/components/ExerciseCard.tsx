@@ -8,8 +8,8 @@ interface ExerciseCardProps {
   exercise: Exercise;
   reps: number;
   done: boolean;
-  onRepsChange: (reps: number) => void;
-  onToggle: () => void;
+  onRepsChange: (id: string, reps: number) => void;
+  onToggle: (id: string) => void;
 }
 
 function formatTime(s: number) {
@@ -31,18 +31,25 @@ export function ExerciseCard({
   const doneRef = useRef(done);
   doneRef.current = done;
 
+  const id = exercise.id;
+  const handleToggle = useCallback(() => onToggle(id), [onToggle, id]);
+  const handleRepsChange = useCallback(
+    (next: number) => onRepsChange(id, next),
+    [onRepsChange, id]
+  );
+
   useEffect(() => {
     if (!running) setRemaining(reps * 60);
   }, [reps, running]);
 
   useEffect(() => {
     if (!running) return;
-    const id = setInterval(() => {
+    const timerId = setInterval(() => {
       setRemaining((r) => {
         if (r <= 1) {
-          clearInterval(id);
+          clearInterval(timerId);
           setRunning(false);
-          if (!doneRef.current) onToggle();
+          if (!doneRef.current) handleToggle();
           try {
             if ("vibrate" in navigator) navigator.vibrate?.([200, 100, 200]);
           } catch {}
@@ -51,8 +58,8 @@ export function ExerciseCard({
         return r - 1;
       });
     }, 1000);
-    return () => clearInterval(id);
-  }, [running, onToggle]);
+    return () => clearInterval(timerId);
+  }, [running, handleToggle]);
 
   const handlePlayPause = () => {
     if (remaining === 0) setRemaining(totalSeconds);
