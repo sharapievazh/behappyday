@@ -22,55 +22,102 @@ export function BreathingExercise() {
   const [elapsed, setElapsed] = useState(0);
   const [phaseIdx, setPhaseIdx] = useState(0);
   const [phaseTime, setPhaseTime] = useState(0);
-  const intervalRef = useRef<number | null>(null);
+
+  const rafRef = useRef<number | null>(null);
+  const elapsedRef = useRef(0);
+  const phaseIdxRef = useRef(0);
+  const phaseTimeRef = useRef(0);
+  const lastSyncRef = useRef(0);
+  const outerRef = useRef<HTMLDivElement | null>(null);
+  const innerRef = useRef<HTMLDivElement | null>(null);
 
   const currentPhase = PHASES[phaseIdx];
 
+  const scaleFor = (idx: number, t: number) => {
+    const phase = PHASES[idx];
+    if (phase.key === "inhale") return 0.6 + (t / phase.duration) * 0.4;
+    if (phase.key === "hold") return 1;
+    return 1 - (t / phase.duration) * 0.4;
+  };
+
+  const paint = (idx: number, t: number) => {
+    const transform = `scale(${scaleFor(idx, t)})`;
+    if (outerRef.current) outerRef.current.style.transform = transform;
+    if (innerRef.current) innerRef.current.style.transform = transform;
+  };
+
   useEffect(() => {
     if (!isActive) {
-      if (intervalRef.current) window.clearInterval(intervalRef.current);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
       return;
     }
 
-    intervalRef.current = window.setInterval(() => {
-      setElapsed((e) => {
-        const next = e + 0.1;
-        if (next >= totalDuration) {
-          setIsActive(false);
-          return totalDuration;
+    let prev = performance.now();
+    lastSyncRef.current = elapsedRef.current;
+
+    const tick = (now: number) => {
+      const dt = (now - prev) / 1000;
+      prev = now;
+
+      elapsedRef.current = Math.min(totalDuration, elapsedRef.current + dt);
+      phaseTimeRef.current += dt;
+
+      let phaseChanged = false;
+      while (phaseTimeRef.current >= PHASES[phaseIdxRef.current].duration) {
+        phaseTimeRef.current -= PHASES[phaseIdxRef.current].duration;
+        phaseIdxRef.current = (phaseIdxRef.current + 1) % PHASES.length;
+        phaseChanged = true;
+      }
+      if (phaseChanged) {
+        if ("vibrate" in navigator) {
+          try { navigator.vibrate(PHASES[phaseIdxRef.current].vibration); } catch {}
         }
-        return next;
-      });
-      setPhaseTime((t) => {
-        const next = t + 0.1;
-        if (next >= currentPhase.duration) {
-          setPhaseIdx((i) => {
-            const nextIdx = (i + 1) % PHASES.length;
-            if ("vibrate" in navigator) {
-              try { navigator.vibrate(PHASES[nextIdx].vibration); } catch {}
-            }
-            return nextIdx;
-          });
-          return 0;
-        }
-        return next;
-      });
-    }, 100);
+        setPhaseIdx(phaseIdxRef.current);
+        setPhaseTime(phaseTimeRef.current);
+      }
+
+      // Direct style write — no React re-render for the circle animation
+      paint(phaseIdxRef.current, phaseTimeRef.current);
+
+      if (elapsedRef.current >= totalDuration) {
+        setElapsed(totalDuration);
+        setIsActive(false);
+        return;
+      }
+
+      // Text timer syncs at most once per second
+      if (elapsedRef.current - lastSyncRef.current >= 1) {
+        lastSyncRef.current = elapsedRef.current;
+        setElapsed(elapsedRef.current);
+        setPhaseTime(phaseTimeRef.current);
+      }
+
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
 
     return () => {
-      if (intervalRef.current) window.clearInterval(intervalRef.current);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
     };
-  }, [isActive, currentPhase.duration, totalDuration]);
+  }, [isActive, totalDuration]);
 
   const reset = () => {
     setIsActive(false);
+    elapsedRef.current = 0;
+    phaseIdxRef.current = 0;
+    phaseTimeRef.current = 0;
+    lastSyncRef.current = 0;
     setElapsed(0);
     setPhaseIdx(0);
     setPhaseTime(0);
+    paint(0, 0);
   };
 
   const toggle = () => {
-    if (elapsed >= totalDuration) reset();
+    if (elapsedRef.current >= totalDuration) reset();
     setIsActive((a) => {
       const next = !a;
       if (next && "vibrate" in navigator) {
@@ -80,13 +127,7 @@ export function BreathingExercise() {
     });
   };
 
-  // Scale animation: inhale grows, hold stays, exhale shrinks
-  const scale =
-    currentPhase.key === "inhale"
-      ? 0.6 + (phaseTime / currentPhase.duration) * 0.4
-      : currentPhase.key === "hold"
-      ? 1
-      : 1 - (phaseTime / currentPhase.duration) * 0.4;
+  const initialScale = scaleFor(phaseIdx, phaseTime);
 
   const remaining = Math.max(0, Math.ceil(totalDuration - elapsed));
   const min = Math.floor(remaining / 60);
@@ -104,23 +145,24 @@ export function BreathingExercise() {
       {/* Animated circle */}
       <div className="flex items-center justify-center h-56 relative">
         <div
-          className="absolute rounded-full bg-primary/20 transition-transform ease-linear"
+          ref={outerRef}
+          className="absolute rounded-full bg-primary/20 will-change-transform"
           style={{
             width: 180,
             height: 180,
-            transform: `scale(${scale})`,
-            transitionDuration: "100ms",
+            transform: `scale(${initialScale})`,
           }}
         />
         <div
-          className="absolute rounded-full bg-primary/30 transition-transform ease-linear"
+          ref={innerRef}
+          className="absolute rounded-full bg-primary/30 will-change-transform"
           style={{
             width: 140,
             height: 140,
-            transform: `scale(${scale})`,
-            transitionDuration: "100ms",
+            transform: `scale(${initialScale})`,
           }}
         />
+
         <div className="relative z-10 text-center">
           <p className="font-serif text-2xl text-foreground">
             {isActive ? currentPhase.label : "Готова?"}
