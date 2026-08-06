@@ -11,6 +11,7 @@ export function MeditationPlayer() {
   const [volume, setVolume] = useState(1);
   const [showVolume, setShowVolume] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const isTogglingRef = useRef<boolean>(false);
   
   const todayMeditation = getTodayMeditation();
   const todaySrc = todayMeditation.file;
@@ -60,20 +61,26 @@ export function MeditationPlayer() {
   const togglePlay = async () => {
     const audio = audioRef.current;
     if (!audio) return;
+    if (isTogglingRef.current) return;
 
-    if (isPlaying) {
-      audio.pause();
-      setIsPlaying(false);
-      return;
-    }
-
+    isTogglingRef.current = true;
     try {
-      await audio.play();
-      setIsPlaying(true);
-      setError(false);
-    } catch {
-      setIsPlaying(false);
-      setError(true);
+      if (isPlaying) {
+        audio.pause();
+        setIsPlaying(false);
+        return;
+      }
+
+      try {
+        await audio.play();
+        setIsPlaying(true);
+        setError(false);
+      } catch {
+        setIsPlaying(false);
+        setError(true);
+      }
+    } finally {
+      isTogglingRef.current = false;
     }
   };
 
