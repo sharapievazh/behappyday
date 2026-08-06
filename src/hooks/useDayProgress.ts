@@ -1,4 +1,19 @@
 import { useEffect, useState, useCallback } from "react";
+import { EXERCISES, LYMPH_EXERCISES } from "@/data/exercises";
+
+const ALL_EXERCISE_IDS = [...EXERCISES, ...LYMPH_EXERCISES].map((e) => e.id);
+
+function areExercisesDone(dateKey: string): boolean {
+  const stored = localStorage.getItem("exercises-state");
+  if (!stored) return false;
+  try {
+    const parsed = JSON.parse(stored);
+    if (parsed?.date !== dateKey) return false;
+    return ALL_EXERCISE_IDS.every((id) => parsed.data?.[id]?.done === true);
+  } catch {
+    return false;
+  }
+}
 
 const todayKey = () => new Date().toISOString().slice(0, 10);
 
@@ -73,6 +88,7 @@ export function useDayProgress(): Progress {
       !!localStorage.getItem(`reflection-${key}`),
       !!localStorage.getItem(`emotion-evening-${key}`),
       (parseInt(localStorage.getItem(`water-${key}`) ?? "0", 10) || 0) >= 8,
+      areExercisesDone(key),
       localStorage.getItem(`day-closed-${key}`) === "1",
     ];
     const done = ritualsDone + milestones.slice(1).filter(Boolean).length;

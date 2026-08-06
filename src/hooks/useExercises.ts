@@ -61,6 +61,7 @@ export function useExercises() {
       setData((prev) =>
         persist({ ...prev, [id]: { ...prev[id], done: !prev[id]?.done } })
       );
+      window.dispatchEvent(new Event("bloom-progress"));
     },
     [persist]
   );
