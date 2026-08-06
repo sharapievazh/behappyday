@@ -21,7 +21,11 @@ function isDayComplete(dateKey: string): boolean {
   return ritualsDone && gratitude && closed;
 }
 
-function computeStreak(): number {
+// Module-level cache: the full history walk is expensive, so we only redo it
+// when the day changes or when today's completion state flips.
+let streakCache: { dateKey: string; todayComplete: boolean; streak: number } | null = null;
+
+function computeStreakUncached(): number {
   let streak = 0;
   const d = new Date();
   for (let i = 0; i < 366; i++) {
@@ -29,15 +33,30 @@ function computeStreak(): number {
     if (isDayComplete(key)) {
       streak++;
       d.setDate(d.getDate() - 1);
-    } else {
-      // allow today not yet complete — don't break streak if i===0
-      if (i === 0) {
-        d.setDate(d.getDate() - 1);
-        continue;
-      }
-      break;
+      continue;
     }
+    // today not complete yet — doesn't break the streak
+    if (i === 0) {
+      d.setDate(d.getDate() - 1);
+      continue;
+    }
+    return streak;
   }
+  return streak;
+}
+
+function computeStreak(): number {
+  const key = todayKey();
+  const todayComplete = isDayComplete(key);
+  if (
+    streakCache &&
+    streakCache.dateKey === key &&
+    streakCache.todayComplete === todayComplete
+  ) {
+    return streakCache.streak;
+  }
+  const streak = computeStreakUncached();
+  streakCache = { dateKey: key, todayComplete, streak };
   return streak;
 }
 
@@ -75,11 +94,9 @@ export function useDayProgress(): Progress {
     refresh();
     window.addEventListener("storage", refresh);
     window.addEventListener("bloom-progress", refresh);
-    const interval = setInterval(refresh, 5000);
     return () => {
       window.removeEventListener("storage", refresh);
       window.removeEventListener("bloom-progress", refresh);
-      clearInterval(interval);
     };
   }, [compute]);
 
