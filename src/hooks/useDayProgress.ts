@@ -72,7 +72,7 @@ export function useDayProgress(): Progress {
       !!localStorage.getItem(`gratitude-${key}`),
       !!localStorage.getItem(`reflection-${key}`),
       !!localStorage.getItem(`emotion-evening-${key}`),
-      (parseInt(localStorage.getItem(`water-${key}`) ?? "0", 10) || 0) >= 6,
+      (parseInt(localStorage.getItem(`water-${key}`) ?? "0", 10) || 0) >= 8,
       localStorage.getItem(`day-closed-${key}`) === "1",
     ];
     const done = ritualsDone + milestones.slice(1).filter(Boolean).length;
