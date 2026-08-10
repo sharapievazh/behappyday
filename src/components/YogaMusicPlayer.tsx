@@ -3,7 +3,7 @@ import { Music, Play, Pause } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const TRACK_URL =
-  "https://gkhfifuggxhwdsdecglg.supabase.co/storage/v1/object/public/Audio%20for%20Daily%20Bloom/Music%20for%20meditation_30.m4a";
+  "https://gkhfifuggxhwdsdecglg.supabase.co/storage/v1/object/public/music/meditation-music.m4a";
 const TRACK_TITLE = "Музыкальная настройка";
 
 export function YogaMusicPlayer() {
