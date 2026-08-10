@@ -1,156 +1,57 @@
-// 140 медитаций из Supabase Storage
-const BASE = "https://gnteptgmynxfydnnyhyo.supabase.co/storage/v1/object/public/audio";
+// 100 авторских аффирмаций-медитаций BeHappyDay (собственный голос)
+const BASE = "https://gkhfifuggxhwdsdecglg.supabase.co/storage/v1/object/public/meditations";
 
-export const MEDITATIONS = [
-  { id: 1, name: "Энергия денег", file: `${BASE}/01_Vstuplenie.mp3` },
-  { id: 2, name: "Сотрудничество со Вселенной", file: `${BASE}/02_Sotrudnichestvo_so_Vselenoi.mp3` },
-  { id: 3, name: "Дворец исполнения желаний", file: `${BASE}/03_Dvorec_ispolneniya_zhelaniy.mp3` },
-  { id: 4, name: "Безграничность вселенной", file: `${BASE}/04_Bezgranichnost_Vselenoy.mp3` },
-  { id: 5, name: "Вступление Вселенной", file: `${BASE}/05_Vsuplenie_Vselenoy.mp3` },
-  { id: 6, name: "Лучшие дары жизни для меня", file: `${BASE}/06_Luchshie_dary_zhisni_dlya_menya.mp3` },
-  { id: 7, name: "Цитата Крайона", file: `${BASE}/07_Citata_Kryon.mp3` },
-  { id: 8, name: "Магнитное притяжение", file: `${BASE}/08_Magnitnoe_prityazhenie.mp3` },
-  { id: 9, name: "Будущее рядом", file: `${BASE}/09_Budushee_ryadom.mp3` },
-  { id: 10, name: "Творите вместе с Богом", file: `${BASE}/10_Tvorite_vmeste_s_Bogom.mp3` },
-  { id: 11, name: "Полет к свободе", file: `${BASE}/11_Polet_k_svobode.mp3` },
-  { id: 12, name: "В единстве с Богом и Любовью", file: `${BASE}/12_V_edinstve_s_bogom_&_Love.mp3` },
-  { id: 13, name: "Любовь движущая сила", file: `${BASE}/13_Love_dvizhushhaya_sila.mp3` },
-  { id: 14, name: "Любовь Бога", file: `${BASE}/14_God_Love.mp3` },
-  { id: 15, name: "Цитата Крайона 2", file: `${BASE}/15_Citata_Kryon.mp3` },
-  { id: 16, name: "Выбор пути в любви и свете Бога", file: `${BASE}/16_Vybor_puti_v_love.mp3` },
-  { id: 17, name: "Любовь ведущая к цели", file: `${BASE}/17_Love_veduchaya_k_celi.mp3` },
-  { id: 18, name: "Чтобы творить чудеса", file: `${BASE}/18_Ctoby_tvorit_chudesa.mp3` },
-  { id: 19, name: "Жизнь как танец", file: `${BASE}/19_Life_as_dance.mp3` },
-  { id: 20, name: "Цитата Крайона", file: `${BASE}/20_Citata_Kryon.mp3` },
-  { id: 21, name: "Миг вашего могущества", file: `${BASE}/21_Mig_your_moguchestva.mp3` },
-  { id: 22, name: "Взгляд из многомерности", file: `${BASE}/22_Vzglyad_iz_mnogomernosti.mp3` },
-  { id: 23, name: "Чтобы управлять материальным миром", file: `${BASE}/23_Choby_upravlyat_material_mirom.mp3` },
-  { id: 24, name: "Ваши лучшие пути", file: `${BASE}/24_Your_best_roads.mp3` },
-  { id: 25, name: "Цитата Крайона 2", file: `${BASE}/25_Citata_Kryon_2.mp3` },
-  { id: 26, name: "Правильная расстановка приоритетов", file: `${BASE}/26_Pravilnaya_rastanovka_prioritetov.mp3` },
-  { id: 27, name: "Материальные цели которые нужны духу", file: `${BASE}/27_Material_goal_for_duxa.mp3` },
-  { id: 28, name: "Мир готов для вас создавать нужные вещи и события", file: `${BASE}/28_Mir_gotov.mp3` },
-  { id: 29, name: "Ваши дороги к счастью", file: `${BASE}/29_Your_road_to_happy.mp3` },
-  { id: 30, name: "Цитата Крайона 3", file: `${BASE}/30_Citata_Kryon_3.mp3` },
-  { id: 31, name: "Практика создания событий", file: `${BASE}/31_Prictika_sozdaniya_sobytiy.mp3` },
-  { id: 32, name: "Ваша власть над материальным миром", file: `${BASE}/32_Vash_vlast_nad_material_mirom.mp3` },
-  { id: 33, name: "Интуиция ваш навигатор", file: `${BASE}/33_Intuiciya_vash_navigator.mp3` },
-  { id: 34, name: "Знакомство с интуицией", file: `${BASE}/34_Znakomstvo_s_intuiciey.mp3` },
-  { id: 35, name: "Цитата Крайона", file: `${BASE}/35_Citata_Kryon.mp3` },
-  { id: 36, name: "Интуитивный поиск решений", file: `${BASE}/36_Intuitivnuy_poisk_resheniya.mp3` },
-  { id: 37, name: "Тренинг интуиции", file: `${BASE}/37_Trening_intuicii.mp3` },
-  { id: 38, name: "Мир разговаривает с вами", file: `${BASE}/38_Mir_razgovarivaet_s_vami.mp3` },
-  { id: 39, name: "Подталкивание Духа в вашей жизни", file: `${BASE}/39_Podtalkivanie_duxa.mp3` },
-  { id: 40, name: "Цитата Крайона 2", file: `${BASE}/40_Citata_Kryon2.mp3` },
-  { id: 41, name: "Знаки и сигналы Духа", file: `${BASE}/41_%20Znaki_&_Signaly_Duxa.mp3` },
-  { id: 42, name: "Знаки предупреждающие и поощряющие", file: `${BASE}/42_Znaki_preduprezhdayuchie.mp3` },
-  { id: 43, name: "Нейтральное отношение к деньгам", file: `${BASE}/43_Neitralnoe_otnoshenie_k_dengam.mp3` },
-  { id: 44, name: "Правильное отношение к деньгам", file: `${BASE}/44_Pravilnoe_otnoshenie_k_dengam.mp3` },
-  { id: 45, name: "Цитата Крайона", file: `${BASE}/45_Citata_Kryon.mp3` },
-  { id: 46, name: "Ваша собственная сверхценность", file: `${BASE}/46_Vasha_sobstvennaya_sverhCennost.mp3` },
-  { id: 47, name: "Освобождение от излишней привязанности", file: `${BASE}/47_Osvobozhdenie_ot_izlishnei_privyazannosti.mp3` },
-  { id: 48, name: "Снимите ограничения", file: `${BASE}/48_Snimite_ogranicheniya.mp3` },
-  { id: 49, name: "Освобождение от ограничивающих убеждений", file: `${BASE}/49_Osvobozhdenie_ot_ogranichivayushchikh_ubezhdenii.mp3` },
-  { id: 50, name: "Цитата Крайона", file: `${BASE}/50_Citata_Kryon.mp3` },
-  { id: 51, name: "Устраняем блоки на пути к цели", file: `${BASE}/51_Ustranyaem_bloki_na_puti_k_tseli.mp3` },
-  { id: 52, name: "Освобождающий свет", file: `${BASE}/52_Osvobozhdayushchii_svet.mp3` },
-  { id: 53, name: "Достаток должен приходить легко", file: `${BASE}/53_Dostatok_must_come_easy.mp3` },
-  { id: 54, name: "Освобождение от бремени тяжкого труда ради денег", file: `${BASE}/54_Osvobozhdenie_ot_bremeni_tyazhkogo_truda_radi_deneg.mp3` },
-  { id: 55, name: "Цитата Крайона 2", file: `${BASE}/55_Citata_Kryon2.mp3` },
-  { id: 56, name: "Работать с радостью — это реально", file: `${BASE}/56_Rabotat_s_radostyu_eto_realno.mp3` },
-  { id: 57, name: "Освобождение от переживаний из-за денег", file: `${BASE}/57_Osvobozhdenie_ot_perezhivanii_iz_za_deneg.mp3` },
-  { id: 58, name: "Найдите свою меру фин-го благополучия", file: `${BASE}/58_Naidite_svoyu_meru_finansovogo_blagopoluchiya.mp3` },
-  { id: 59, name: "Визуализация комфортная для вас сумма денег", file: `${BASE}/59_Vizualizatsiya_komfortnaya_dlya_vas_summa_deneg.mp3` },
-  { id: 60, name: "Цитата Крайона 3", file: `${BASE}/60_Citata_Kryon3.mp3` },
-  { id: 61, name: "Необходимое и достаточное количество денег", file: `${BASE}/61_Neobkhodimoe_i_dostatochnoe_kolichestvo_deneg.mp3` },
-  { id: 62, name: "Что вам нужно на самом деле", file: `${BASE}/62_Chto_vam_nuzhno_na_samom_dele.mp3` },
-  { id: 63, name: "Энергия мира готова работать на вас", file: `${BASE}/63_Energy_mira_gotova_work_for_us.mp3` },
-  { id: 64, name: "В потоке энергии Вселенной", file: `${BASE}/64_V_potoke_energii_Vselennoi.mp3` },
-  { id: 65, name: "Цитата Крайона", file: `${BASE}/65_Citata_Kryon.mp3` },
-  { id: 66, name: "На одной волне с миром", file: `${BASE}/66_Na_odnoi_volne_s_mirom.mp3` },
-  { id: 67, name: "Дар силы для необходимых действий", file: `${BASE}/67_Dar_sily_dlya_neobkhodimykh_deistvii.mp3` },
-  { id: 68, name: "Освободите место для желаемого", file: `${BASE}/68_Osvobodite_mesto_dlya_zhelaemogo.mp3` },
-  { id: 69, name: "Интуитивный поиск энергии", file: `${BASE}/69_Intuitivnyi_poisk_energii.mp3` },
-  { id: 70, name: "Цитата Крайона 2", file: `${BASE}/70_Citata_Kryon2.mp3` },
-  { id: 71, name: "Ваш попутный ветер", file: `${BASE}/71_Vash_poputnyi_veter.mp3` },
-  { id: 72, name: "Жизнь в моменте", file: `${BASE}/72_Zhizn_v_momente.mp3` },
-  { id: 73, name: "Благоприятное русло для потока изобилия", file: `${BASE}/73_Blagopriyatnoe_ruslo_dlya_potoka_izobiliya.mp3` },
-  { id: 74, name: "Ваши лучшие направления", file: `${BASE}/74_Vashi_luchshie_napravleniya.mp3` },
-  { id: 75, name: "Цитата Крайона 3", file: `${BASE}/75_Citata_Kryon3.mp3` },
-  { id: 76, name: "Необходимая остановка", file: `${BASE}/76_Neobkhodimaya_ostanovka.mp3` },
-  { id: 77, name: "Найдите то, что у вас получается хорошо", file: `${BASE}/77_Naidite_to_chto_u_vas_poluchaetsya_khorosho.mp3` },
-  { id: 78, name: "Баланс дарения и получения", file: `${BASE}/78_Balance_dareniya_polucheniya.mp3` },
-  { id: 79, name: "Закон дарения получения", file: `${BASE}/79_Zakon_dareniya_polucheniya.mp3` },
-  { id: 80, name: "Визуализация Щедрые дары", file: `${BASE}/80_Vizualizatsiya_Shchedrye_dary.mp3` },
-  { id: 81, name: "Бескорыстные дары", file: `${BASE}/81_Beskorystnye_dary.mp3` },
-  { id: 82, name: "Выбирайте для себя самые лучшие цели", file: `${BASE}/82_Vybiraite_dlya_sebya_samye_luchshie_tseli.mp3` },
-  { id: 83, name: "Что будет лучшим для вашей Души", file: `${BASE}/83_Chto_budet_luchshim_dlya_vashei_Dushi.mp3` },
-  { id: 84, name: "Цитата Крайона", file: `${BASE}/84_Citata_Kryon.mp3` },
-  { id: 85, name: "Ваши настоящие желания", file: `${BASE}/85_Vashi_nastoyashchie_zhelaniya.mp3` },
-  { id: 86, name: "На пути к самым важным целям", file: `${BASE}/86_Na_puti_k_samym_vazhnym_tselyam.mp3` },
-  { id: 87, name: "Сознание меняющее мир", file: `${BASE}/87_Soznanie_change_world.mp3` },
-  { id: 88, name: "Сегодняшние мысли создают завтрашнюю реальность!", file: `${BASE}/88_Segodnyashnie_mysli_sozdayut_zavtrashnyuyu_realnost.mp3` },
-  { id: 89, name: "Цитата Крайона 2", file: `${BASE}/89_Citata_Kryon2.mp3` },
-  { id: 90, name: "Чистое и твёрдое намерение", file: `${BASE}/90_Chistoe_i_tverdoe_namerenie.mp3` },
-  { id: 91, name: "Сознание, создающее реальность", file: `${BASE}/91_Soznanie_sozdayushchee_realnost.mp3` },
-  { id: 92, name: "Ставьте только позитивные цели", file: `${BASE}/92_Stavte_tolko_positiv_gooal.mp3` },
-  { id: 93, name: "Концентрируйтесь на хорошем", file: `${BASE}/93_Kontsentriruites_na_khoroshem.mp3` },
-  { id: 94, name: "Цитата Крайона 3", file: `${BASE}/94_Citata_Kryon3.mp3` },
-  { id: 95, name: "Выбор в пользу позитивных целей", file: `${BASE}/95_Vybor_v_polzu_pozitivnykh_tselei.mp3` },
-  { id: 96, name: "Всё не случайно", file: `${BASE}/96_Vse_ne_sluchaino.mp3` },
-  { id: 97, name: "Перепоручите Богу реализацию ваших планов", file: `${BASE}/97_Pereporuchite_Bogu_realizaciyu_planov.mp3` },
-  { id: 98, name: "Сообщите Духу о своей цели", file: `${BASE}/98_Soobshchite_Dukhu_o_svoei_tseli.mp3` },
-  { id: 99, name: "Цитата Крайона 4", file: `${BASE}/99_Citata_Kryon4.mp3` },
-  { id: 100, name: "Позвольте Богу вести вас к цели", file: `${BASE}/100_Pozvolte_Bogu_vesti_vas_k_tseli.mp3` },
-  { id: 101, name: "Отпускаем желание во Вселенную", file: `${BASE}/101_Otpuskaem_zhelanie_vo_Vselennuyu.mp3` },
-  { id: 102, name: "ИТОГ", file: `${BASE}/102_ITOG.mp3` },
-  { id: 103, name: "Примите свое безусловное право на жизнь", file: `${BASE}/103_Primite_svoe_bezuslovnoe_pravo_na_zhizn.mp3` },
-  { id: 104, name: "Ваше право на жизнь", file: `${BASE}/104_Vashe_pravo_na_zhizn.mp3` },
-  { id: 105, name: "Цитата Крайона", file: `${BASE}/105_Citata_Kryon.mp3` },
-  { id: 106, name: "Выслеживаем неуверенность", file: `${BASE}/106_Vyslezhivaem_neuverennost.mp3` },
-  { id: 107, name: "Вы этого достойны", file: `${BASE}/107_Vy_etogo_dostoiny.mp3` },
-  { id: 108, name: "Сбалансируйте самооценку", file: `${BASE}/108_Sbalansiruite_samootsenku.mp3` },
-  { id: 109, name: "Ваша Божественная ценность", file: `${BASE}/109_Vasha_Bozhestvennaya_tsennost.mp3` },
-  { id: 110, name: "Цитата Крайона 2", file: `${BASE}/110_Citata_Kryon2.mp3` },
-  { id: 111, name: "Напоминание себе о своей уникальности", file: `${BASE}/111_Napominanie_sebe_o_svoei_unikalnosti.mp3` },
-  { id: 112, name: "Безусловное принятие себя", file: `${BASE}/111_Napominanie_sebe_o_svoei_unikalnosti.mp3` },
-  { id: 113, name: "Явите миру свою внутреннюю красоту", file: `${BASE}/113_Yavite_miru_svoyu_vnutrennyuyu_krasotu.mp3` },
-  { id: 114, name: "Красота внутри", file: `${BASE}/114_Krasota_vnutri.mp3` },
-  { id: 115, name: "Цитата Крайона 3", file: `${BASE}/115_Citata_Kryon3.mp3` },
-  { id: 116, name: "Визуализация: раскрывшийся цветок", file: `${BASE}/116_Vizualizatsiya_raskryvshiisya_tsvetok.mp3` },
-  { id: 117, name: "Ваша прекрасная истинная суть", file: `${BASE}/117_Vasha_prekrasnaya_istinnaya_sut.mp3` },
-  { id: 118, name: "Дайте себе право быть Творцом", file: `${BASE}/118_Daite_sebe_pravo_byt_Tvortsom.mp3` },
-  { id: 119, name: "Цитата Крайона 4", file: `${BASE}/119_Citata_Kryon4.mp3` },
-  { id: 120, name: "От психологии жертвы к сознанию Творца", file: `${BASE}/120_Ot_psikhologii_zhertvy_k_soznaniyu_Tvortsa.mp3` },
-  { id: 121, name: "Подключение к Божественному источнику творческой энергии", file: `${BASE}/121_Podklyuchenie_k_Bozhestvennomu_istochniku_tvorcheskoi_energii.mp3` },
-  { id: 122, name: "Сила единства человечества", file: `${BASE}/122_Sila_edinstva_chelovechestva.mp3` },
-  { id: 123, name: "Сознание единства", file: `${BASE}/123_Soznanie_edinstva.mp3` },
-  { id: 124, name: "Цитата Крайона", file: `${BASE}/124_Citata_Kryon.mp3` },
-  { id: 125, name: "Сеть света", file: `${BASE}/125_Set_sveta.mp3` },
-  { id: 126, name: "Связи между людьми для общего блага", file: `${BASE}/126_Svyazi_mezhdu_lyudmi_dlya_obshchego_blaga.mp3` },
-  { id: 127, name: "Ваша высшая миссия", file: `${BASE}/127_Vasha_vysshaya_missiya.mp3` },
-  { id: 128, name: "Цитата Крайона 2", file: `${BASE}/128_Citata_Kryon2.mp3` },
-  { id: 129, name: "Ищите то общее, что есть у вас с другими", file: `${BASE}/129_Ishchite_to_obshchee_chto_est_u_vas_s_drugimi.mp3` },
-  { id: 130, name: "Намерение на обретение чистых источников дохода", file: `${BASE}/130_Namerenie_na_obretenie_chistykh_istochnikov_dokhoda.mp3` },
-  { id: 131, name: "Сила Сотрудничества", file: `${BASE}/131_Sila_sotrudnichestva.mp3` },
-  { id: 132, name: "Энергия, объединяющая людей", file: `${BASE}/132_Energiya_obyedinyayushchaya_lyudei.mp3` },
-  { id: 133, name: "Цитата Крайона 3", file: `${BASE}/133_Citata_Kryon3.mp3` },
-  { id: 134, name: "Создание доброжелательной атмосферы", file: `${BASE}/134_Sozdanie_dobrozhelatelnoi_atmosfery.mp3` },
-  { id: 135, name: "Намерение на обретение единомышленников", file: `${BASE}/135_Namerenie_na_obretenie_edinomyshlennikov.mp3` },
-  { id: 136, name: "Сила сострадания", file: `${BASE}/136_Sila_sostradaniya.mp3` },
-  { id: 137, name: "Действенное сострадание", file: `${BASE}/137_Deistvennoe_sostradanie.mp3` },
-  { id: 138, name: "Цитата Крайона 4", file: `${BASE}/138_Citata_Kryon4.mp3` },
-  { id: 139, name: "Пожелание добра и мира всем людям на планете", file: `${BASE}/139_Pozhelanie_dobra_i_mira_vsem_lyudyam_na_planete.mp3` },
-  { id: 140, name: "Новый подход к людям - с пониманием и сочувствием", file: `${BASE}/140_Novyi_podkhod_k_lyudyam_s_ponimaniem_i_sochuvstviem.mp3` },
+function pad(n: number): string {
+  return n.toString().padStart(2, "0");
+}
+
+const THEME_RANGES: { name: string; start: number; end: number }[] = [
+  { name: "Женское счастье", start: 1, end: 18 },
+  { name: "Тело", start: 19, end: 34 },
+  { name: "Разум", start: 35, end: 50 },
+  { name: "Сердце и любовь", start: 51, end: 66 },
+  { name: "Душа и гармония", start: 67, end: 83 },
+  { name: "Изобилие и богатство", start: 84, end: 100 },
 ];
 
-export function getTodayMeditationIndex() {
+function themeFor(id: number): string {
+  return THEME_RANGES.find((t) => id >= t.start && id <= t.end)!.name;
+}
+
+export interface Meditation {
+  id: number;
+  name: string;
+  file: string;
+}
+
+export const MEDITATIONS: Meditation[] = Array.from({ length: 100 }, (_, i) => {
+  const id = i + 1;
+  return { id, name: themeFor(id), file: `${BASE}/affirmation-${pad(id)}.m4a` };
+});
+
+// Порядок показа по дням: round-robin через все 6 тем, чтобы не было
+// нескольких дней подряд с одной и той же темой.
+const DAY_ORDER: number[] = [
+  1, 19, 35, 51, 67, 84, 2, 20, 36, 52, 68, 85, 3, 21, 37, 53, 69, 86, 4, 22,
+  38, 54, 70, 87, 5, 23, 39, 55, 71, 88, 6, 24, 40, 56, 72, 89, 7, 25, 41, 57,
+  73, 90, 8, 26, 42, 58, 74, 91, 9, 27, 43, 59, 75, 92, 10, 28, 44, 60, 76,
+  93, 11, 29, 45, 61, 77, 94, 12, 30, 46, 62, 78, 95, 13, 31, 47, 63, 79, 96,
+  14, 32, 48, 64, 80, 97, 15, 33, 49, 65, 81, 98, 16, 34, 50, 66, 82, 99, 17,
+  83, 100, 18,
+];
+
+const MEDITATIONS_BY_ID: Record<number, Meditation> = Object.fromEntries(
+  MEDITATIONS.map((m) => [m.id, m])
+);
+
+export function getTodayMeditationIndex(): number {
   const dayOfYear = Math.floor(
     (Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000
   );
-  return dayOfYear % MEDITATIONS.length;
+  return dayOfYear % DAY_ORDER.length;
 }
 
-export function getTodayMeditation() {
-  return MEDITATIONS[getTodayMeditationIndex()];
+export function getTodayMeditation(): Meditation {
+  const id = DAY_ORDER[getTodayMeditationIndex()];
+  return MEDITATIONS_BY_ID[id];
 }
