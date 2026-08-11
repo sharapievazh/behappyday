@@ -43,3 +43,8 @@ export function playChime() {
   strike(audio, 880, now + 0.55, 0.1);
   strike(audio, 1320, now + 0.55, 0.04);
 }
+
+/** Разблокировать аудио-контекст на пользовательский жест */
+export function primeChime() {
+  getCtx();
+}
