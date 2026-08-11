@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { Minus, Plus, Play, Pause, RotateCcw } from "lucide-react";
 import { Exercise } from "@/data/exercises";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { playChime } from "@/lib/chime";
 
 interface ExerciseCardProps {
   exercise: Exercise;
