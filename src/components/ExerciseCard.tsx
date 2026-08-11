@@ -51,6 +51,7 @@ export function ExerciseCard({
           clearInterval(timerId);
           setRunning(false);
           if (!doneRef.current) handleToggle();
+          playChime();
           try {
             if ("vibrate" in navigator) navigator.vibrate?.([200, 100, 200]);
           } catch {}
