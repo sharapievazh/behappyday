@@ -59,6 +59,27 @@ export function GoalsSection() {
           Эти цели сохраняются и отображаются каждый день
         </p>
       </div>
+
+      {/* Аккаунт */}
+      <div className="space-y-2">
+        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+          Аккаунт
+        </h2>
+        <div className="bg-card border border-border rounded-2xl p-5 space-y-4 shadow-soft">
+          {user?.email && (
+            <p className="text-sm text-muted-foreground break-all">{user.email}</p>
+          )}
+          <Button
+            variant="outline"
+            onClick={signOut}
+            className="w-full h-12 rounded-2xl"
+          >
+            <LogOut className="w-4 h-4 mr-2" />
+            Выйти
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
+
