@@ -76,6 +76,21 @@ const Privacy = () => (
 
         <h2 className="pt-2 text-base font-medium">Контакты</h2>
         <p>По всем вопросам о конфиденциальности: sharapieva@gmail.com</p>
+
+        <h2 className="font-serif text-lg pt-2">Музыка</h2>
+        <p>
+          Фоновая музыка в приложении — трек "Ethereal Relaxation" автора Kevin MacLeod
+          (incompetech.com), используется по лицензии{" "}
+          <a
+            href="https://creativecommons.org/licenses/by/4.0/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            Creative Commons Attribution 4.0
+          </a>
+          .
+        </p>
       </div>
     </main>
   </div>
