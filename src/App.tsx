@@ -9,11 +9,14 @@ import Privacy from "./pages/Privacy";
 import NotFound from "./pages/NotFound";
 import { AuthProvider, useAuth } from "./hooks/useAuth";
 import { AuthScreen } from "./components/AuthScreen";
+import { useCloudSync } from "./hooks/useCloudSync";
 
 const queryClient = new QueryClient();
 
 const AppRoutes = () => {
   const { session, loading } = useAuth();
+  useCloudSync();
+
 
   if (loading) {
     return (
