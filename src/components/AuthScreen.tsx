@@ -14,8 +14,11 @@ function translateError(message: string) {
     return "Этот email уже зарегистрирован";
   if (m.includes("password should be at least"))
     return "Пароль должен содержать минимум 6 символов";
+  if (m.includes("weak") || m.includes("pwned"))
+    return "Придумайте другой пароль — этот слишком простой";
   if (m.includes("email not confirmed"))
     return "Подтвердите email — письмо уже отправлено на вашу почту";
+
   if (m.includes("unable to validate email") || m.includes("invalid email"))
     return "Проверьте, правильно ли указан email";
   if (m.includes("rate limit")) return "Слишком много попыток. Попробуйте немного позже";
