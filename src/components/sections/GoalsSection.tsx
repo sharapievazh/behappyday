@@ -2,6 +2,8 @@ import { Target, LogOut } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { MonthlyIntention } from "@/components/MonthlyIntention";
+import { MyProgress } from "@/components/MyProgress";
+
 import { WomensLibrary } from "@/components/WomensLibrary";
 import { NotificationSettings } from "@/components/NotificationSettings";
 import { BackupRestore } from "@/components/BackupRestore";
