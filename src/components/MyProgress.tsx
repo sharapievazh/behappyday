@@ -149,7 +149,7 @@ export function MyProgress() {
                 title={`${d.day} — ${d.percent}%`}
                 className={cn(
                   "aspect-square rounded-xl flex items-center justify-center text-xs transition-colors",
-                  d.future ? "bg-muted/40 text-muted-foreground/50" : tone(d.percent),
+                  d.future ? "bg-primary/5 text-muted-foreground/50" : tone(d.percent),
                   d.key === today && "ring-2 ring-primary ring-offset-1 ring-offset-card"
                 )}
               >
