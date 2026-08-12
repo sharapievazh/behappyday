@@ -1,13 +1,17 @@
-import { Target } from "lucide-react";
+import { Target, LogOut } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 import { MonthlyIntention } from "@/components/MonthlyIntention";
 import { WomensLibrary } from "@/components/WomensLibrary";
 import { NotificationSettings } from "@/components/NotificationSettings";
 import { BackupRestore } from "@/components/BackupRestore";
 import { useGoals } from "@/hooks/useGoals";
+import { useAuth } from "@/hooks/useAuth";
 
 export function GoalsSection() {
   const { goals, updateGoals } = useGoals();
+  const { user, signOut } = useAuth();
+
 
   return (
     <div className="space-y-6 animate-fade-in">
