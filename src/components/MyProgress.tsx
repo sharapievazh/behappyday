@@ -115,7 +115,7 @@ export function MyProgress() {
     if (p >= 50) return "bg-primary/60 text-foreground";
     if (p >= 20) return "bg-primary/35 text-foreground";
     if (p > 0) return "bg-primary/15 text-foreground";
-    return "bg-primary/8 text-muted-foreground";
+    return "bg-primary/5 text-muted-foreground";
   };
 
   return (
