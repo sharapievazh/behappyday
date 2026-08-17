@@ -45,8 +45,7 @@ export function AuthScreen() {
           clientId: "com.behappyday.app",
           redirectURI: window.location.origin,
           scopes: "email name",
-ついで: undefined as never,
-        } as never);
+        });
         const idToken = result.response?.identityToken;
         if (!idToken) throw new Error("Apple не вернул токен");
         const { error } = await supabase.auth.signInWithIdToken({
