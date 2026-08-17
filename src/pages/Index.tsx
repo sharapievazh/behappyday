@@ -26,7 +26,10 @@ const Index = () => {
       </main>
 
       {/* Bottom navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur-lg border-t border-border">
+      <nav
+        className="fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur-lg border-t border-border"
+        style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+      >
         <div className="container max-w-lg mx-auto px-4 py-3">
           <div className="flex gap-2">
             <TabButton

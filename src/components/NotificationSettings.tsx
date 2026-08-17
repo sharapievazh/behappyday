@@ -53,7 +53,7 @@ export function NotificationSettings() {
             onChange={(e) => update({ morningTime: e.target.value })}
             disabled={!settings.morningEnabled}
             className={cn(
-              "h-9 px-2 rounded-lg border border-border bg-background text-sm",
+              "h-9 px-2 rounded-lg border border-border bg-background text-base",
               !settings.morningEnabled && "opacity-50"
             )}
           />
@@ -78,7 +78,7 @@ export function NotificationSettings() {
             onChange={(e) => update({ eveningTime: e.target.value })}
             disabled={!settings.eveningEnabled}
             className={cn(
-              "h-9 px-2 rounded-lg border border-border bg-background text-sm",
+              "h-9 px-2 rounded-lg border border-border bg-background text-base",
               !settings.eveningEnabled && "opacity-50"
             )}
           />
