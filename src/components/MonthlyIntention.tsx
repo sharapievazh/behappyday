@@ -104,7 +104,7 @@ export function MonthlyIntention() {
             placeholder="В этом месяце я..."
             className={cn(
               "w-full min-h-[90px] p-4 rounded-xl bg-background border border-border resize-none",
-              "text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none",
+              "text-base focus:border-primary focus:ring-1 focus:ring-primary outline-none",
               "placeholder:text-muted-foreground/50"
             )}
           />

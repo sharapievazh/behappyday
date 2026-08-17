@@ -114,7 +114,7 @@ export function EmotionJournal({
               placeholder="Краткая причина (по желанию)"
               className={cn(
                 "w-full h-11 px-4 rounded-xl bg-background border border-border",
-                "text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none",
+                "text-base focus:border-primary focus:ring-1 focus:ring-primary outline-none",
                 "placeholder:text-muted-foreground/50"
               )}
             />
