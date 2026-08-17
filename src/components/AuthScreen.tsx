@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Sparkles, Loader2, MailCheck } from "lucide-react";
+import { Sparkles, Loader2, MailCheck, Apple } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
+import { Capacitor } from "@capacitor/core";
+import { SignInWithApple } from "@capacitor-community/apple-sign-in";
 
 type Mode = "signin" | "signup";
 
@@ -18,10 +20,10 @@ function translateError(message: string) {
     return "Придумайте другой пароль — этот слишком простой";
   if (m.includes("email not confirmed"))
     return "Подтвердите email — письмо уже отправлено на вашу почту";
-
   if (m.includes("unable to validate email") || m.includes("invalid email"))
     return "Проверьте, правильно ли указан email";
   if (m.includes("rate limit")) return "Слишком много попыток. Попробуйте немного позже";
+  if (m.includes("cancel")) return "Вход через Apple отменён";
   return message;
 }
 
@@ -32,6 +34,38 @@ export function AuthScreen() {
   const [error, setError] = useState<string | null>(null);
   const [checkEmail, setCheckEmail] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [appleLoading, setAppleLoading] = useState(false);
+
+  const signInWithApple = async () => {
+    setError(null);
+    setAppleLoading(true);
+    try {
+      if (Capacitor.isNativePlatform()) {
+        const result = await SignInWithApple.authorize({
+          clientId: "com.behappyday.app",
+          redirectURI: window.location.origin,
+          scopes: "email name",
+        });
+        const idToken = result.response?.identityToken;
+        if (!idToken) throw new Error("Apple не вернул токен");
+        const { error } = await supabase.auth.signInWithIdToken({
+          provider: "apple",
+          token: idToken,
+        });
+        if (error) throw error;
+      } else {
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider: "apple",
+          options: { redirectTo: window.location.origin },
+        });
+        if (error) throw error;
+      }
+    } catch (err) {
+      setError(translateError(err instanceof Error ? err.message : "Не удалось войти через Apple"));
+    } finally {
+      setAppleLoading(false);
+    }
+  };
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -93,16 +127,37 @@ export function AuthScreen() {
             <Sparkles className="w-8 h-8 text-primary" />
           </div>
           <h1 className="font-serif text-3xl text-foreground mb-3">BeHappyDay</h1>
-          <p className="text-sm text-muted-foreground leading-relaxed">
+          <p className="text-base text-muted-foreground leading-relaxed">
             {mode === "signin"
               ? "С возвращением. Продолжим проживать день с любовью к себе."
               : "Создайте пространство только для себя — мягко и осознанно."}
           </p>
         </div>
 
+        <Button
+          type="button"
+          variant="secondary"
+          disabled={appleLoading}
+          onClick={signInWithApple}
+          className="w-full h-12 rounded-2xl text-base"
+        >
+          {appleLoading ? (
+            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+          ) : (
+            <Apple className="w-4 h-4 mr-2" />
+          )}
+          Войти через Apple
+        </Button>
+
+        <div className="flex items-center gap-3 my-6">
+          <span className="h-px flex-1 bg-border" />
+          <span className="text-xs text-muted-foreground">или по email</span>
+          <span className="h-px flex-1 bg-border" />
+        </div>
+
         <form onSubmit={submit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-sm text-muted-foreground">
+            <Label htmlFor="email" className="text-base text-muted-foreground">
               Email
             </Label>
             <Input
@@ -118,7 +173,7 @@ export function AuthScreen() {
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="password" className="text-sm text-muted-foreground">
+            <Label htmlFor="password" className="text-base text-muted-foreground">
               Пароль
             </Label>
             <Input
@@ -136,7 +191,7 @@ export function AuthScreen() {
           </div>
 
           {error && (
-            <div className="text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-xl p-3">
+            <div className="text-base text-destructive bg-destructive/10 border border-destructive/20 rounded-xl p-3">
               {error}
             </div>
           )}
@@ -150,7 +205,7 @@ export function AuthScreen() {
         <div className="text-center mt-6">
           <button
             type="button"
-            className="text-sm text-primary hover:underline"
+            className="text-base text-primary hover:underline"
             onClick={() => {
               setMode(mode === "signin" ? "signup" : "signin");
               setError(null);
