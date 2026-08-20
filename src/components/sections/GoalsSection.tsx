@@ -1,4 +1,4 @@
-import { Target, LogOut } from "lucide-react";
+import { Target } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { MonthlyIntention } from "@/components/MonthlyIntention";
@@ -8,11 +8,9 @@ import { WomensLibrary } from "@/components/WomensLibrary";
 import { NotificationSettings } from "@/components/NotificationSettings";
 import { BackupRestore } from "@/components/BackupRestore";
 import { useGoals } from "@/hooks/useGoals";
-import { useAuth } from "@/hooks/useAuth";
 
 export function GoalsSection() {
   const { goals, updateGoals } = useGoals();
-  const { user, signOut } = useAuth();
 
 
   return (
@@ -63,21 +61,6 @@ export function GoalsSection() {
         <p className="text-sm text-muted-foreground text-center">
           Эти цели сохраняются и отображаются каждый день
         </p>
-      </div>
-
-      {/* Аккаунт — тихо, внизу */}
-      <div className="pt-2 pb-4 text-center space-y-1">
-        {user?.email && (
-          <p className="text-xs text-muted-foreground break-all">{user.email}</p>
-        )}
-        <button
-          type="button"
-          onClick={signOut}
-          className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <LogOut className="w-3.5 h-3.5" />
-          Выйти
-        </button>
       </div>
     </div>
   );
