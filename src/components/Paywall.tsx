@@ -18,7 +18,9 @@ interface PaywallProps {
 }
 
 export function Paywall({ onUnlocked }: PaywallProps) {
-  const [pkg, setPkg] = useState<PurchasesPackage | null>(null);
+  const [monthly, setMonthly] = useState<PurchasesPackage | null>(null);
+  const [annual, setAnnual] = useState<PurchasesPackage | null>(null);
+  const [selected, setSelected] = useState<"monthly" | "annual">("annual");
   const [loadingOffer, setLoadingOffer] = useState(true);
   const [purchasing, setPurchasing] = useState(false);
   const [restoring, setRestoring] = useState(false);
@@ -31,18 +33,27 @@ export function Paywall({ onUnlocked }: PaywallProps) {
     }
     Purchases.getOfferings()
       .then(({ current }) => {
-        setPkg(current?.monthly ?? current?.availablePackages[0] ?? null);
+        setMonthly(current?.monthly ?? null);
+        setAnnual(current?.annual ?? null);
+        if (!current?.annual && current?.monthly) setSelected("monthly");
       })
       .catch(() => setError("Не удалось загрузить предложение подписки"))
       .finally(() => setLoadingOffer(false));
   }, []);
 
+  const savingsPercent =
+    monthly && annual
+      ? Math.round((1 - annual.product.price / 12 / monthly.product.price) * 100)
+      : null;
+
+  const chosenPackage = selected === "annual" ? annual ?? monthly : monthly ?? annual;
+
   const subscribe = async () => {
-    if (!pkg) return;
+    if (!chosenPackage) return;
     setError(null);
     setPurchasing(true);
     try {
-      const { customerInfo } = await Purchases.purchasePackage({ aPackage: pkg });
+      const { customerInfo } = await Purchases.purchasePackage({ aPackage: chosenPackage });
       if (customerInfo.entitlements.active[ENTITLEMENT_ID]) {
         onUnlocked();
       }
@@ -88,16 +99,52 @@ export function Paywall({ onUnlocked }: PaywallProps) {
           <Loader2 className="w-6 h-6 text-primary animate-spin mx-auto" />
         ) : (
           <>
+            {(monthly || annual) && (
+              <div className="grid grid-cols-2 gap-3 mb-6">
+                {annual && (
+                  <button
+                    type="button"
+                    onClick={() => setSelected("annual")}
+                    className={`relative rounded-2xl border-2 p-4 text-left transition-colors ${
+                      selected === "annual" ? "border-primary bg-primary/5" : "border-border"
+                    }`}
+                  >
+                    {savingsPercent !== null && savingsPercent > 0 && (
+                      <span className="absolute -top-2.5 right-3 bg-primary text-primary-foreground text-[11px] font-medium px-2 py-0.5 rounded-full">
+                        −{savingsPercent}%
+                      </span>
+                    )}
+                    <div className="text-sm text-muted-foreground mb-1">Год</div>
+                    <div className="text-lg font-medium text-foreground">
+                      {annual.product.priceString}
+                    </div>
+                  </button>
+                )}
+                {monthly && (
+                  <button
+                    type="button"
+                    onClick={() => setSelected("monthly")}
+                    className={`rounded-2xl border-2 p-4 text-left transition-colors ${
+                      selected === "monthly" ? "border-primary bg-primary/5" : "border-border"
+                    }`}
+                  >
+                    <div className="text-sm text-muted-foreground mb-1">Месяц</div>
+                    <div className="text-lg font-medium text-foreground">
+                      {monthly.product.priceString}
+                    </div>
+                  </button>
+                )}
+              </div>
+            )}
+
             <Button
               type="button"
-              disabled={purchasing || !pkg}
+              disabled={purchasing || !chosenPackage}
               onClick={subscribe}
               className="w-full h-12 rounded-2xl text-base"
             >
               {purchasing && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-              {pkg
-                ? `Оформить подписку — ${pkg.product.priceString}/мес`
-                : "Подписка временно недоступна"}
+              {chosenPackage ? "Оформить подписку" : "Подписка временно недоступна"}
             </Button>
 
             {error && (
