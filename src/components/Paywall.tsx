@@ -1,25 +1,21 @@
 import { useEffect, useState } from "react";
 import { Loader2, Sparkles } from "lucide-react";
 import { Capacitor } from "@capacitor/core";
-import { Purchases, type PurchasesPackage } from "@revenuecat/purchases-capacitor";
 import { Button } from "@/components/ui/button";
-import { ENTITLEMENT_ID } from "@/lib/purchases";
-
-function translateError(message: string) {
-  const m = message.toLowerCase();
-  if (m.includes("network")) return "Нет соединения с интернетом. Проверьте сеть и попробуйте снова";
-  if (m.includes("already") || m.includes("owned"))
-    return "Подписка уже оформлена — попробуйте «Восстановить покупки»";
-  return "Не удалось оформить подписку. Попробуйте ещё раз";
-}
+import {
+  BeHappyPurchases,
+  MONTHLY_PRODUCT_ID,
+  ANNUAL_PRODUCT_ID,
+  type StoreProduct,
+} from "@/lib/purchases";
 
 interface PaywallProps {
   onUnlocked: () => void;
 }
 
 export function Paywall({ onUnlocked }: PaywallProps) {
-  const [monthly, setMonthly] = useState<PurchasesPackage | null>(null);
-  const [annual, setAnnual] = useState<PurchasesPackage | null>(null);
+  const [monthly, setMonthly] = useState<StoreProduct | null>(null);
+  const [annual, setAnnual] = useState<StoreProduct | null>(null);
   const [selected, setSelected] = useState<"monthly" | "annual">("annual");
   const [loadingOffer, setLoadingOffer] = useState(true);
   const [purchasing, setPurchasing] = useState(false);
@@ -31,37 +27,36 @@ export function Paywall({ onUnlocked }: PaywallProps) {
       setLoadingOffer(false);
       return;
     }
-    Purchases.getOfferings()
-      .then(({ current }) => {
-        setMonthly(current?.monthly ?? null);
-        setAnnual(current?.annual ?? null);
-        if (!current?.annual && current?.monthly) setSelected("monthly");
+    BeHappyPurchases.getOfferings()
+      .then(({ products }) => {
+        const m = products.find((p) => p.id === MONTHLY_PRODUCT_ID) ?? null;
+        const a = products.find((p) => p.id === ANNUAL_PRODUCT_ID) ?? null;
+        setMonthly(m);
+        setAnnual(a);
+        if (!a && m) setSelected("monthly");
       })
       .catch(() => setError("Не удалось загрузить предложение подписки"))
       .finally(() => setLoadingOffer(false));
   }, []);
 
   const savingsPercent =
-    monthly && annual
-      ? Math.round((1 - annual.product.price / 12 / monthly.product.price) * 100)
-      : null;
+    monthly && annual ? Math.round((1 - annual.price / 12 / monthly.price) * 100) : null;
 
-  const chosenPackage = selected === "annual" ? annual ?? monthly : monthly ?? annual;
+  const chosen = selected === "annual" ? annual ?? monthly : monthly ?? annual;
 
   const subscribe = async () => {
-    if (!chosenPackage) return;
+    if (!chosen) return;
     setError(null);
     setPurchasing(true);
     try {
-      const { customerInfo } = await Purchases.purchasePackage({ aPackage: chosenPackage });
-      if (customerInfo.entitlements.active[ENTITLEMENT_ID]) {
+      const { active, pending } = await BeHappyPurchases.purchase({ productId: chosen.id });
+      if (active) {
         onUnlocked();
+      } else if (pending) {
+        setError("Покупка ожидает подтверждения (например, от родителя) — доступ откроется автоматически");
       }
     } catch (err) {
-      const userCancelled = (err as { userCancelled?: boolean } | undefined)?.userCancelled;
-      if (!userCancelled) {
-        setError(translateError(err instanceof Error ? err.message : ""));
-      }
+      setError(err instanceof Error ? err.message : "Не удалось оформить подписку. Попробуйте ещё раз");
     } finally {
       setPurchasing(false);
     }
@@ -71,8 +66,8 @@ export function Paywall({ onUnlocked }: PaywallProps) {
     setError(null);
     setRestoring(true);
     try {
-      const { customerInfo } = await Purchases.restorePurchases();
-      if (customerInfo.entitlements.active[ENTITLEMENT_ID]) {
+      const { active } = await BeHappyPurchases.restorePurchases();
+      if (active) {
         onUnlocked();
       } else {
         setError("Активная подписка не найдена для этого Apple ID");
@@ -115,9 +110,7 @@ export function Paywall({ onUnlocked }: PaywallProps) {
                       </span>
                     )}
                     <div className="text-sm text-muted-foreground mb-1">Год</div>
-                    <div className="text-lg font-medium text-foreground">
-                      {annual.product.priceString}
-                    </div>
+                    <div className="text-lg font-medium text-foreground">{annual.displayPrice}</div>
                   </button>
                 )}
                 {monthly && (
@@ -129,9 +122,7 @@ export function Paywall({ onUnlocked }: PaywallProps) {
                     }`}
                   >
                     <div className="text-sm text-muted-foreground mb-1">Месяц</div>
-                    <div className="text-lg font-medium text-foreground">
-                      {monthly.product.priceString}
-                    </div>
+                    <div className="text-lg font-medium text-foreground">{monthly.displayPrice}</div>
                   </button>
                 )}
               </div>
@@ -139,12 +130,12 @@ export function Paywall({ onUnlocked }: PaywallProps) {
 
             <Button
               type="button"
-              disabled={purchasing || !chosenPackage}
+              disabled={purchasing || !chosen}
               onClick={subscribe}
               className="w-full h-12 rounded-2xl text-base"
             >
               {purchasing && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-              {chosenPackage ? "Оформить подписку" : "Подписка временно недоступна"}
+              {chosen ? "Оформить подписку" : "Подписка временно недоступна"}
             </Button>
 
             {error && (

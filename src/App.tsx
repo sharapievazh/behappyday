@@ -9,7 +9,7 @@ import Index from "./pages/Index";
 import Privacy from "./pages/Privacy";
 import NotFound from "./pages/NotFound";
 import { Paywall } from "./components/Paywall";
-import { initPurchases, hasActiveSubscription } from "./lib/purchases";
+import { hasActiveSubscription } from "./lib/purchases";
 
 const queryClient = new QueryClient();
 
@@ -17,8 +17,7 @@ const AppRoutes = () => {
   const [subscribed, setSubscribed] = useState<boolean | null>(null);
 
   useEffect(() => {
-    initPurchases()
-      .then(hasActiveSubscription)
+    hasActiveSubscription()
       .then(setSubscribed)
       .catch(() => setSubscribed(false));
   }, []);

@@ -1,0 +1,65 @@
+{
+  "identifier": "BeHappyDay",
+  "nonRenewingSubscriptions": [],
+  "products": [],
+  "settings": {
+    "_locale": "ru_RU",
+    "_storefront": "USA",
+    "_storeKitErrors": []
+  },
+  "subscriptionGroups": [
+    {
+      "id": "6772BCF2-2450-46CC-983B-5AA240D74C5D",
+      "localizations": [],
+      "name": "BeHappyDay Premium",
+      "subscriptions": [
+        {
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "1.99",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "1D32E997-90BF-4B32-9F14-3E80F6BD8E12",
+          "introductoryOffer": null,
+          "localizations": [
+            {
+              "description": "Полный доступ к приложению BeHappyDay",
+              "displayName": "BeHappyDay — месяц",
+              "locale": "ru"
+            }
+          ],
+          "productID": "com.behappyday.app.monthly",
+          "recurringSubscriptionPeriod": "P1M",
+          "referenceName": "BeHappyDay Monthly",
+          "subscriptionGroupID": "6772BCF2-2450-46CC-983B-5AA240D74C5D",
+          "type": "RecurringSubscription"
+        },
+        {
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "19.99",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "FA7E3036-0865-4C1F-8266-157C82D74B90",
+          "introductoryOffer": null,
+          "localizations": [
+            {
+              "description": "Полный доступ к приложению BeHappyDay",
+              "displayName": "BeHappyDay — год",
+              "locale": "ru"
+            }
+          ],
+          "productID": "com.behappyday.app.annual",
+          "recurringSubscriptionPeriod": "P1Y",
+          "referenceName": "BeHappyDay Annual",
+          "subscriptionGroupID": "6772BCF2-2450-46CC-983B-5AA240D74C5D",
+          "type": "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version": {
+    "major": 3,
+    "minor": 0
+  }
+}
