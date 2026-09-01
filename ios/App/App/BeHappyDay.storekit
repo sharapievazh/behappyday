@@ -2,11 +2,7 @@
   "identifier": "BeHappyDay",
   "nonRenewingSubscriptions": [],
   "products": [],
-  "settings": {
-    "_locale": "ru_RU",
-    "_storefront": "USA",
-    "_storeKitErrors": []
-  },
+  "settings": {},
   "subscriptionGroups": [
     {
       "id": "6772BCF2-2450-46CC-983B-5AA240D74C5D",
@@ -18,7 +14,7 @@
           "codeOffers": [],
           "displayPrice": "1.99",
           "familyShareable": false,
-          "groupNumber": 1,
+          "groupNumber": 2,
           "internalID": "1D32E997-90BF-4B32-9F14-3E80F6BD8E12",
           "introductoryOffer": null,
           "localizations": [
@@ -59,7 +55,7 @@
     }
   ],
   "version": {
-    "major": 3,
+    "major": 2,
     "minor": 0
   }
 }
