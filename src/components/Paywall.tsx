@@ -6,6 +6,7 @@ import {
   BeHappyPurchases,
   MONTHLY_PRODUCT_ID,
   ANNUAL_PRODUCT_ID,
+  withTimeout,
   type StoreProduct,
 } from "@/lib/purchases";
 
@@ -27,7 +28,7 @@ export function Paywall({ onUnlocked }: PaywallProps) {
       setLoadingOffer(false);
       return;
     }
-    BeHappyPurchases.getOfferings()
+    withTimeout(BeHappyPurchases.getOfferings())
       .then(({ products }) => {
         const m = products.find((p) => p.id === MONTHLY_PRODUCT_ID) ?? null;
         const a = products.find((p) => p.id === ANNUAL_PRODUCT_ID) ?? null;
