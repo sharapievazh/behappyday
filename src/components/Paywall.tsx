@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Loader2, Sparkles } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { Loader2, RefreshCw, Sparkles } from "lucide-react";
 import { Capacitor } from "@capacitor/core";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,31 +14,49 @@ interface PaywallProps {
   onUnlocked: () => void;
 }
 
+const OFFERINGS_TIMEOUT_MS = 10000;
+
 export function Paywall({ onUnlocked }: PaywallProps) {
   const [monthly, setMonthly] = useState<StoreProduct | null>(null);
   const [annual, setAnnual] = useState<StoreProduct | null>(null);
   const [selected, setSelected] = useState<"monthly" | "annual">("annual");
   const [loadingOffer, setLoadingOffer] = useState(true);
+  const [loadFailed, setLoadFailed] = useState(false);
   const [purchasing, setPurchasing] = useState(false);
   const [restoring, setRestoring] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  const loadOfferings = useCallback(async () => {
     if (!Capacitor.isNativePlatform()) {
       setLoadingOffer(false);
       return;
     }
-    withTimeout(BeHappyPurchases.getOfferings())
-      .then(({ products }) => {
-        const m = products.find((p) => p.id === MONTHLY_PRODUCT_ID) ?? null;
-        const a = products.find((p) => p.id === ANNUAL_PRODUCT_ID) ?? null;
-        setMonthly(m);
-        setAnnual(a);
-        if (!a && m) setSelected("monthly");
-      })
-      .catch(() => setError("Не удалось загрузить предложение подписки"))
-      .finally(() => setLoadingOffer(false));
+    setLoadFailed(false);
+    setLoadingOffer(true);
+    try {
+      const { products } = await withTimeout(
+        BeHappyPurchases.getOfferings(),
+        OFFERINGS_TIMEOUT_MS
+      );
+      const m = products.find((p) => p.id === MONTHLY_PRODUCT_ID) ?? null;
+      const a = products.find((p) => p.id === ANNUAL_PRODUCT_ID) ?? null;
+      if (!m && !a) {
+        setLoadFailed(true);
+        return;
+      }
+      setMonthly(m);
+      setAnnual(a);
+      if (!a && m) setSelected("monthly");
+    } catch {
+      setLoadFailed(true);
+    } finally {
+      setLoadingOffer(false);
+    }
   }, []);
+
+  useEffect(() => {
+    loadOfferings();
+  }, [loadOfferings]);
 
   const savingsPercent =
     monthly && annual ? Math.round((1 - annual.price / 12 / monthly.price) * 100) : null;
@@ -93,6 +111,30 @@ export function Paywall({ onUnlocked }: PaywallProps) {
 
         {loadingOffer ? (
           <Loader2 className="w-6 h-6 text-primary animate-spin mx-auto" />
+        ) : loadFailed ? (
+          <div className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+              Не удалось загрузить условия подписки. Проверьте соединение с интернетом и
+              попробуйте снова.
+            </p>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={loadOfferings}
+              className="w-full h-12 rounded-2xl text-base flex items-center justify-center gap-2"
+            >
+              <RefreshCw className="w-4 h-4" />
+              Повторить
+            </Button>
+            <button
+              type="button"
+              disabled={restoring}
+              onClick={restore}
+              className="text-sm text-primary hover:underline disabled:opacity-50"
+            >
+              {restoring ? "Восстанавливаем…" : "Восстановить покупки"}
+            </button>
+          </div>
         ) : (
           <>
             {(monthly || annual) && (
@@ -136,7 +178,7 @@ export function Paywall({ onUnlocked }: PaywallProps) {
               className="w-full h-12 rounded-2xl text-base"
             >
               {purchasing && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-              {chosen ? "Оформить подписку" : "Подписка временно недоступна"}
+              Оформить подписку
             </Button>
 
             {error && (
