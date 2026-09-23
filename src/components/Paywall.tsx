@@ -22,6 +22,7 @@ export function Paywall({ onUnlocked }: PaywallProps) {
   const [selected, setSelected] = useState<"monthly" | "annual">("annual");
   const [loadingOffer, setLoadingOffer] = useState(true);
   const [loadFailed, setLoadFailed] = useState(false);
+  const [loadFailReason, setLoadFailReason] = useState<string | null>(null);
   const [purchasing, setPurchasing] = useState(false);
   const [restoring, setRestoring] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -32,6 +33,7 @@ export function Paywall({ onUnlocked }: PaywallProps) {
       return;
     }
     setLoadFailed(false);
+    setLoadFailReason(null);
     setLoadingOffer(true);
     try {
       const { products } = await withTimeout(
@@ -42,13 +44,15 @@ export function Paywall({ onUnlocked }: PaywallProps) {
       const a = products.find((p) => p.id === ANNUAL_PRODUCT_ID) ?? null;
       if (!m && !a) {
         setLoadFailed(true);
+        setLoadFailReason(`products=${products.length} (нет ни ${MONTHLY_PRODUCT_ID}, ни ${ANNUAL_PRODUCT_ID})`);
         return;
       }
       setMonthly(m);
       setAnnual(a);
       if (!a && m) setSelected("monthly");
-    } catch {
+    } catch (err) {
       setLoadFailed(true);
+      setLoadFailReason(err instanceof Error ? err.message : String(err));
     } finally {
       setLoadingOffer(false);
     }
@@ -134,6 +138,9 @@ export function Paywall({ onUnlocked }: PaywallProps) {
             >
               {restoring ? "Восстанавливаем…" : "Восстановить покупки"}
             </button>
+            {loadFailReason && (
+              <p className="text-[11px] text-muted-foreground/60 break-all">{loadFailReason}</p>
+            )}
           </div>
         ) : (
           <>
