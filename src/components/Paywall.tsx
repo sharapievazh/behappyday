@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Loader2, RefreshCw, Sparkles } from "lucide-react";
 import { Capacitor } from "@capacitor/core";
 import { Button } from "@/components/ui/button";
@@ -145,6 +146,11 @@ export function Paywall({ onUnlocked }: PaywallProps) {
         ) : (
           <>
             {(monthly || annual) && (
+              <p className="text-xs uppercase tracking-wider text-muted-foreground mb-3">
+                Подписка BeHappyDay
+              </p>
+            )}
+            {(monthly || annual) && (
               <div className="grid grid-cols-2 gap-3 mb-6">
                 {annual && (
                   <button
@@ -159,7 +165,7 @@ export function Paywall({ onUnlocked }: PaywallProps) {
                         −{savingsPercent}%
                       </span>
                     )}
-                    <div className="text-sm text-muted-foreground mb-1">Год</div>
+                    <div className="text-sm text-muted-foreground mb-1">1 год</div>
                     <div className="text-lg font-medium text-foreground">{annual.displayPrice}</div>
                   </button>
                 )}
@@ -171,7 +177,7 @@ export function Paywall({ onUnlocked }: PaywallProps) {
                       selected === "monthly" ? "border-primary bg-primary/5" : "border-border"
                     }`}
                   >
-                    <div className="text-sm text-muted-foreground mb-1">Месяц</div>
+                    <div className="text-sm text-muted-foreground mb-1">1 месяц</div>
                     <div className="text-lg font-medium text-foreground">{monthly.displayPrice}</div>
                   </button>
                 )}
@@ -204,6 +210,21 @@ export function Paywall({ onUnlocked }: PaywallProps) {
             </button>
           </>
         )}
+
+        <div className="flex items-center justify-center gap-3 mt-10 text-xs text-muted-foreground">
+          <Link to="/privacy" className="hover:underline">
+            Политика конфиденциальности
+          </Link>
+          <span>·</span>
+          <a
+            href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline"
+          >
+            Условия использования
+          </a>
+        </div>
       </div>
     </div>
   );
