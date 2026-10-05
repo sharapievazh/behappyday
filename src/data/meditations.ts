@@ -1,6 +1,6 @@
 // 100 авторских аффирмаций-медитаций BeHappyDay (собственный голос)
 // Единый настрой на прекрасный день — без деления на темы/разделы.
-const BASE = "https://gkhfifuggxhwdsdecglg.supabase.co/storage/v1/object/public/meditations";
+const BASE = "/audio/affirmations";
 
 function pad(n: number): string {
   return n.toString().padStart(2, "0");

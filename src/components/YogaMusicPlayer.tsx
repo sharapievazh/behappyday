@@ -2,8 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Music, Play, Pause } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const TRACK_URL =
-  "https://gkhfifuggxhwdsdecglg.supabase.co/storage/v1/object/public/music/meditation-music.m4a";
+const TRACK_URL = "/audio/music/meditation-music.m4a";
 const TRACK_TITLE = "Музыкальная настройка";
 
 export function YogaMusicPlayer() {
@@ -13,7 +12,6 @@ export function YogaMusicPlayer() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const headCheckedRef = useRef<boolean | null>(null);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -65,28 +63,10 @@ export function YogaMusicPlayer() {
     try {
       setIsLoading(true);
 
-      if (headCheckedRef.current === null) {
-        try {
-          const res = await fetch(TRACK_URL, { method: "HEAD" });
-          headCheckedRef.current = res.ok;
-          if (!res.ok) {
-            setIsLoading(false);
-            setErrorMsg(`Ссылка недоступна: HTTP ${res.status}`);
-            return;
-          }
-        } catch {
-          headCheckedRef.current = null;
-        }
-      } else if (headCheckedRef.current === false) {
-        setIsLoading(false);
-        setErrorMsg("Ссылка недоступна");
-        return;
-      }
-
       await audio.play();
     } catch (e: any) {
       setIsLoading(false);
-      setErrorMsg(e?.message || "Ссылка недоступна");
+      setErrorMsg(e?.message || "Не удалось воспроизвести");
       console.error("Playback error:", e);
     }
   };
