@@ -9,7 +9,10 @@ export function DayProgressHeader() {
   const offset = circ - (percent / 100) * circ;
 
   return (
-    <div className="flex items-center justify-between px-1 mb-4 animate-fade-in">
+    <div
+      className="sticky z-40 -mx-4 px-5 py-2 mb-4 flex items-center justify-between bg-background/95 backdrop-blur-md"
+      style={{ top: "env(safe-area-inset-top)" }}
+    >
       <div className="flex items-center gap-3">
         <div className="relative w-12 h-12">
           <svg className="w-12 h-12 -rotate-90" viewBox="0 0 44 44">

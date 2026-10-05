@@ -200,3 +200,16 @@ body {
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
 }
+
+/* Закрашиваем зону под часами/чёлкой, чтобы контент не просвечивал при прокрутке */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: env(safe-area-inset-top);
+  background: hsl(var(--background));
+  z-index: 60;
+  pointer-events: none;
+}

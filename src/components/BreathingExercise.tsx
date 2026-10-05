@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Wind, Play, Pause, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { playChime, primeChime } from "@/lib/chime";
 
 type Phase = "inhale" | "hold" | "exhale";
 
@@ -15,6 +16,8 @@ const DURATIONS = [
   { label: "2 мин", value: 120 },
   { label: "3 мин", value: 180 },
 ];
+
+const IDLE_SCALE = 0.95;
 
 function markBreathingComplete() {
   try {
@@ -49,11 +52,13 @@ export function BreathingExercise() {
     return 1 - (t / phase.duration) * 0.4;
   };
 
-  const paint = (idx: number, t: number) => {
-    const transform = `scale(${scaleFor(idx, t)})`;
+  const paintScale = (value: number) => {
+    const transform = `scale(${value})`;
     if (outerRef.current) outerRef.current.style.transform = transform;
     if (innerRef.current) innerRef.current.style.transform = transform;
   };
+
+  const paint = (idx: number, t: number) => paintScale(scaleFor(idx, t));
 
   useEffect(() => {
     if (!isActive) {
@@ -93,6 +98,10 @@ export function BreathingExercise() {
         setElapsed(totalDuration);
         setIsActive(false);
         markBreathingComplete();
+        playChime();
+        if ("vibrate" in navigator) {
+          try { navigator.vibrate([200, 100, 200]); } catch {}
+        }
         return;
       }
 
@@ -123,10 +132,11 @@ export function BreathingExercise() {
     setElapsed(0);
     setPhaseIdx(0);
     setPhaseTime(0);
-    paint(0, 0);
+    paintScale(IDLE_SCALE);
   };
 
   const toggle = () => {
+    primeChime();
     if (elapsedRef.current >= totalDuration) reset();
     setIsActive((a) => {
       const next = !a;
@@ -137,14 +147,15 @@ export function BreathingExercise() {
     });
   };
 
-  const initialScale = scaleFor(phaseIdx, phaseTime);
+  const started = elapsed > 0 && elapsed < totalDuration;
+  const initialScale = isActive || started ? scaleFor(phaseIdx, phaseTime) : IDLE_SCALE;
 
   const remaining = Math.max(0, Math.ceil(totalDuration - elapsed));
   const min = Math.floor(remaining / 60);
   const sec = remaining % 60;
 
   return (
-    <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-6 space-y-5 shadow-soft">
+    <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-5 space-y-4 shadow-soft">
       <div className="flex items-center gap-2 text-primary">
         <Wind className="w-4 h-4" />
         <span className="text-sm font-medium uppercase tracking-wider">
@@ -152,14 +163,19 @@ export function BreathingExercise() {
         </span>
       </div>
 
-      {/* Animated circle */}
-      <div className="flex items-center justify-center h-56 relative">
+      {/* Animated circle — она же кнопка старт/пауза */}
+      <button
+        type="button"
+        onClick={toggle}
+        aria-label={isActive ? "Пауза" : "Начать дыхательную практику"}
+        className="flex items-center justify-center h-44 w-full relative rounded-2xl active:opacity-90 focus:outline-none"
+      >
         <div
           ref={outerRef}
           className="absolute rounded-full bg-primary/20 will-change-transform"
           style={{
-            width: 180,
-            height: 180,
+            width: 150,
+            height: 150,
             transform: `scale(${initialScale})`,
           }}
         />
@@ -167,24 +183,27 @@ export function BreathingExercise() {
           ref={innerRef}
           className="absolute rounded-full bg-primary/30 will-change-transform"
           style={{
-            width: 140,
-            height: 140,
+            width: 116,
+            height: 116,
             transform: `scale(${initialScale})`,
           }}
         />
 
         <div className="relative z-10 text-center">
-          <p className="font-serif text-2xl text-foreground">
-            {isActive ? currentPhase.label : "Готова?"}
+          <p className="font-serif text-xl text-foreground">
+            {isActive ? currentPhase.label : started ? "Продолжить" : "Готова?"}
           </p>
           <p className="text-sm text-muted-foreground mt-1">
             {min}:{sec.toString().padStart(2, "0")}
           </p>
+          <span className="mt-1.5 inline-flex text-primary">
+            {isActive ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+          </span>
         </div>
-      </div>
+      </button>
 
       {/* Duration selector */}
-      <div className="flex gap-2 justify-center">
+      <div className="flex gap-2 justify-center items-center">
         {DURATIONS.map((d) => (
           <button
             key={d.value}
@@ -203,21 +222,13 @@ export function BreathingExercise() {
             {d.label}
           </button>
         ))}
-      </div>
-
-      {/* Controls */}
-      <div className="flex gap-3 justify-center">
         <button
-          onClick={toggle}
-          className="w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-md hover:scale-105 active:scale-95 transition-all flex items-center justify-center"
-        >
-          {isActive ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6 ml-0.5" />}
-        </button>
-        <button
+          type="button"
           onClick={reset}
-          className="w-14 h-14 rounded-full bg-background border border-border text-muted-foreground hover:text-foreground transition-all flex items-center justify-center"
+          aria-label="Сбросить"
+          className="w-8 h-8 rounded-full bg-background border border-border text-muted-foreground hover:text-foreground transition-all flex items-center justify-center"
         >
-          <RotateCcw className="w-5 h-5" />
+          <RotateCcw className="w-4 h-4" />
         </button>
       </div>
 
